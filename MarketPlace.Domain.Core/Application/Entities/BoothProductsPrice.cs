@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Infra.Db.SqlServer.Ef.Models;
+namespace MarketPlace.Domain.Core.Application.Entities;
 
-public partial class BoothProductsPrice
+public class BoothProductsPrice
 {
     public int Id { get; set; }
 
@@ -15,5 +15,5 @@ public partial class BoothProductsPrice
 
     public long Price { get; set; }
 
-    public virtual BoothsProduct BoothProduct { get; set; } = null!;
+    public virtual BoothProduct BoothProduct { get; set; } = null!;
 }

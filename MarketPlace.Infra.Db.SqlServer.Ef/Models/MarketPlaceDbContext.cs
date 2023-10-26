@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MarketPlace.Domain.Core.Application.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketPlace.Infra.Db.SqlServer.Ef.Models;
@@ -15,51 +14,49 @@ public partial class MarketPlaceDbContext : DbContext
     {
     }
 
-    public virtual DbSet<ActionProposal> ActionProposals { get; set; }
+    public DbSet<AuctionProposal> AuctionProposals { get; set; }
 
-    public virtual DbSet<Address> Addresses { get; set; }
+    public DbSet<MainAddress> MainAddresses { get; set; }
 
-    public virtual DbSet<Booth> Booths { get; set; }
+    public DbSet<Booth> Booths { get; set; }
 
-    public virtual DbSet<BoothProductsAction> BoothProductsActions { get; set; }
+    public DbSet<Auction> BoothProductsAuctions { get; set; }
 
-    public virtual DbSet<BoothProductsPrice> BoothProductsPrices { get; set; }
+    public DbSet<BoothProductsPrice> BoothProductsPrices { get; set; }
 
-    public virtual DbSet<BoothsProduct> BoothsProducts { get; set; }
+    public DbSet<BoothProduct> BoothsProducts { get; set; }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<City> Cities { get; set; }
+    public DbSet<City> Cities { get; set; }
 
-    public virtual DbSet<Comment> Comments { get; set; }
+    public DbSet<Comment> Comments { get; set; }
 
-    public virtual DbSet<CustomAttributeTemlate> CustomAttributeTemlates { get; set; }
+    public DbSet<CustomAttributeTemplate> CustomAttributeTemplates { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public DbSet<Customer> Customers { get; set; }
 
-    public virtual DbSet<CustomersProductPice> CustomersProductPices { get; set; }
+    public DbSet<ProductCustomerPic> ProductsCustomersPices { get; set; }
 
-    public virtual DbSet<Order> Orders { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<OrderLine> OrderLines { get; set; }
+    public DbSet<OrderLine> OrderLines { get; set; }
 
-    public virtual DbSet<OrderStetuse> OrderStetuses { get; set; }
+    public DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<Peoduct> Peoducts { get; set; }
+    public DbSet<Picture> Pictures { get; set; }
 
-    public virtual DbSet<Picture> Pictures { get; set; }
+    public DbSet<AuctionPicture> AuctionPictures { get; set; }
 
-    public virtual DbSet<PicturesAction> PicturesActions { get; set; }
+    public DbSet<ProductsCustomAttribute> ProductsCustomAttributes { get; set; }
 
-    public virtual DbSet<ProductsCustomAttribute> ProductsCustomAttributes { get; set; }
+    public DbSet<Province> Provinces { get; set; }
 
-    public virtual DbSet<Provience> Proviences { get; set; }
+    public DbSet<Saler> Salers { get; set; }
 
-    public virtual DbSet<Saler> Salers { get; set; }
+    public DbSet<SalerType> SalerTypes { get; set; }
 
-    public virtual DbSet<SalerType> SalerTypes { get; set; }
-
-    public virtual DbSet<SalersProductPic> SalersProductPics { get; set; }
+    public DbSet<ProductSalerPic> ProductsSalerPics { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -67,12 +64,12 @@ public partial class MarketPlaceDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ActionProposal>(entity =>
+        modelBuilder.Entity<AuctionProposal>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Action).WithMany(p => p.ActionProposals)
-                .HasForeignKey(d => d.ActionId)
+            entity.HasOne(d => d.Auction).WithMany(p => p.AuctionProposals)
+                .HasForeignKey(d => d.AuctionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ActionProposals_BoothProductsAction");
 
@@ -82,12 +79,12 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasConstraintName("FK_ActionProposals_Customers");
         });
 
-        modelBuilder.Entity<Address>(entity =>
+        modelBuilder.Entity<MainAddress>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Address");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Address1)
+            entity.Property(e => e.Address)
                 .HasMaxLength(500)
                 .HasColumnName("Address");
 
@@ -104,8 +101,8 @@ public partial class MarketPlaceDbContext : DbContext
             entity.Property(e => e.SalerId).ValueGeneratedNever();
             entity.Property(e => e.Name).HasMaxLength(50);
 
-            entity.HasOne(d => d.Address).WithMany(p => p.Booths)
-                .HasForeignKey(d => d.AddressId)
+            entity.HasOne(d => d.ShopAddress).WithMany(p => p.Booths)
+                .HasForeignKey(d => d.ShopAddressId)
                 .HasConstraintName("FK_Booth_Address");
 
             entity.HasOne(d => d.Saler).WithOne(p => p.Booth)
@@ -114,7 +111,7 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasConstraintName("FK_Booth_Saler");
         });
 
-        modelBuilder.Entity<BoothProductsAction>(entity =>
+        modelBuilder.Entity<Auction>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_BoothProductsAction");
 
@@ -139,7 +136,7 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasConstraintName("FK_BoothProductsPrices_BoothProducts");
         });
 
-        modelBuilder.Entity<BoothsProduct>(entity =>
+        modelBuilder.Entity<BoothProduct>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_BoothProducts");
 
@@ -169,8 +166,8 @@ public partial class MarketPlaceDbContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name).HasMaxLength(50);
 
-            entity.HasOne(d => d.Provience).WithMany(p => p.Cities)
-                .HasForeignKey(d => d.ProvienceId)
+            entity.HasOne(d => d.Province).WithMany(p => p.Cities)
+                .HasForeignKey(d => d.ProvinceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_City_Provience");
         });
@@ -190,9 +187,10 @@ public partial class MarketPlaceDbContext : DbContext
             entity.HasOne(d => d.Customer).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.CustomerId)
                 .HasConstraintName("FK_Comment_Customers");
+            entity.HasCheckConstraint("0 to 5", "([Satisfaction]<=(5) AND [Satisfaction]>=(0))");
         });
 
-        modelBuilder.Entity<CustomAttributeTemlate>(entity =>
+        modelBuilder.Entity<CustomAttributeTemplate>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_CustomAttributeTemlate");
 
@@ -215,7 +213,7 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasConstraintName("FK_Customers_Address");
         });
 
-        modelBuilder.Entity<CustomersProductPice>(entity =>
+        modelBuilder.Entity<ProductCustomerPic>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_CustomerProductPices");
 
@@ -242,11 +240,6 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Order_Customers");
-
-            entity.HasOne(d => d.Statuse).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.StatuseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Order_OrderStetuses");
         });
 
         modelBuilder.Entity<OrderLine>(entity =>
@@ -266,19 +259,12 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasConstraintName("FK_OrderLine_Order");
         });
 
-        modelBuilder.Entity<OrderStetuse>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Date).HasColumnType("date");
-            entity.Property(e => e.Title).HasMaxLength(10);
-        });
-
-        modelBuilder.Entity<Peoduct>(entity =>
+        modelBuilder.Entity<Product>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name).HasMaxLength(100);
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Peoducts)
+            entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Peoducts_Categories");
@@ -293,12 +279,12 @@ public partial class MarketPlaceDbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<PicturesAction>(entity =>
+        modelBuilder.Entity<AuctionPicture>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Action).WithMany(p => p.PicturesActions)
-                .HasForeignKey(d => d.ActionId)
+            entity.HasOne(d => d.Auction).WithMany(p => p.PicturesActions)
+                .HasForeignKey(d => d.AuctionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PicturesActions_BoothProductsAction");
 
@@ -326,7 +312,7 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasConstraintName("FK_ProductCustomAttribute_Peoducts");
         });
 
-        modelBuilder.Entity<Provience>(entity =>
+        modelBuilder.Entity<Province>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Provience");
 
@@ -352,9 +338,10 @@ public partial class MarketPlaceDbContext : DbContext
             entity.Property(e => e.Title)
                 .HasMaxLength(10)
                 .IsFixedLength();
+            entity.HasCheckConstraint("0 to 100", "([TaskPercent]<=(100) AND [TaskPercent]>=(0))");
         });
 
-        modelBuilder.Entity<SalersProductPic>(entity =>
+        modelBuilder.Entity<ProductSalerPic>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_SalerProductPic");
 

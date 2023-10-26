@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Infra.Db.SqlServer.Ef.Models;
+namespace MarketPlace.Domain.Core.Application.Entities;
 
-public partial class CustomersProductPice
+public class ProductCustomerPic
 {
     public int Id { get; set; }
 
@@ -13,9 +13,11 @@ public partial class CustomersProductPice
 
     public int CustomerId { get; set; }
 
-    public bool? IsConfirmed { get; set; }
+    public GeneralStatus Status { get; set; }
 
-    public virtual BoothsProduct BoothProduct { get; set; } = null!;
+    public virtual BoothProduct BoothProduct { get; set; } = null!;
 
     public virtual Picture Picture { get; set; } = null!;
+
+    public virtual Customer Customer { get; set; } = null!;
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Infra.Db.SqlServer.Ef.Models;
+namespace MarketPlace.Domain.Core.Application.Entities;
 
-public partial class ProductsCustomAttribute
+public class ProductsCustomAttribute
 {
     public int Id { get; set; }
 
@@ -13,7 +13,7 @@ public partial class ProductsCustomAttribute
 
     public string AttributeValue { get; set; } = null!;
 
-    public virtual CustomAttributeTemlate Attribute { get; set; } = null!;
+    public virtual CustomAttributeTemplate Attribute { get; set; } = null!;
 
-    public virtual Peoduct Product { get; set; } = null!;
+    public virtual Product Product { get; set; } = null!;
 }

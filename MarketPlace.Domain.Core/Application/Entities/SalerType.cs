@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Infra.Db.SqlServer.Ef.Models;
+namespace MarketPlace.Domain.Core.Application.Entities;
 
-public partial class SalerType
+public class SalerType
 {
     public int Id { get; set; }
 

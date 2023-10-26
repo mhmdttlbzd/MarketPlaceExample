@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MarketPlace.Infra.Db.SqlServer.Ef\MarketPlace.Infra.Db.SqlServer.Ef.csproj" />
   </ItemGroup>
 

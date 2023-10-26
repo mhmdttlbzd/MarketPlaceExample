@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Infra.Db.SqlServer.Ef.Models;
+namespace MarketPlace.Domain.Core.Application.Entities;
 
-public partial class Address
+public class MainAddress
 {
     public int Id { get; set; }
 
     public int CityId { get; set; }
 
-    public string Address1 { get; set; } = null!;
+    public string Address { get; set; } = null!;
 
     public int PostalCode { get; set; }
 
