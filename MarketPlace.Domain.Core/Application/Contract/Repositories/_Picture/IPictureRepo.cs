@@ -9,8 +9,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Picture
 {
     public interface IPictureRepo 
     {
-        Task<int> CreateAsync(string path,string? alt = null);
-        Task<PictureDto> GetByIdAsync(int id);
-        Task<bool> DeleteAsync(int id);
+        Task<int> CreateAsync(string path,CancellationToken cancellationToken,string? alt = null);
+        Task<PictureDto> GetByIdAsync(int id,CancellationToken cancellationToken);
+        Task DeleteAsync(int id, CancellationToken cancellationToken);
     }
 }

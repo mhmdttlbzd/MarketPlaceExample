@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppLication\_Order\" />
-    <Folder Include="AppLication\_Picture\" />
-    <Folder Include="AppLication\_Product\" />
-    <Folder Include="AppLication\_Saler\" />
     <Folder Include="Identity\" />
   </ItemGroup>
 

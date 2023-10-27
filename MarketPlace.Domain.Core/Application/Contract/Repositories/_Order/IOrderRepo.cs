@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Order
 {
-    public interface IOrderRepo : IBaseCrudRepository<Order, OrderOutputDto, OrderInputDto>
+    public interface IOrderRepo : IBaseCrudRepository<Order, OrderInputDto, OrderOutputDto>
     {
     }
 }
