@@ -10,4 +10,9 @@
     <ProjectReference Include="..\MarketPlace.Domain.Services\MarketPlace.Domain.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AppLication\" />
+    <Folder Include="Identity\" />
+  </ItemGroup>
+
 </Project>

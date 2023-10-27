@@ -326,8 +326,8 @@ public partial class MarketPlaceDbContext : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.SalerTipe).WithMany(p => p.Salers)
-                .HasForeignKey(d => d.SalerTipeId)
+            entity.HasOne(d => d.SalerType).WithMany(p => p.Salers)
+                .HasForeignKey(d => d.SalerTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Saler_SalerTypes");
         });

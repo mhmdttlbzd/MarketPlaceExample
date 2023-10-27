@@ -8,8 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Application\Contract\AppServices\" />
-    <Folder Include="Application\Contract\Repositories\" />
-    <Folder Include="Application\Contract\Services\" />
+    <Folder Include="Application\Contract\Services\_Address\" />
+    <Folder Include="Application\Contract\Services\_Auction\" />
+    <Folder Include="Application\Contract\Services\_Booth\" />
+    <Folder Include="Application\Contract\Services\_CustomAttribute\" />
+    <Folder Include="Application\Contract\Services\_Customer\" />
+    <Folder Include="Application\Contract\Services\_Order\" />
+    <Folder Include="Application\Contract\Services\_Picture\" />
+    <Folder Include="Application\Contract\Services\_Product\" />
+    <Folder Include="Application\Contract\Services\_Saler\" />
     <Folder Include="Identity\" />
   </ItemGroup>
 

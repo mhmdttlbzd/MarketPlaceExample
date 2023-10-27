@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,6 +8,19 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MarketPlace.Domain.Core\MarketPlace.Domain.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AppLication\_Address\" />
+    <Folder Include="AppLication\_Auction\" />
+    <Folder Include="AppLication\_Booth\" />
+    <Folder Include="AppLication\_CustomAttribute\" />
+    <Folder Include="AppLication\_Customer\" />
+    <Folder Include="AppLication\_Order\" />
+    <Folder Include="AppLication\_Picture\" />
+    <Folder Include="AppLication\_Product\" />
+    <Folder Include="AppLication\_Saler\" />
+    <Folder Include="Identity\" />
   </ItemGroup>
 
 </Project>
