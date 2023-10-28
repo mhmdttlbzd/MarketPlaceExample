@@ -2,9 +2,9 @@
 
 namespace MarketPlace.Domain.Core.Application.Entities;
 
-public partial class Customer : BaseEntity
+public partial class Customer 
 {
-
+    public int Id { get; set; }
 }
 
 

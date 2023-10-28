@@ -2,7 +2,7 @@
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Product;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
-using MarketPlace.Infra.Db.SqlServer.Ef.Models;
+using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Product

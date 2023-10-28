@@ -4,7 +4,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Order;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Product;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
-using MarketPlace.Infra.Db.SqlServer.Ef.Models;
+using MarketPlace.Infra.Db.SqlServer.Ef;
 using System;
 using System.Collections.Generic;
 using System.Linq;

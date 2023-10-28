@@ -3,7 +3,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._CustomAttribute;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
-using MarketPlace.Infra.Db.SqlServer.Ef.Models;
+using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
