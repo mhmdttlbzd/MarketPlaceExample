@@ -3,10 +3,13 @@ using System.Collections.Generic;
 
 namespace MarketPlace.Domain.Core.Application.Entities;
 
-public class Order : BaseEntity
+public class Order 
 {
+    public int Id { get;set; }
 
     public int CustomerId { get; set; }
+
+    public DateTime BuyedAt { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 

@@ -4,8 +4,10 @@ using MarketPlace.Domain.Core.Application.Entities;
 
 namespace MarketPlace.Domain.Core.Application.Entities;
 
-public class OrderLine : BaseEntity
+public class OrderLine 
 {
+    public int Id { get; set; }
+
     public int OrderId { get; set; }
 
     public int BoothProductId { get; set; }

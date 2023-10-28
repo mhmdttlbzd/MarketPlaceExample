@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
 {
-    public class OrderConfigs : BaseEntityConfiguration<Order>
+    public class OrderConfigs : IEntityTypeConfiguration<Order>
     {
-        public override void Configure(EntityTypeBuilder<Order> builder)
+        public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("Orders");
             builder.ToTable("OrderLines");
@@ -23,12 +23,13 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Order_Customers");
-            base.Configure(builder);
         }
     }
-    public class OrderLineConfigs : BaseEntityConfiguration<OrderLine>
+
+
+    public class OrderLineConfigs :IEntityTypeConfiguration<OrderLine>
     {
-        public override void Configure(EntityTypeBuilder<OrderLine> builder)
+        public void Configure(EntityTypeBuilder<OrderLine> builder)
         {
             builder.HasKey(e => e.Id).HasName("PK_OrderLine");
 
@@ -43,7 +44,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_OrderLine_Order");
-            base.Configure(builder);
         }
     }
 }

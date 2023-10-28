@@ -49,7 +49,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public void Configure(EntityTypeBuilder<Province> builder)
         {
             builder.ToTable("Provinces");
-            builder.HasKey(e => e.Id).HasName("PK_Provience");
+            builder.HasKey(e => e.Id).HasName("PK_Province");
 
             builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Name).HasMaxLength(25);

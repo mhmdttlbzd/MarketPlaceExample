@@ -21,11 +21,6 @@ using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 {
@@ -34,9 +29,9 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
         public static void AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
         {
             #region DbContext
-            services.AddDbContext<MarketPlaceDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    builder => builder.MigrationsAssembly(typeof(MarketPlaceDbContext).Assembly.FullName)));
+            //services.AddDbContext<MarketPlaceDbContext>(options =>
+            //    options.UseSqlServer("Server =.\\SQLEXPRESS; Database = MarketPlaceDb; Trusted_Connection = True; TrustServerCertificate = True"));
+                    
             #endregion
 
             #region Address
