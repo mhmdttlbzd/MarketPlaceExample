@@ -1,4 +1,6 @@
 ﻿using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Booth;
+using MarketPlace.Domain.Core.Application.Entities._Picture;
 using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.Core.Application.Dtos

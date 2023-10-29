@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MarketPlace.Domain.Core.Application.Entities._Picture;
+using MarketPlace.Domain.Core.Application.Entities._Prodoct;
+using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._Auction;
 
 public class Auction : BaseEntity
 {

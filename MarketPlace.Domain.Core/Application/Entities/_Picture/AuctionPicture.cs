@@ -1,6 +1,8 @@
 ﻿
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Auction;
+
+namespace MarketPlace.Domain.Core.Application.Entities._Picture;
 
 public class AuctionPicture : BaseEntity
 {

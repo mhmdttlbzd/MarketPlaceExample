@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Booth;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._Order;
 
 public class OrderLine 
 {

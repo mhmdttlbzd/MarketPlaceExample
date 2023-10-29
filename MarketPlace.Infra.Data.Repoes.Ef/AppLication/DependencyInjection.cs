@@ -1,4 +1,5 @@
-﻿using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
+﻿using MarketPlace.Domain.Core.Application.Contract.Repositories;
+using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Auction;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Auctions;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Booth;
@@ -18,6 +19,7 @@ using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Picture;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Product;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler;
 using MarketPlace.Infra.Db.SqlServer.Ef;
+using MarketPlace.Infra.Db.SqlServer.Ef.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,10 +30,19 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
     {
         public static void AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
         {
+            services.AddAutoMapper(typeof(DependencyInjection));
+            services.AddScoped<AuditableEntitySaveChangesInterceptor>();
+
             #region DbContext
+
+            services.AddDbContext<MarketPlaceDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                    builder => builder.MigrationsAssembly(typeof(MarketPlaceDbContext).Assembly.FullName)));
             //services.AddDbContext<MarketPlaceDbContext>(options =>
-            //    options.UseSqlServer("Server =.\\SQLEXPRESS; Database = MarketPlaceDb; Trusted_Connection = True; TrustServerCertificate = True"));
-                    
+            //{
+            //    options.UseSqlServer("Server =.\\SQLEXPRESS; Database = MarketPlaceDb; Trusted_Connection = True; TrustServerCertificate = True");
+            //});
+
             #endregion
 
             #region Address

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using MarketPlace.Domain.Core.Application.Entities._Prodoct;
+using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._CustomAttribute;
 
 public class CustomAttributeTemplate
 {

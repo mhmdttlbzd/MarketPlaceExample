@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Address;
+using MarketPlace.Domain.Core.Application.Entities._Saler;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._Booth;
 
 public class Booth
 {

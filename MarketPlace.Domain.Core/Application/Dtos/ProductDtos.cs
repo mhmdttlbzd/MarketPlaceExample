@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._CustomAttribute;
 
 namespace MarketPlace.Domain.Core.Application.Dtos
 {

@@ -3,6 +3,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Product;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Saler;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,45 +12,45 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
     public class SalerRepo : ISalerRepo
     {
         private readonly IMapper _mapper;
-        private readonly DbContext _dbContext;
-        private readonly DbSet<Saler> _entities;
-        public SalerRepo(DbContext dbContext, IMapper mapper)
+        private readonly MarketPlaceDbContext _dbContext;
+        //private readonly DbSet<Saler> _entities;
+        public SalerRepo(MarketPlaceDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
-            _entities = _dbContext.Set<Saler>();
+            //_entities = _dbContext.Set<Saler>();
             _mapper = mapper;
         }
 
         public async Task<int> CreateAsync(SalerInputDto InputDto, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Saler>(InputDto);
-            await _entities.AddAsync(entity, cancellationToken);
+            await _dbContext.Set<Saler>().AddAsync(entity, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return entity.Id;
         }
 
         public async Task DeleteAsync(int Id, CancellationToken cancellationToken)
         {
-            var entity = await _entities.FindAsync(Id, cancellationToken);
-            _entities.Remove(entity);
+            var entity = await _dbContext.Set<Saler>().FindAsync(Id, cancellationToken);
+            _dbContext.Set<Saler>().Remove(entity);
 
         }
 
 
         public async Task<List<SalerOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-            => _mapper.Map<List<SalerOutputDto>>(await _entities.ToListAsync(cancellationToken));
+            => _mapper.Map<List<SalerOutputDto>>(await _dbContext.Set<Saler>().ToListAsync(cancellationToken));
 
 
 
         public async Task<SalerOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<SalerOutputDto>(await _entities.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+            => _mapper.Map<SalerOutputDto>(await _dbContext.Set<Saler>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
 
         public async Task UpdateAsync(SalerInputDto input, int id, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Saler>(input);
             entity.Id = id;
-            _entities.Update(entity);
+            _dbContext.Set<Saler>().Update(entity);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

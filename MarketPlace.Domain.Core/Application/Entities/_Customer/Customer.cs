@@ -1,10 +1,17 @@
 ﻿
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Address;
+using MarketPlace.Domain.Core.Application.Entities._Auction;
+using MarketPlace.Domain.Core.Application.Entities._Booth;
+using MarketPlace.Domain.Core.Application.Entities._Order;
+
+namespace MarketPlace.Domain.Core.Application.Entities._Customer;
 
 public partial class Customer 
 {
     public int Id { get; set; }
+    public int AddressId { get; set; }
+
 }
 
 
@@ -12,7 +19,6 @@ public partial class Customer
 {
     public virtual ICollection<AuctionProposal> ActionProposals { get; set; } = new List<AuctionProposal>();
 
-    public int AddressId { get; set; }
 
     public virtual MainAddress Address { get; set; } = null!;
 

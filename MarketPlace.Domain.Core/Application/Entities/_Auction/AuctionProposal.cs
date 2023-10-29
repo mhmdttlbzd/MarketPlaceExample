@@ -1,6 +1,7 @@
 ﻿using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._Auction;
 
 public class AuctionProposal : BaseEntity
 {

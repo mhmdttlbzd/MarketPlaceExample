@@ -1,7 +1,8 @@
-﻿using System;
+﻿using MarketPlace.Domain.Core.Application.Entities._Customer;
+using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._Booth;
 
 public partial class Comment : BaseEntity
 {

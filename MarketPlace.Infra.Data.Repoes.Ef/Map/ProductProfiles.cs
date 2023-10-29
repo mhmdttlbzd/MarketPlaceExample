@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Prodoct;
 using System;
 using System.Collections.Generic;
 using System.Linq;

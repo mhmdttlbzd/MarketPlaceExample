@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Booth;
 using System;
 using System.Collections.Generic;
 using System.Linq;

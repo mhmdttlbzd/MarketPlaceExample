@@ -3,6 +3,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Auction;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Auction;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using System;
 using System.Collections.Generic;

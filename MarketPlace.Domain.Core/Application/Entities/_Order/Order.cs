@@ -1,7 +1,8 @@
-﻿using System;
+﻿using MarketPlace.Domain.Core.Application.Entities._Customer;
+using System;
 using System.Collections.Generic;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._Order;
 
 public class Order 
 {
@@ -13,7 +14,7 @@ public class Order
 
     public virtual Customer Customer { get; set; } = null!;
 
-    public virtual ICollection<OrderLine> OrderLines { get; set; } = new List<OrderLine>();
+    public ICollection<OrderLine> OrderLines { get; set; }
 
     public OrderStatus Status { get; set; }
 }

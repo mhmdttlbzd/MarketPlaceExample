@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

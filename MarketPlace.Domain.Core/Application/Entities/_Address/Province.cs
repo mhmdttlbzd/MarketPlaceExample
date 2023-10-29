@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MarketPlace.Domain.Core.Application.Entities;
 
-namespace MarketPlace.Domain.Core.Application.Entities;
+namespace MarketPlace.Domain.Core.Application.Entities._Address;
 
 public class Province
 {

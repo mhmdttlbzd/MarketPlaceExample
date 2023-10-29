@@ -1,4 +1,6 @@
+using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication;
+using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -8,11 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddDbContext<MarketPlaceDbContext>(options =>
-{
-    options.UseSqlServer("Server =.\\SQLEXPRESS; Database = MarketPlaceDb; Trusted_Connection = True; TrustServerCertificate = True"/* builder => builder.MigrationsAssembly(typeof(MarketPlaceDbContext).Assembly.FullName)*/);
-});
+
 
 var app = builder.Build();
 
