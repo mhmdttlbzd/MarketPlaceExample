@@ -14,27 +14,41 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
     {
         public void Configure(EntityTypeBuilder<CustomAttributeTemplate> builder)
         {
-            builder.ToTable("CustomAttributeTemplates");
+            builder.ToTable("CategoryCustomAttribute");
             builder.HasKey(e => e.Id).HasName("PK_CustomAttributeTemlate");
-
-            builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Title).HasMaxLength(50);
 
-            builder.HasOne(d => d.Category).WithMany(p => p.CustomAttributeTemlates)
-                .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_CustomAttributeTemlate_Categories");
+            builder.HasMany(d => d.CategoryCustomAttributes).WithOne(d => d.CustomAttributeTemplate)
+                .HasForeignKey(d => d.CustomAttributeTemplateId);
         }
     }
+    public class CategoryAttributeConfigs : IEntityTypeConfiguration<CategoryCustomAttribute>
+    {
+        public void Configure(EntityTypeBuilder<CategoryCustomAttribute> builder)
+        {
+            builder.ToTable("CustomAttributeTemplates");
 
-    public class ProductAttribute : BaseEntityConfiguration<ProductsCustomAttribute> 
+            builder.HasKey(d => d.Id);
+            //builder.HasNoKey();
+            builder.HasOne(d => d.Category).WithMany(p => p.CategoryCustomAttributes)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CategoryCustomAttribute_Category");
+
+            builder.HasOne(d => d.CustomAttributeTemplate).WithMany(p => p.CategoryCustomAttributes)
+                .HasForeignKey(d => d.CustomAttributeTemplateId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CategoryCustomAttribute_CustomAttributeTemplate");
+        }
+    }
+     
+    public class ProductAttributeConfigs : BaseEntityConfiguration<ProductsCustomAttribute>
     {
         public override void Configure(EntityTypeBuilder<ProductsCustomAttribute> builder)
         {
             builder.ToTable(" ProductsCustomAttributes");
             builder.HasKey(e => e.Id).HasName("PK_ProductCustomAttribute");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.AttributeValue).HasMaxLength(100);
 
             builder.HasOne(d => d.Attribute).WithMany(p => p.ProductsCustomAttributes)

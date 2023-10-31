@@ -15,7 +15,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public void Configure(EntityTypeBuilder<Picture> builder)
         {
             builder.ToTable("Pictures");
-            builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Alt).HasMaxLength(50);
             builder.Property(e => e.Path)
                 .HasMaxLength(250)
@@ -27,7 +26,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public override void Configure(EntityTypeBuilder<AuctionPicture> builder)
         {
             builder.ToTable("AuctionPictures");
-            builder.Property(e => e.Id).ValueGeneratedNever();
 
             builder.HasOne(d => d.Auction).WithMany(p => p.PicturesActions)
                 .HasForeignKey(d => d.AuctionId)
@@ -48,7 +46,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("ProductCustomerPics");
             builder.HasKey(e => e.Id).HasName("PK_CustomerProductPices");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
 
             builder.HasOne(d => d.BoothProduct).WithMany(p => p.CustomersProductPices)
                 .HasForeignKey(d => d.BoothProductId)
@@ -69,7 +66,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("ProductSalerPics");
             builder.HasKey(e => e.Id).HasName("PK_SalerProductPic");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
 
             builder.HasOne(d => d.BoothProduct).WithMany(p => p.SalersProductPics)
                 .HasForeignKey(d => d.BoothProductId)

@@ -1,6 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@using MarketPlace.Domain.Core.Application.Entities._Admin;
+
+@model AdminOutputDto;
+
+
+<H1>@Model.PersonalCode</H1>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>

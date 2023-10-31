@@ -15,10 +15,10 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("Orders");
-            builder.ToTable("OrderLines");
+
             builder.HasKey(e => e.Id).HasName("PK_Order");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
 
             builder.HasOne(d => d.Customer).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CustomerId)
@@ -32,9 +32,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderLine> builder)
         {
+            builder.ToTable("OrderLines");
             builder.HasKey(e => e.Id).HasName("PK_OrderLine");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
 
             builder.HasOne(d => d.BoothProduct).WithMany(p => p.OrderLines)
                 .HasForeignKey(d => d.BoothProductId)

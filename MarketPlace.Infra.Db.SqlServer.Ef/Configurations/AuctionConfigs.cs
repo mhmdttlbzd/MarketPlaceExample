@@ -17,7 +17,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("Actions");
             builder.HasKey(e => e.Id).HasName("PK_BoothProductsAction");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
             builder.Property(e => e.ExpiredTime).HasColumnType("date");
 
             builder.HasOne(d => d.Product).WithMany(p => p.BoothProductsActions)
@@ -34,7 +34,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public override void Configure(EntityTypeBuilder<AuctionProposal> builder)
         {
             builder.ToTable("AuctionProposals");
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
 
             builder.HasOne(d => d.Auction).WithMany(p => p.AuctionProposals)
                 .HasForeignKey(d => d.AuctionId)

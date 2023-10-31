@@ -12,7 +12,7 @@ public class Category
 
     public int? ParentId { get; set; }
 
-    public virtual ICollection<CustomAttributeTemplate> CustomAttributeTemlates { get; set; } = new List<CustomAttributeTemplate>();
+    public virtual ICollection<CategoryCustomAttribute> CategoryCustomAttributes { get; set; } = new List<CategoryCustomAttribute>();
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

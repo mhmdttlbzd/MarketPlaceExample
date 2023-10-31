@@ -17,7 +17,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("MainAddresses");
             builder.HasKey(e => e.Id).HasName("PK_Address");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
             builder.Property(e => e.Address)
                 .HasMaxLength(500)
                 .HasColumnName("Address");

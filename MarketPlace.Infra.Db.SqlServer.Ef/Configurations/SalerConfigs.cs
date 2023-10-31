@@ -12,7 +12,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("Salers");
             builder.HasKey(e => e.Id).HasName("PK_Saler");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
 
             builder.HasOne(d => d.SalerType).WithMany(p => p.Salers)
                 .HasForeignKey(d => d.SalerTypeId)
@@ -26,7 +26,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public void Configure(EntityTypeBuilder<SalerType> builder)
         {
             builder.ToTable("SalerTypes");
-            builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Title)
                 .HasMaxLength(10)
                 .IsFixedLength();

@@ -37,7 +37,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("BoothProducts");
             builder.HasKey(e => e.Id).HasName("PK_BoothProducts");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
 
             builder.HasOne(d => d.Booth).WithMany(p => p.BoothsProducts)
                 .HasForeignKey(d => d.BoothId)
@@ -56,7 +56,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public override void Configure(EntityTypeBuilder<BoothProductsPrice> builder)
         {
             builder.ToTable("BoothProductsPrices");
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
             builder.Property(e => e.FromDate).HasColumnType("date");
             builder.Property(e => e.ToDate).HasColumnType("date");
 
@@ -75,7 +75,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("Comments");
             builder.HasKey(e => e.Id).HasName("PK_Comment");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
             builder.Property(e => e.Description).HasMaxLength(500);
 
             builder.HasOne(d => d.BoothProduct).WithMany(p => p.Comments)

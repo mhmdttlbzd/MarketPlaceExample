@@ -1,9 +1,6 @@
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication;
-using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address;
-using MarketPlace.Infra.Db.SqlServer.Ef;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using MarketPlace.Domain.Services.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddServices();
 
 
 var app = builder.Build();
@@ -23,7 +22,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Domain.Core.Application.Contract.Repositories;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
+using MarketPlace.Domain.Core.Application.Contract.Repositories._Admin;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Auction;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Auctions;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Booth;
@@ -10,6 +11,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Product;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Saler;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address;
+using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Admin;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Auction;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._CustomAttribute;
@@ -28,22 +30,20 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 {
     public static class DependencyInjection
     {
-        public static void AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+
             services.AddAutoMapper(typeof(DependencyInjection));
             services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 
-            #region DbContext
 
+            #region DbContext
             services.AddDbContext<MarketPlaceDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    builder => builder.MigrationsAssembly(typeof(MarketPlaceDbContext).Assembly.FullName)));
-            //services.AddDbContext<MarketPlaceDbContext>(options =>
-            //{
-            //    options.UseSqlServer("Server =.\\SQLEXPRESS; Database = MarketPlaceDb; Trusted_Connection = True; TrustServerCertificate = True");
-            //});
-
+                    builder => builder.MigrationsAssembly(typeof(MarketPlaceDbContext).Assembly.FullName)
+                    ));
             #endregion
+
 
             #region Address
             services.AddScoped<ICityRepo,CityRepo>();
@@ -51,10 +51,17 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
             services.AddScoped<IProvinceRepo, ProvinceRepo>();
             #endregion
 
+
+            #region Admin
+            services.AddScoped<IAdminRepo, AdminRepo>();
+            #endregion
+
+
             #region Auction
             services.AddScoped<IAuctionRepo, AuctionRepo>();
             services.AddScoped<IAuctionProposalRepo, AuctionProposalRepo>();
             #endregion
+
 
             #region Booth
             services.AddScoped<IBoothRepo, BoothRepo>();
@@ -63,19 +70,23 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
             services.AddScoped<ICommentRepo, CommentRepo>();
             #endregion
 
+
             #region CustomAttribute
             services.AddScoped<IAttributeTemplateRepo, AttributeTemplateRepo>();
             services.AddScoped<IProductAttributeRepo, ProductAttributeRepo>();
             #endregion
 
+
             #region Customer
             services.AddScoped<ICustomerRepo, CustomerRepo>();
             #endregion
+
 
             #region Order
             services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<IOrderLineRepo, OrderLineRepo>();
             #endregion
+
 
             #region Picture
             services.AddScoped<IAuctionPictureRepo, AuctionPictureRepo>();
@@ -84,14 +95,19 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
             services.AddScoped<IProductSalerPicRepo, ProductSalerPicRepo>();
             #endregion
 
+
             #region Product
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
             #endregion
 
+
             #region Saler
             services.AddScoped<ISalerRepo, SalerRepo>();
+            services.AddScoped<ISalerTypeRepo, SalerTypeRepo>();
             #endregion
         }
+
     }
+
 }

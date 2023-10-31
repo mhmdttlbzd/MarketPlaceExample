@@ -15,7 +15,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public override void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Products");
-            builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Name).HasMaxLength(100);
 
             builder.HasOne(d => d.Category).WithMany(p => p.Products)
@@ -31,8 +30,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.ToTable("Categories");
-            builder.Property(e => e.Id).ValueGeneratedNever();
-            builder.Property(e => e.Title).HasMaxLength(25);
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Title).HasMaxLength(100);
         }
     }
 }

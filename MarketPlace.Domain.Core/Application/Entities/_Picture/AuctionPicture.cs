@@ -1,6 +1,7 @@
 ﻿
 
 using MarketPlace.Domain.Core.Application.Entities._Auction;
+using MarketPlace.Domain.Core.Application.Enums;
 
 namespace MarketPlace.Domain.Core.Application.Entities._Picture;
 

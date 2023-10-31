@@ -1,5 +1,5 @@
-﻿using MarketPlace.Domain.Core.Application.Entities;
-using MarketPlace.Domain.Core.Application.Entities._CustomAttribute;
+﻿using MarketPlace.Domain.Core.Application.Entities._CustomAttribute;
+using MarketPlace.Domain.Core.Application.Enums;
 
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
@@ -16,7 +16,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 
     #region Category
     public record CategoryDto(
-        int Id, string Title, int? ParentId, ICollection<AttributeTemplateDto> CustomAttributeTemlates,
+        int Id, string Title, int? ParentId,
         ICollection<ProductOutputDto> Products);
     #endregion
 }

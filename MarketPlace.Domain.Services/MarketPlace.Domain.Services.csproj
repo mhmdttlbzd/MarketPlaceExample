@@ -11,16 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppLication\_Address\" />
-    <Folder Include="AppLication\_Auction\" />
-    <Folder Include="AppLication\_Booth\" />
-    <Folder Include="AppLication\_CustomAttribute\" />
-    <Folder Include="AppLication\_Customer\" />
-    <Folder Include="AppLication\_Order\" />
-    <Folder Include="AppLication\_Picture\" />
-    <Folder Include="AppLication\_Product\" />
-    <Folder Include="AppLication\_Saler\" />
     <Folder Include="Identity\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("Admins");
             builder.HasKey(e => e.Id).HasName("PK_Admin");
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
+            builder.Property(e => e.Id);
             builder.Property(d => d.PersonalCode).HasMaxLength(10);
         }
     }

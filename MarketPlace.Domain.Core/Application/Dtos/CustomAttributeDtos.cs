@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._CustomAttribute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,18 @@ using System.Threading.Tasks;
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
     #region Temlate
-    public record AttributeTemplateDto(
-        int Id, int CategoryId, string Title, CategoryDto Category, 
+    public record AttributeTemplateOutputDto(
+        int Id,  string Title, 
         ICollection<ProductAttributeInputDto> ProductsCustomAttributes
         );
+    public record AttributeTemplateInputDto(
+         int CategoryId, string Title);
     #endregion
 
 
     #region Product
     public record ProductAttributeOutputDto(
-        int Id, int ProductId, int AttributeId, string AttributeValue, AttributeTemplateDto Attribute,
+        int Id, int ProductId, int AttributeId, string AttributeValue, AttributeTemplateOutputDto Attribute,
         ProductOutputDto Product
         );
     public record ProductAttributeInputDto(

@@ -8,7 +8,7 @@ using MarketPlace.Infra.Db.SqlServer.Ef;
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._CustomAttribute
 {
     public class ProductAttributeRepo : BaseEntityCrudRepository<ProductsCustomAttribute,
-        ProductAttributeOutputDto, ProductAttributeInputDto>, IProductAttributeRepo
+        ProductAttributeInputDto, ProductAttributeOutputDto>, IProductAttributeRepo
     {
         public ProductAttributeRepo(MarketPlaceDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {

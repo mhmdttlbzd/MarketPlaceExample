@@ -1,4 +1,5 @@
-﻿using MarketPlace.Endpoint.Mvc.Models;
+﻿using MarketPlace.Domain.Core.Application.Contract.Repositories._Admin;
+using MarketPlace.Endpoint.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,18 @@ namespace MarketPlace.Endpoint.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAdminRepo _adminRepo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAdminRepo adminRepo)
         {
             _logger = logger;
+            _adminRepo = adminRepo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            return View();
+            var res = await _adminRepo.GetByIdAsync(1, cancellationToken);
+            return View(res);
         }
 
         public IActionResult Privacy()

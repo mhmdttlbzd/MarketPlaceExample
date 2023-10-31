@@ -8,11 +8,9 @@ public class CustomAttributeTemplate
 {
     public int Id { get; set; }
 
-    public int CategoryId { get; set; }
-
     public string Title { get; set; } = null!;
 
-    public virtual Category Category { get; set; } = null!;
+    public virtual ICollection<CategoryCustomAttribute>? CategoryCustomAttributes { get; set; } = new List<CategoryCustomAttribute>();
 
-    public virtual ICollection<ProductsCustomAttribute> ProductsCustomAttributes { get; set; } = new List<ProductsCustomAttribute>();
+    public virtual ICollection<ProductsCustomAttribute>? ProductsCustomAttributes { get; set; } = new List<ProductsCustomAttribute>();
 }

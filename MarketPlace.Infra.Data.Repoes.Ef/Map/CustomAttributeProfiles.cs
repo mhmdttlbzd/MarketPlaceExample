@@ -10,7 +10,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
     {
         public CustomAttributeProfiles()
         {
-            CreateMap<CustomAttributeTemplate, AttributeTemplateDto>();
+            CreateMap<CustomAttributeTemplate, AttributeTemplateOutputDto>();
 
             CreateMap<ProductsCustomAttribute, ProductAttributeOutputDto>();
             CreateMap<ProductsCustomAttribute, ProductAttributeInputDto>();
