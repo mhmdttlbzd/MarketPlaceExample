@@ -9,6 +9,8 @@ public class AuctionProposal : BaseEntity
 
     public long Price { get; set; }
 
+    public bool IsTopProposal { get; set; }
+
     public int CustomerId { get; set; }
 
     public virtual Auction Auction { get; set; } = null!;

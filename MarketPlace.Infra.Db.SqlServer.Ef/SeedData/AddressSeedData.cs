@@ -19,12 +19,12 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
                 new City {Id = 2,Name = "سروستان",ProvinceId = 1 },
                 new City {Id = 3,Name = "تهران",ProvinceId = 2 },
                 new City {Id = 4,Name = "کرج",ProvinceId = 2 },
-                new City {Id = 4,Name = "رشت",ProvinceId = 3 },
-                new City {Id = 4,Name = "ماسوله",ProvinceId = 3 },
-                new City {Id = 4,Name = "کرمان",ProvinceId = 4 },
-                new City {Id = 4,Name = "بردسیر",ProvinceId = 4 },
-                new City {Id = 4,Name = "تبریز",ProvinceId = 5 },
-                new City {Id = 4,Name = "مراغه",ProvinceId = 5 }
+                new City {Id = 5,Name = "رشت",ProvinceId = 3 },
+                new City {Id = 6,Name = "ماسوله",ProvinceId = 3 },
+                new City {Id = 7,Name = "کرمان",ProvinceId = 4 },
+                new City {Id = 8,Name = "بردسیر",ProvinceId = 4 },
+                new City {Id = 9,Name = "تبریز",ProvinceId = 5 },
+                new City {Id = 10,Name = "مراغه",ProvinceId = 5 }
                 );
         }
     }
