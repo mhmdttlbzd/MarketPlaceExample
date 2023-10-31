@@ -11,6 +11,8 @@ public class Auction : BaseEntity
 
     public DateTime ExpiredTime { get; set; }
 
+    public long BasePrice { get; set; } 
+
     public int Quantity { get; set; }
 
     public int ProductId { get; set; }
