@@ -4,11 +4,6 @@ using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities._Admin;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Admin
 {
@@ -28,7 +23,6 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Admin
         {
             var entity = _mapper.Map<Admin>(InputDto);
             await _dbContext.Set<Admin>().AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
             return entity.Id;
         }
 
@@ -54,7 +48,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Admin
             var entity = _mapper.Map<Admin>(input);
             entity.Id = id;
             _dbContext.Set<Admin>().Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+          
         }
     }
 }

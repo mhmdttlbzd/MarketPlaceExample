@@ -41,7 +41,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ActionProposals_BoothProductsAction");
 
-            builder.HasOne(d => d.Customer).WithMany(p => p.ActionProposals)
+            builder.HasOne(d => d.Customer).WithMany(p => p.AuctionProposals)
                 .HasForeignKey(d => d.CustomerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ActionProposals_Customers");

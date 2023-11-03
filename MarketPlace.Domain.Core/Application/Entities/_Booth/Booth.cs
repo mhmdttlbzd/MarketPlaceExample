@@ -6,10 +6,8 @@ using MarketPlace.Domain.Core.Application.Entities._Saler;
 
 namespace MarketPlace.Domain.Core.Application.Entities._Booth;
 
-public class Booth
+public class Booth : BaseEntity
 {
-    public int SalerId { get; set; }
-
     public string Name { get; set; } = null!;
 
     public int? ShopAddressId { get; set; }

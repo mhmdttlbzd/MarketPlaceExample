@@ -30,7 +30,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
         {
             var entity = _mapper.Map<Order>(InputDto);
             await _dbContext.Set<Order>().AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+           
             return entity.Id;
         }
 
@@ -56,7 +56,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
             var entity = _mapper.Map<Order>(input);
             entity.Id = id;
             _dbContext.Set<Order>().Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+           
         }
     }
 }

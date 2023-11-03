@@ -40,13 +40,13 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._CustomAttribute
             var entity = _mapper.Map<CustomAttributeTemplate>(input);
             entity.Id = id;
             _dbContext.Set<CustomAttributeTemplate>().Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+           
         }
         public async Task<int> CreateAsync(AttributeTemplateInputDto InputDto, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<CustomAttributeTemplate>(InputDto);
             await _dbContext.Set<CustomAttributeTemplate>().AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            
             return entity.Id;
         }
 

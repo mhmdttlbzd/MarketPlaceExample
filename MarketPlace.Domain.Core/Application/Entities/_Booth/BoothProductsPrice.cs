@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace MarketPlace.Domain.Core.Application.Entities._Booth;
 
-public class BoothProductsPrice : BaseEntity
+public class BoothProductsPrice 
 {
+    public int Id { get;set; }
 
     public int BoothProductId { get; set; }
 

@@ -10,7 +10,7 @@ public class SalerType
 
     public string Title { get; set; } = null!;
 
-    public byte TaskPercent { get; set; }
+    public byte WagePercent { get; set; }
 
     public virtual ICollection<Saler> Salers { get; set; } = new List<Saler>();
 }

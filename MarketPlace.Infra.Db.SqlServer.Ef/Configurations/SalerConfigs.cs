@@ -12,7 +12,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("Salers");
             builder.HasKey(e => e.Id).HasName("PK_Saler");
 
-            builder.Property(e => e.Id);
+            builder.Property(e => e.Id).ValueGeneratedNever(); 
 
             builder.HasOne(d => d.SalerType).WithMany(p => p.Salers)
                 .HasForeignKey(d => d.SalerTypeId)
@@ -29,7 +29,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.Property(e => e.Title)
                 .HasMaxLength(10)
                 .IsFixedLength();
-            builder.HasCheckConstraint("0 to 100", "([TaskPercent]<=(100) AND [TaskPercent]>=(0))");
+            builder.HasCheckConstraint("0 to 100", "([WagePercent]<=(100) AND [WagePercent]>=(0))");
         }
     }
 }

@@ -30,8 +30,8 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
         {
             var entity = _mapper.Map<Booth>(InputDto);
             await _dbContext.Set<Booth>().AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            return entity.SalerId;
+            
+            return entity.Id;
         }
 
         public async Task DeleteAsync(int Id, CancellationToken cancellationToken)
@@ -48,15 +48,15 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 
 
         public async Task<BoothOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<BoothOutputDto>(await _dbContext.Set<Booth>().FirstOrDefaultAsync(x => x.SalerId == Id, cancellationToken));
+            => _mapper.Map<BoothOutputDto>(await _dbContext.Set<Booth>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
 
         public async Task UpdateAsync(BoothInputDto input, int id, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Booth>(input);
-            entity.SalerId = id;
+            entity.Id = id;
             _dbContext.Set<Booth>().Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+           
         }
     }
 }

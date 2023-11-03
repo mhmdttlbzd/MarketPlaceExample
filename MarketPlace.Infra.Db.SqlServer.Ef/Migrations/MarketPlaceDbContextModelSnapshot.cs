@@ -22,6 +22,37 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities.WalletTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FromWalletId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("PaidPrice")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("SaleType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ToWalletId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Wage")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transactions", (string)null);
+                });
+
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.City", b =>
                 {
                     b.Property<int>("Id")
@@ -128,14 +159,14 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("int");
+                    b.Property<long>("PostalCode")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasName("PK_Address");
@@ -143,6 +174,44 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("MainAddresses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "خیابان رحمت جنب کوچه 2",
+                            CityId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(9718),
+                            IsDeleted = false,
+                            PostalCode = 2626627277L
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "خیابان ملاصدرا جنب کوچه 2",
+                            CityId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(9726),
+                            IsDeleted = false,
+                            PostalCode = 1234567890L
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "خیابان شهناز جنب کوچه 2",
+                            CityId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(9728),
+                            IsDeleted = false,
+                            PostalCode = 2634567611L
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "خیابان داریوش جنب کوچه 2",
+                            CityId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(9730),
+                            IsDeleted = false,
+                            PostalCode = 1213435657L
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.Province", b =>
@@ -211,11 +280,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             PersonalCode = "2682"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            PersonalCode = "4343"
                         });
                 });
 
@@ -227,7 +291,10 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BootId")
+                    b.Property<long>("BasePrice")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("BoothId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -236,10 +303,14 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ExpiredTime")
                         .HasColumnType("date");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -248,15 +319,27 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id")
                         .HasName("PK_BoothProductsAction");
+
+                    b.HasIndex("BoothId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("Actions", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BasePrice = 500000L,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(5221),
+                            Description = "یک کار ترک عالی با قیمتی باور نکردنی همین کار رو داخل غرفه و جنس ایرانی داریم میفروشیم یک ملیون نخری ضرر کردی",
+                            ExpiredTime = new DateTime(2023, 11, 10, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(5226),
+                            IsDeleted = false,
+                            ProductId = 20
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Auction.AuctionProposal", b =>
@@ -279,7 +362,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsTopProposal")
@@ -302,8 +385,20 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Booth.Booth", b =>
                 {
-                    b.Property<int>("SalerId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -313,12 +408,30 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<int?>("ShopAddressId")
                         .HasColumnType("int");
 
-                    b.HasKey("SalerId")
+                    b.HasKey("Id")
                         .HasName("PK_Booth");
 
                     b.HasIndex("ShopAddressId");
 
                     b.ToTable("Booths", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6753),
+                            IsDeleted = false,
+                            Name = "رضا لباس",
+                            ShopAddressId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6759),
+                            IsDeleted = false,
+                            Name = "برادران افشار",
+                            ShopAddressId = 4
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Booth.BoothProduct", b =>
@@ -338,7 +451,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -358,6 +471,143 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("BoothProducts", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 17,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 18,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 19,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 20,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 22,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 23,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 24,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 25,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 26,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BoothId = 5,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 1,
+                            Quantity = 100
+                        },
+                        new
+                        {
+                            Id = 11,
+                            BoothId = 5,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 2,
+                            Quantity = 100
+                        },
+                        new
+                        {
+                            Id = 12,
+                            BoothId = 5,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 3,
+                            Quantity = 100
+                        },
+                        new
+                        {
+                            Id = 13,
+                            BoothId = 5,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 4,
+                            Quantity = 100
+                        },
+                        new
+                        {
+                            Id = 14,
+                            BoothId = 5,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 8,
+                            Quantity = 100
+                        },
+                        new
+                        {
+                            Id = 15,
+                            BoothId = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            ProductId = 16,
+                            Quantity = 50
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Booth.BoothProductsPrice", b =>
@@ -371,20 +621,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<int>("BoothProductId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("date");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<long>("Price")
                         .HasColumnType("bigint");
@@ -397,6 +635,128 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("BoothProductId");
 
                     b.ToTable("BoothProductsPrices", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BoothProductId = 1,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6156),
+                            Price = 400000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6162)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BoothProductId = 2,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6171),
+                            Price = 300000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6172)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BoothProductId = 3,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6174),
+                            Price = 300000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6175)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BoothProductId = 4,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6176),
+                            Price = 1000000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6177)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BoothProductId = 5,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6179),
+                            Price = 700000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6180)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BoothProductId = 6,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6182),
+                            Price = 700000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6182)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BoothProductId = 7,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6184),
+                            Price = 700000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6185)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BoothProductId = 8,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6187),
+                            Price = 700000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6188)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BoothProductId = 9,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6190),
+                            Price = 700000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6191)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BoothProductId = 10,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6192),
+                            Price = 500000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6193)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            BoothProductId = 11,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6210),
+                            Price = 500000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6211)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            BoothProductId = 12,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6213),
+                            Price = 500000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6222)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            BoothProductId = 13,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6246),
+                            Price = 20000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6247)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            BoothProductId = 14,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6274),
+                            Price = 100000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6276)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            BoothProductId = 15,
+                            FromDate = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6278),
+                            Price = 500000L,
+                            ToDate = new DateTime(2023, 12, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(6279)
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Booth.Comment", b =>
@@ -424,7 +784,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -446,6 +806,118 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.ToTable("Comments", null, t =>
                         {
                             t.HasCheckConstraint("0 to 5", "([Satisfaction]<=(5) AND [Satisfaction]>=(0))");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8457),
+                            CustomerId = 2,
+                            Description = "عالی واقعا راضی بودم از همین برا دمکنی و دستگیره استفاده میکنم",
+                            IsDeleted = false,
+                            Satisfaction = (byte)2,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8464),
+                            CustomerId = 2,
+                            Description = "عالی",
+                            IsDeleted = false,
+                            Satisfaction = (byte)5,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8466),
+                            CustomerId = 3,
+                            Description = "بد بود",
+                            IsDeleted = false,
+                            Satisfaction = (byte)1,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8468),
+                            CustomerId = 3,
+                            Description = "راضی بودم ولی خاک تو سرشون با بسته بندیشون",
+                            IsDeleted = false,
+                            Satisfaction = (byte)4,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8470),
+                            CustomerId = 2,
+                            Description = "دوسش داشتم",
+                            IsDeleted = false,
+                            Satisfaction = (byte)5,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8472),
+                            CustomerId = 2,
+                            Description = "برا بابام کادو گرفتم هنوز ندیده که بگم خوبه یا بد",
+                            IsDeleted = false,
+                            Satisfaction = (byte)3,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8473),
+                            CustomerId = 3,
+                            Description = "بدک نبود",
+                            IsDeleted = false,
+                            Satisfaction = (byte)3,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BoothProductId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8476),
+                            CustomerId = 3,
+                            Description = "خیلی خوب دمتون گرم",
+                            IsDeleted = false,
+                            Satisfaction = (byte)5,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BoothProductId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8477),
+                            CustomerId = 2,
+                            Description = "مضخرف",
+                            IsDeleted = false,
+                            Satisfaction = (byte)2,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BoothProductId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(8479),
+                            CustomerId = 2,
+                            Description = "یه هفتس خریدم به دستم نرسیده",
+                            IsDeleted = false,
+                            Satisfaction = (byte)2,
+                            Status = 1
                         });
                 });
 
@@ -469,7 +941,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     b.HasIndex("CustomAttributeTemplateId");
 
-                    b.ToTable("CustomAttributeTemplates", (string)null);
+                    b.ToTable("CategoryCustomAttribute", (string)null);
 
                     b.HasData(
                         new
@@ -520,7 +992,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasKey("Id")
                         .HasName("PK_CustomAttributeTemlate");
 
-                    b.ToTable("CategoryCustomAttribute", (string)null);
+                    b.ToTable("CustomAttributeTemplates", (string)null);
 
                     b.HasData(
                         new
@@ -562,7 +1034,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -586,7 +1058,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 1,
                             AttributeId = 1,
                             AttributeValue = "2kg",
-                            CreatedAt = new DateTime(2023, 10, 31, 19, 13, 35, 896, DateTimeKind.Local).AddTicks(645),
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(649),
+                            IsDeleted = false,
                             ProductId = 1
                         },
                         new
@@ -594,7 +1067,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 2,
                             AttributeId = 1,
                             AttributeValue = "300g",
-                            CreatedAt = new DateTime(2023, 10, 31, 19, 13, 35, 896, DateTimeKind.Local).AddTicks(666),
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(654),
+                            IsDeleted = false,
                             ProductId = 2
                         },
                         new
@@ -602,18 +1076,223 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 3,
                             AttributeId = 1,
                             AttributeValue = "500g",
-                            CreatedAt = new DateTime(2023, 10, 31, 19, 13, 35, 896, DateTimeKind.Local).AddTicks(668),
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(656),
+                            IsDeleted = false,
                             ProductId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AttributeId = 1,
+                            AttributeValue = "100g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(657),
+                            IsDeleted = false,
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AttributeId = 1,
+                            AttributeValue = "50g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(659),
+                            IsDeleted = false,
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AttributeId = 1,
+                            AttributeValue = "150g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(661),
+                            IsDeleted = false,
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AttributeId = 1,
+                            AttributeValue = "500g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(662),
+                            IsDeleted = false,
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AttributeId = 1,
+                            AttributeValue = "300g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(664),
+                            IsDeleted = false,
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AttributeId = 1,
+                            AttributeValue = "3kg",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(665),
+                            IsDeleted = false,
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AttributeId = 1,
+                            AttributeValue = "400g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(667),
+                            IsDeleted = false,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AttributeId = 1,
+                            AttributeValue = "200g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(668),
+                            IsDeleted = false,
+                            ProductId = 11
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AttributeId = 1,
+                            AttributeValue = "5kg",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(670),
+                            IsDeleted = false,
+                            ProductId = 12
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AttributeId = 1,
+                            AttributeValue = "500g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(672),
+                            IsDeleted = false,
+                            ProductId = 13
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AttributeId = 1,
+                            AttributeValue = "500g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(673),
+                            IsDeleted = false,
+                            ProductId = 14
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AttributeId = 1,
+                            AttributeValue = "900g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(675),
+                            IsDeleted = false,
+                            ProductId = 15
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AttributeId = 1,
+                            AttributeValue = "100g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(676),
+                            IsDeleted = false,
+                            ProductId = 17
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AttributeId = 1,
+                            AttributeValue = "100g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(678),
+                            IsDeleted = false,
+                            ProductId = 18
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AttributeId = 1,
+                            AttributeValue = "100g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(679),
+                            IsDeleted = false,
+                            ProductId = 19
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AttributeId = 1,
+                            AttributeValue = "50g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(681),
+                            IsDeleted = false,
+                            ProductId = 20
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AttributeId = 1,
+                            AttributeValue = "400g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(682),
+                            IsDeleted = false,
+                            ProductId = 21
+                        },
+                        new
+                        {
+                            Id = 21,
+                            AttributeId = 1,
+                            AttributeValue = "300g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(684),
+                            IsDeleted = false,
+                            ProductId = 22
+                        },
+                        new
+                        {
+                            Id = 22,
+                            AttributeId = 1,
+                            AttributeValue = "50g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(686),
+                            IsDeleted = false,
+                            ProductId = 23
+                        },
+                        new
+                        {
+                            Id = 23,
+                            AttributeId = 1,
+                            AttributeValue = "50g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(687),
+                            IsDeleted = false,
+                            ProductId = 24
+                        },
+                        new
+                        {
+                            Id = 24,
+                            AttributeId = 1,
+                            AttributeValue = "50g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(689),
+                            IsDeleted = false,
+                            ProductId = 25
+                        },
+                        new
+                        {
+                            Id = 25,
+                            AttributeId = 1,
+                            AttributeValue = "50g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(690),
+                            IsDeleted = false,
+                            ProductId = 16
+                        },
+                        new
+                        {
+                            Id = 26,
+                            AttributeId = 1,
+                            AttributeValue = "50g",
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(692),
+                            IsDeleted = false,
+                            ProductId = 26
                         });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
@@ -623,6 +1302,18 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("Customers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AddressId = 2
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Order.Order", b =>
@@ -694,7 +1385,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -713,6 +1404,44 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("PictureId");
 
                     b.ToTable("AuctionPictures", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AuctionId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(4670),
+                            IsDeleted = false,
+                            PictureId = 6,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AuctionId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(4696),
+                            IsDeleted = false,
+                            PictureId = 7,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AuctionId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(4697),
+                            IsDeleted = false,
+                            PictureId = 8,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuctionId = 1,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 248, DateTimeKind.Local).AddTicks(4699),
+                            IsDeleted = false,
+                            PictureId = 9,
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Picture.Picture", b =>
@@ -736,6 +1465,53 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pictures", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Path = "product/1.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Path = "product/2.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Path = "product/3.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Path = "product/4.jpg"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Path = "product/5.jpg"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Path = "product/6.jpg"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Path = "product/7.jpg"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Path = "product/8.jpg"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Path = "product/9.jpg"
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Picture.ProductCustomerPic", b =>
@@ -758,7 +1534,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -780,6 +1556,38 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("PictureId");
 
                     b.ToTable("ProductCustomerPics", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(1116),
+                            CustomerId = 2,
+                            IsDeleted = false,
+                            PictureId = 1,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(1120),
+                            CustomerId = 2,
+                            IsDeleted = false,
+                            PictureId = 2,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(1122),
+                            CustomerId = 2,
+                            IsDeleted = false,
+                            PictureId = 3,
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Picture.ProductSalerPic", b =>
@@ -799,7 +1607,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -819,6 +1627,26 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("PictureId");
 
                     b.ToTable("ProductSalerPics", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(1641),
+                            IsDeleted = false,
+                            PictureId = 4,
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BoothProductId = 15,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(1646),
+                            IsDeleted = false,
+                            PictureId = 5,
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Prodoct.Category", b =>
@@ -1158,7 +1986,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsDeleted")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -1183,7 +2011,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             CategoryId = 13,
-                            CreatedAt = new DateTime(2023, 10, 31, 19, 13, 35, 896, DateTimeKind.Local).AddTicks(1001),
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2098),
+                            IsDeleted = false,
                             Name = "سرویس قابلمه 8 پارچه گرانیت",
                             Status = 2
                         },
@@ -1191,7 +2020,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 2,
                             CategoryId = 13,
-                            CreatedAt = new DateTime(2023, 10, 31, 19, 13, 35, 896, DateTimeKind.Local).AddTicks(1005),
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2106),
+                            IsDeleted = false,
                             Name = "کباب زن آرکا",
                             Status = 2
                         },
@@ -1199,8 +2029,216 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 3,
                             CategoryId = 13,
-                            CreatedAt = new DateTime(2023, 10, 31, 19, 13, 35, 896, DateTimeKind.Local).AddTicks(1008),
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2108),
+                            IsDeleted = false,
                             Name = "کباب روگازی کیوبی",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 16,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2135),
+                            IsDeleted = false,
+                            Name = "ظرف پلاستیکی یکبار مصرف",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 16,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2137),
+                            IsDeleted = false,
+                            Name = "لیوان کاغذی 50 عددی cc220",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 18,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2139),
+                            IsDeleted = false,
+                            Name = "دستگیره درب یخچال پارس",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 19,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2142),
+                            IsDeleted = false,
+                            Name = "فانل گتر قهوه سایز 51 مگنتیفانل گتر قهوه سایز 51 مگنتی",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 19,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2144),
+                            IsDeleted = false,
+                            Name = "قهوه جوش مسی دسته چوبی سیمین مس سایز یک",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 20,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2146),
+                            IsDeleted = false,
+                            Name = "جاروبرقی سطلی بوش",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 20,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2148),
+                            IsDeleted = false,
+                            Name = "جارو شارژی ماشین مدل HQ-01",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 21,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2151),
+                            IsDeleted = false,
+                            Name = "کاور مبل هفت نفره ماشال",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 21,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2153),
+                            IsDeleted = false,
+                            Name = "مبل راحتی اسکارلت 7 نفره پایه فلزی",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 22,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2156),
+                            IsDeleted = false,
+                            Name = "میز تحریر تاشو پنل دار وایت بردی (سایز 70)",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 23,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2158),
+                            IsDeleted = false,
+                            Name = "صندلی نماز حرمی قهوه ای کد 10(پایه استیل)",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 23,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2161),
+                            IsDeleted = false,
+                            Name = "صندلی گیمینگ ،صندلی گیم اریا ",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 29,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2163),
+                            IsDeleted = false,
+                            Name = "پیراهن مردانه پشمی تک جیب",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CategoryId = 29,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2165),
+                            IsDeleted = false,
+                            Name = "پیراهن مردانه بنگال کشی",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CategoryId = 29,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2167),
+                            IsDeleted = false,
+                            Name = "پیراهن مردانه تترون درجه یک",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CategoryId = 31,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2170),
+                            IsDeleted = false,
+                            Name = "جلیقه مردانه",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CategoryId = 31,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2172),
+                            IsDeleted = false,
+                            Name = "کت و شلوار فاستونی",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CategoryId = 31,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2174),
+                            IsDeleted = false,
+                            Name = "کت وشلوار سوپر کش",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CategoryId = 32,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2177),
+                            IsDeleted = false,
+                            Name = "عینک آفتابی مردانه شیشه سنگ امریکن اپتیک AO",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CategoryId = 32,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2179),
+                            IsDeleted = false,
+                            Name = "عینک آفتابی مارک جنتل مانستر دارای یووی 400",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CategoryId = 32,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2181),
+                            IsDeleted = false,
+                            Name = "عینک آفتابی مارک پلیس و دیتیا دارای یووی 400 ",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CategoryId = 32,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2184),
+                            IsDeleted = false,
+                            Name = "عینک ریبن خلبانی شیشه سنگ با پک کامل اورجینال",
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CategoryId = 32,
+                            CreatedAt = new DateTime(2023, 11, 3, 18, 51, 10, 249, DateTimeKind.Local).AddTicks(2186),
+                            IsDeleted = false,
+                            Name = "عینک آفتابی رندلف AO صاایران",
                             Status = 2
                         });
                 });
@@ -1208,10 +2246,19 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SalerTypeId")
                         .HasColumnType("int");
@@ -1222,6 +2269,22 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasIndex("SalerTypeId");
 
                     b.ToTable("Salers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            SalerTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            SalerTypeId = 1
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.SalerType", b =>
@@ -1232,21 +2295,398 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte>("TaskPercent")
-                        .HasColumnType("tinyint");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nchar(10)")
                         .IsFixedLength();
 
+                    b.Property<byte>("WagePercent")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("Id");
 
                     b.ToTable("SalerTypes", null, t =>
                         {
-                            t.HasCheckConstraint("0 to 100", "([TaskPercent]<=(100) AND [TaskPercent]>=(0))");
+                            t.HasCheckConstraint("0 to 100", "([WagePercent]<=(100) AND [WagePercent]>=(0))");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Title = "normal",
+                            WagePercent = (byte)5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Title = "golden",
+                            WagePercent = (byte)3
+                        });
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Identity.Entities.ApplicationRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Saler",
+                            NormalizedName = "SALER"
+                        });
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Family")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "847c8abd-f1f0-4801-805d-232741637b65",
+                            Email = "mhmdttlbzd@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "طالب زاده",
+                            LockoutEnabled = false,
+                            Name = "محمد",
+                            NormalizedEmail = "MHMDTTLBZD@GMAIL.COM",
+                            NormalizedUserName = "MHMDTTLBZD@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHT49urTcLqMdZQ1vNJhePQqeSqRan7oYoDbjeM9euHTAkMygtmpl2RlXhC29RkJQQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "372f43a4-b41b-4d25-ad37-ff1b8fcb7fd6",
+                            TwoFactorEnabled = false,
+                            UserName = "mhmdttlbzd@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3a4b2549-c110-4d8d-9837-9ca991907c9a",
+                            Email = "example@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "علی زاده",
+                            LockoutEnabled = false,
+                            Name = "محمد",
+                            NormalizedUserName = "EXAMPLE@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMF/8gEHwZ8neKoYuQelAUfjPWQPxFBLAU1Si7ZVk9/QqhUXuMjFQKgLJZwQQ0Tl4A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "19e5172d-9998-4c8c-b6f3-59db98980b87",
+                            TwoFactorEnabled = false,
+                            UserName = "example@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ed08d6ca-7311-4c6c-b5b7-c8879bab9eb7",
+                            Email = "ali@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "سعیدی",
+                            LockoutEnabled = false,
+                            Name = "علی",
+                            NormalizedEmail = "ALI@GMAIL.COM",
+                            NormalizedUserName = "ALI@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENn5proQKvMOLaFx1OylRvsqCJrgQA0+LtMzw5MhdNItpa5Bn3r8pAPwMIeGrNPabQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b802d46a-f63b-46f9-a42c-764e7563b53a",
+                            TwoFactorEnabled = false,
+                            UserName = "ali@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d3f597b9-6d77-4aa3-950d-12a82b10fdab",
+                            Email = "reza@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "شریفی",
+                            LockoutEnabled = false,
+                            Name = "رضا",
+                            NormalizedEmail = "REZA@GMAIL.COM",
+                            NormalizedUserName = "REZA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAOBJIrwXeM+8YydPSAtWP3YhJY32/5hWfDtmRGKhm8giqhy0PfITyDT4jtCd0gALA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "961c1481-8c17-406b-958b-cad5e2607de0",
+                            TwoFactorEnabled = false,
+                            UserName = "reza@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "09901e75-990d-4dae-ad91-9cdee20376c3",
+                            Email = "saeed@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "افشار",
+                            LockoutEnabled = false,
+                            Name = "سعید",
+                            NormalizedEmail = "SAEED@GMAIL.COM",
+                            NormalizedUserName = "SAEED@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGk+pZnwQkJXzD4mtZ4P5vtC4wR+dq7G2cG6V5jp9VFlYJE+4LsimpSDcEs9JNEGZA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a311ea22-a573-41a6-9bd9-71b318f4ad9c",
+                            TwoFactorEnabled = false,
+                            UserName = "saeed@gmail.com"
+                        });
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Identity.Entities.Wallet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<long>("Money")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wallets", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            RoleId = 3
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.City", b =>
@@ -1273,11 +2713,19 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Auction.Auction", b =>
                 {
+                    b.HasOne("MarketPlace.Domain.Core.Application.Entities._Booth.Booth", "Booth")
+                        .WithMany()
+                        .HasForeignKey("BoothId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MarketPlace.Domain.Core.Application.Entities._Prodoct.Product", "Product")
                         .WithMany("BoothProductsActions")
                         .HasForeignKey("ProductId")
                         .IsRequired()
                         .HasConstraintName("FK_BoothProductsAction_Peoducts");
+
+                    b.Navigation("Booth");
 
                     b.Navigation("Product");
                 });
@@ -1291,7 +2739,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         .HasConstraintName("FK_ActionProposals_BoothProductsAction");
 
                     b.HasOne("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", "Customer")
-                        .WithMany("ActionProposals")
+                        .WithMany("AuctionProposals")
                         .HasForeignKey("CustomerId")
                         .IsRequired()
                         .HasConstraintName("FK_ActionProposals_Customers");
@@ -1305,7 +2753,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 {
                     b.HasOne("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", "Saler")
                         .WithOne("Booth")
-                        .HasForeignKey("MarketPlace.Domain.Core.Application.Entities._Booth.Booth", "SalerId")
+                        .HasForeignKey("MarketPlace.Domain.Core.Application.Entities._Booth.Booth", "Id")
                         .IsRequired()
                         .HasConstraintName("FK_Booth_Saler");
 
@@ -1535,6 +2983,57 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Navigation("SalerType");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.City", b =>
                 {
                     b.Navigation("Addresses");
@@ -1586,7 +3085,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
                 {
-                    b.Navigation("ActionProposals");
+                    b.Navigation("AuctionProposals");
 
                     b.Navigation("Comments");
 

@@ -8,18 +8,15 @@ namespace MarketPlace.Endpoint.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IAdminRepo _adminRepo;
 
         public HomeController(ILogger<HomeController> logger, IAdminRepo adminRepo)
         {
             _logger = logger;
-            _adminRepo = adminRepo;
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var res = await _adminRepo.GetByIdAsync(1, cancellationToken);
-            return View(res);
+            return View();
         }
 
         public IActionResult Privacy()

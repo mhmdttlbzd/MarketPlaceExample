@@ -11,7 +11,7 @@ public class MainAddress : BaseEntity
 
     public string Address { get; set; } = null!;
 
-    public int PostalCode { get; set; }
+    public uint PostalCode { get; set; }
 
     public virtual ICollection<Booth> Booths { get; set; } = new List<Booth>();
 

@@ -26,7 +26,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
+namespace MarketPlace.Infra.Data.Repoes.Ef
 {
     public static class DependencyInjection
     {
@@ -35,7 +35,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 
             services.AddAutoMapper(typeof(DependencyInjection));
             services.AddScoped<AuditableEntitySaveChangesInterceptor>();
-
+            services.AddScoped<IUnitOfWorks, UnitOfWorks>();
 
             #region DbContext
             services.AddDbContext<MarketPlaceDbContext>(options =>
@@ -46,7 +46,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 
 
             #region Address
-            services.AddScoped<ICityRepo,CityRepo>();
+            services.AddScoped<ICityRepo, CityRepo>();
             services.AddScoped<IMainAddressRepo, MainAddressRepo>();
             services.AddScoped<IProvinceRepo, ProvinceRepo>();
             #endregion

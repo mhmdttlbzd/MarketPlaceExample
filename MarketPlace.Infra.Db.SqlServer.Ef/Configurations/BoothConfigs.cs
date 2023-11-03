@@ -15,9 +15,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public void Configure(EntityTypeBuilder<Booth> builder)
         {
             builder.ToTable("Booths");
-            builder.HasKey(e => e.SalerId).HasName("PK_Booth");
+            builder.HasKey(e => e.Id).HasName("PK_Booth");
 
-            builder.Property(e => e.SalerId).ValueGeneratedNever();
+            builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Name).HasMaxLength(50);
 
             builder.HasOne(d => d.ShopAddress).WithMany(p => p.Booths)
@@ -25,7 +25,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
                 .HasConstraintName("FK_Booth_Address");
 
             builder.HasOne(d => d.Saler).WithOne(p => p.Booth)
-                .HasForeignKey<Booth>(d => d.SalerId)
+                .HasForeignKey<Booth>(d => d.Id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Booth_Saler");
         }
@@ -51,9 +51,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             base.Configure(builder);
         }
     }
-    public class BoothProductsPriceConfigs : BaseEntityConfiguration<BoothProductsPrice>
+    public class BoothProductsPriceConfigs : IEntityTypeConfiguration<BoothProductsPrice>
     {
-        public override void Configure(EntityTypeBuilder<BoothProductsPrice> builder)
+        public void Configure(EntityTypeBuilder<BoothProductsPrice> builder)
         {
             builder.ToTable("BoothProductsPrices");
             builder.Property(e => e.Id);
@@ -64,7 +64,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
                 .HasForeignKey(d => d.BoothProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_BoothProductsPrices_BoothProducts");
-            base.Configure(builder);
         }
     }
 

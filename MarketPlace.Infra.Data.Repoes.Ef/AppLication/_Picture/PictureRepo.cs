@@ -32,7 +32,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Picture
         {
             var entity = new Picture { Path = path, Alt = alt };
             await _dbContext.Set<Picture>().AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+           
             return entity.Id;
         }
 

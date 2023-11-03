@@ -7,12 +7,36 @@ using MarketPlace.Infra.Db.SqlServer.Ef;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 {
-    public class BoothProductsPriceRepo : BaseEntityCrudRepository<BoothProductsPrice,
-BoothProductsPriceInputDto, BoothProductsPriceOutputDto>, IBoothProductsPriceRepo
+    public class BoothProductsPriceRepo : IBoothProductsPriceRepo
     {
-        public BoothProductsPriceRepo(MarketPlaceDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public BoothProductsPriceRepo(MarketPlaceDbContext dbContext, IMapper mapper)
         {
 
+        }
+
+        public Task<int> CreateAsync(BoothProductsPriceInputDto input, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(int id, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<BoothProductsPriceOutputDto>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<BoothProductsPriceOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(BoothProductsPriceInputDto input, int id, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

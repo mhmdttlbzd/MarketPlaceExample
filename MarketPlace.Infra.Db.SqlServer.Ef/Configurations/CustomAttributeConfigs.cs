@@ -14,7 +14,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
     {
         public void Configure(EntityTypeBuilder<CustomAttributeTemplate> builder)
         {
-            builder.ToTable("CategoryCustomAttribute");
+            builder.ToTable("CustomAttributeTemplates");
             builder.HasKey(e => e.Id).HasName("PK_CustomAttributeTemlate");
             builder.Property(e => e.Title).HasMaxLength(50);
 
@@ -26,8 +26,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
     {
         public void Configure(EntityTypeBuilder<CategoryCustomAttribute> builder)
         {
-            builder.ToTable("CustomAttributeTemplates");
-
+            builder.ToTable("CategoryCustomAttribute");
             builder.HasKey(d => d.Id);
             //builder.HasNoKey();
             builder.HasOne(d => d.Category).WithMany(p => p.CategoryCustomAttributes)
