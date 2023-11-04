@@ -14,29 +14,22 @@ namespace MarketPlace.Domain.Services.Application._Picture
         }
 
         public async Task<int> CreateAsync(ProductSalerPicInputDto input, CancellationToken cancellationToken)
-        {
-            return await _productSalerPicRepo.CreateAsync(input, cancellationToken);
-        }
+            => await _productSalerPicRepo.CreateAsync(input, cancellationToken);
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
-        {
-            await _productSalerPicRepo.DeleteAsync(id, cancellationToken);
-        }
+            =>await _productSalerPicRepo.DeleteAsync(id, cancellationToken);
 
         public async Task<List<ProductSalerPicOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-        {
-            return await _productSalerPicRepo.GetAllAsync(cancellationToken);
-        }
+            => await _productSalerPicRepo.GetAllAsync(cancellationToken);
 
         public async Task<ProductSalerPicOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            return await _productSalerPicRepo.GetByIdAsync(id, cancellationToken);
-        }
+            => await _productSalerPicRepo.GetByIdAsync(id, cancellationToken);
 
         public async Task UpdateAsync(ProductSalerPicInputDto input, int id, CancellationToken cancellationToken)
-        {
-            await _productSalerPicRepo.UpdateAsync(input, id, cancellationToken);
-        }
-    }
+            =>await _productSalerPicRepo.UpdateAsync(input, id, cancellationToken);
+
+		public int GetRequestsCount() => _productSalerPicRepo.GetRequestsCount();
+
+	}
 
 }

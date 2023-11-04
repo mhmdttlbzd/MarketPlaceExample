@@ -9,5 +9,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Product
         Task<ProductOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(ProductInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
-    }
+        int GetCount();
+        int AllRequestsCount();
+	}
 }

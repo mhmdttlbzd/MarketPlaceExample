@@ -19,24 +19,20 @@ namespace MarketPlace.Domain.Services.Application._Picture
         }
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
-        {
-            await _productCustomerPicRepo.DeleteAsync(id, cancellationToken);
-        }
+            =>await _productCustomerPicRepo.DeleteAsync(id, cancellationToken);
 
         public async Task<List<ProductCustomerPicOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-        {
-            return await _productCustomerPicRepo.GetAllAsync(cancellationToken);
-        }
+            => await _productCustomerPicRepo.GetAllAsync(cancellationToken);
 
         public async Task<ProductCustomerPicOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            return await _productCustomerPicRepo.GetByIdAsync(id, cancellationToken);
-        }
+            => await _productCustomerPicRepo.GetByIdAsync(id, cancellationToken);
+
 
         public async Task UpdateAsync(ProductCustomerPicInputDto input, int id, CancellationToken cancellationToken)
-        {
-            await _productCustomerPicRepo.UpdateAsync(input, id, cancellationToken);
-        }
-    }
+            =>await _productCustomerPicRepo.UpdateAsync(input, id, cancellationToken);
+
+		public int GetRequestsCount() => _productCustomerPicRepo.GetRequestsCount();
+
+	}
 
 }

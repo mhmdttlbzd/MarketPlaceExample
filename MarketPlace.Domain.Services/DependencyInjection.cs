@@ -1,4 +1,5 @@
-﻿using MarketPlace.Domain.Core.Application.Contract.Services._Address;
+﻿using MarketPlace.Domain.Core.Application.Contract.Services;
+using MarketPlace.Domain.Core.Application.Contract.Services._Address;
 using MarketPlace.Domain.Core.Application.Contract.Services._Admin;
 using MarketPlace.Domain.Core.Application.Contract.Services._Auction;
 using MarketPlace.Domain.Core.Application.Contract.Services._Booth;
@@ -8,6 +9,7 @@ using MarketPlace.Domain.Core.Application.Contract.Services._Order;
 using MarketPlace.Domain.Core.Application.Contract.Services._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Services._Product;
 using MarketPlace.Domain.Core.Application.Contract.Services._Saler;
+using MarketPlace.Domain.Services.Acount;
 using MarketPlace.Domain.Services.Application._Address;
 using MarketPlace.Domain.Services.Application._Admin;
 using MarketPlace.Domain.Services.Application._Auction;
@@ -20,12 +22,14 @@ using MarketPlace.Domain.Services.Application._Product;
 using MarketPlace.Domain.Services.Application._Saler;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MarketPlace.Domain.Services.Application
+namespace MarketPlace.Domain.Services
 {
     public static class DependencyInjection
     {
         public static void AddServices(this IServiceCollection services)
         {
+            services.AddScoped<IWalletService, WalletService>();
+
             #region Address
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IMainAddressService, MainAddressService>();

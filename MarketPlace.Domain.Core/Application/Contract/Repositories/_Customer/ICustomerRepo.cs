@@ -11,5 +11,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Customer
 {
     public interface ICustomerRepo : IBaseCrudRepository<Customer, CustomerInputDto, CustomerOutputDto>
     {
-    }
+		int AllCustomersCount();
+
+	}
 }

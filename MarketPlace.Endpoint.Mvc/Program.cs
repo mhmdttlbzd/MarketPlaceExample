@@ -1,11 +1,11 @@
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
 using MarketPlace.Domain.Core.Identity.Entities;
-using MarketPlace.Domain.Services.Application;
 using MarketPlace.Infra.Data.Repoes.Ef;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.AspNetCore.Identity;
 using MarketPlace.Domain.AppServices;
 using System.Data;
+using MarketPlace.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -15,8 +15,4 @@
     <ProjectReference Include="..\MarketPlace.Infra.Db.SqlServer.Ef\MarketPlace.Infra.Db.SqlServer.Ef.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Identity\" />
-  </ItemGroup>
-
 </Project>

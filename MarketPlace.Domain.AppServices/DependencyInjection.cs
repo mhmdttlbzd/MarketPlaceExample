@@ -1,4 +1,6 @@
-﻿using MarketPlace.Domain.AppServices.Identity;
+﻿using MarketPlace.Domain.AppServices.AppLication._Admin;
+using MarketPlace.Domain.AppServices.Identity;
+using MarketPlace.Domain.Core.Application.Contract.AppServices._Admin;
 using MarketPlace.Domain.Core.Identity.Contract;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,6 +16,7 @@ namespace MarketPlace.Domain.AppServices
         public static void AddAppServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthenticationAppService, AuthenticationAppService>();
+            services.AddScoped<IAdminPanelAppService, AdminPanelAppService>();
         }
     }
 }

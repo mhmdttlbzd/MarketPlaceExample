@@ -3,6 +3,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Booth;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Booth;
+using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
@@ -14,5 +15,9 @@ CommentInputDto, CommentOutputDto>, ICommentRepo
         {
 
         }
+
+        public int GetRequestsCount()
+            => _dbContext.Set<Comment>().Where(c => c.Status == GeneralStatus.AwaitConfirmation).Count();
+        
     }
 }

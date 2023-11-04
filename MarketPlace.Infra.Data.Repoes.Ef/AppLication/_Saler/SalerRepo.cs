@@ -38,12 +38,12 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
 
 
         public async Task<List<SalerOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-            => _mapper.Map<List<SalerOutputDto>>(await _dbContext.Set<Saler>().ToListAsync(cancellationToken));
+            => _mapper.Map<List<SalerOutputDto>>(await _dbContext.Set<Saler>().AsNoTracking().ToListAsync(cancellationToken));
 
 
 
         public async Task<SalerOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<SalerOutputDto>(await _dbContext.Set<Saler>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+            => _mapper.Map<SalerOutputDto>(await _dbContext.Set<Saler>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
 
         public async Task UpdateAsync(SalerInputDto input, int id, CancellationToken cancellationToken)
@@ -53,6 +53,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
             _dbContext.Set<Saler>().Update(entity);
            
         }
+        public int AllSalersCount() => _dbContext.Set<Saler>().Count();
     }
 
 
@@ -70,12 +71,12 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
             _entities = _dbContext.Set<SalerType>();
         }
         public async Task<List<SalerTypeDto>> GetAllAsync(CancellationToken cancellationToken)
-    => _mapper.Map<List<SalerTypeDto>>(await _entities.ToListAsync(cancellationToken));
+    => _mapper.Map<List<SalerTypeDto>>(await _entities.AsNoTracking().ToListAsync(cancellationToken));
 
 
 
         public async Task<SalerTypeDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<SalerTypeDto>(await _entities.FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+            => _mapper.Map<SalerTypeDto>(await _entities.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
     }
 }

@@ -9,5 +9,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Picture
         Task<ProductSalerPicOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(ProductSalerPicInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
-    }
+        int GetRequestsCount();
+
+	}
 }

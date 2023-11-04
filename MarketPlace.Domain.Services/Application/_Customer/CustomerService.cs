@@ -19,28 +19,21 @@ namespace MarketPlace.Domain.Services.Application._Customer
         }
 
         public async Task<int> CreateAsync(CustomerInputDto input, CancellationToken cancellationToken)
-        {
-            return await _customerRepo.CreateAsync(input, cancellationToken);
-        }
+            => await _customerRepo.CreateAsync(input, cancellationToken);
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
-        {
-            await _customerRepo.DeleteAsync(id, cancellationToken);
-        }
+            =>await _customerRepo.DeleteAsync(id, cancellationToken);
 
         public async Task<List<CustomerOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-        {
-            return await _customerRepo.GetAllAsync(cancellationToken);
-        }
+            => await _customerRepo.GetAllAsync(cancellationToken);
 
         public async Task<CustomerOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            return await _customerRepo.GetByIdAsync(id, cancellationToken);
-        }
+            => await _customerRepo.GetByIdAsync(id, cancellationToken);
 
         public async Task UpdateAsync(CustomerInputDto input, int id, CancellationToken cancellationToken)
-        {
-           await UpdateAsync(input, id, cancellationToken);
-        }
-    }
+           =>await UpdateAsync(input, id, cancellationToken);
+
+		public int AllCustomersCount() => _customerRepo.AllCustomersCount();
+
+	}
 }

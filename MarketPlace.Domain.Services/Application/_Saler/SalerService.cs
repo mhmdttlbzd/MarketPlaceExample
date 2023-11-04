@@ -21,28 +21,20 @@ namespace MarketPlace.Domain.Services.Application._Saler
         }
 
         public async Task<int> CreateAsync(SalerInputDto input, CancellationToken cancellationToken)
-        {
-            return await _salerRepo.CreateAsync(input, cancellationToken);
-        }
+            => await _salerRepo.CreateAsync(input, cancellationToken);
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
-        {
-            await _salerRepo.DeleteAsync(id, cancellationToken);
-        }
+            =>await _salerRepo.DeleteAsync(id, cancellationToken);
 
         public async Task<List<SalerOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-        {
-            return await _salerRepo.GetAllAsync(cancellationToken);
-        }
+            => await _salerRepo.GetAllAsync(cancellationToken);
 
         public async Task<SalerOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            return await _salerRepo.GetByIdAsync(id, cancellationToken);
-        }
+            => await _salerRepo.GetByIdAsync(id, cancellationToken);
 
         public async Task UpdateAsync(SalerInputDto input, int id, CancellationToken cancellationToken)
-        {
-            await _salerRepo.UpdateAsync(input, id, cancellationToken);
-        }
+            =>await _salerRepo.UpdateAsync(input, id, cancellationToken);
+
+        public int AllSalersCount() => _salerRepo.AllSalersCount();
     }
 }

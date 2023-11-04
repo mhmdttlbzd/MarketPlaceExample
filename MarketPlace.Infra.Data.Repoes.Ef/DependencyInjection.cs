@@ -10,6 +10,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Order;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Product;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Saler;
+using MarketPlace.Infra.Data.Repoes.Ef.Acount;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Admin;
 using MarketPlace.Infra.Data.Repoes.Ef.AppLication._Auction;
@@ -36,7 +37,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef
             services.AddAutoMapper(typeof(DependencyInjection));
             services.AddScoped<AuditableEntitySaveChangesInterceptor>();
             services.AddScoped<IUnitOfWorks, UnitOfWorks>();
-
+            services.AddScoped<IWalletRepo, WalletRepo>();
             #region DbContext
             services.AddDbContext<MarketPlaceDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),

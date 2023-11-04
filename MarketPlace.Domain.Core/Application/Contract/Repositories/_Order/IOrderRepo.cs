@@ -11,5 +11,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Order
 {
     public interface IOrderRepo : IBaseCrudRepository<Order, OrderInputDto, OrderOutputDto>
     {
-    }
+		Task<int> GetSaledProductCount(CancellationToken cancellationToken);
+
+	}
 }

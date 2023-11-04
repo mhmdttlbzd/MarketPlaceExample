@@ -8,8 +8,8 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
     public class BaseEntityCrudRepository<TEntity, TInput, TOutput> :
         IBaseCrudRepository<TEntity, TInput, TOutput> where TEntity : BaseEntity
     {
-        private readonly IMapper _mapper;
-        private readonly DbContext _dbContext;
+        protected readonly IMapper _mapper;
+        protected readonly DbContext _dbContext;
         //private readonly DbSet<TEntity> _entities;
         public BaseEntityCrudRepository(DbContext dbContext,IMapper mapper)
         {
@@ -34,12 +34,12 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 
 
         public async Task<List<TOutput>> GetAllAsync(CancellationToken cancellationToken)
-            => _mapper.Map<List<TOutput>>(await _dbContext.Set<TEntity>().ToListAsync(cancellationToken));
+            => _mapper.Map<List<TOutput>>(await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync(cancellationToken));
 
 
 
         public async Task<TOutput> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<TOutput>(await _dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+            => _mapper.Map<TOutput>(await _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
 
         public async Task UpdateAsync( TInput input, int id , CancellationToken cancellationToken)

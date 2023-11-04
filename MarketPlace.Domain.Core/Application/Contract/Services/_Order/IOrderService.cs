@@ -14,5 +14,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Order
         Task<OrderOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(OrderInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
-    }
+        Task<int> GetSaledProductCount(CancellationToken cancellationToken);
+
+	}
 }

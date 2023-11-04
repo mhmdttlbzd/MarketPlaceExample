@@ -19,28 +19,21 @@ namespace MarketPlace.Domain.Services.Application._Order
         }
 
         public async Task<int> CreateAsync(OrderInputDto input, CancellationToken cancellationToken)
-        {
-            return await _orderRepo.CreateAsync(input, cancellationToken);
-        }
+            => await _orderRepo.CreateAsync(input, cancellationToken);
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
-        {
-            await _orderRepo.DeleteAsync(id, cancellationToken);
-        }
+            =>await _orderRepo.DeleteAsync(id, cancellationToken);
 
         public async Task<List<OrderOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-        {
-            return await _orderRepo.GetAllAsync(cancellationToken);
-        }
+            => await _orderRepo.GetAllAsync(cancellationToken);
 
         public async Task<OrderOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            return await _orderRepo.GetByIdAsync(id, cancellationToken);
-        }
+            => await _orderRepo.GetByIdAsync(id, cancellationToken);
 
         public async Task UpdateAsync(OrderInputDto input, int id, CancellationToken cancellationToken)
-        {
-            await _orderRepo.UpdateAsync(input, id, cancellationToken);
-        }
+            =>await _orderRepo.UpdateAsync(input, id, cancellationToken);
+
+        public async Task<int> GetSaledProductCount(CancellationToken cancellationToken) 
+            =>await _orderRepo.GetSaledProductCount(cancellationToken);
     }
 }

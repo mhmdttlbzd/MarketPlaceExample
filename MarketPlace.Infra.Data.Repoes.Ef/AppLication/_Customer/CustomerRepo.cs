@@ -5,6 +5,7 @@ using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Admin;
 using MarketPlace.Domain.Core.Application.Entities._Customer;
+using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,12 +40,12 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Customer
 
 
         public async Task<List<CustomerOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-            => _mapper.Map<List<CustomerOutputDto>>(await _dbContext.Set<Customer>().ToListAsync(cancellationToken));
+            => _mapper.Map<List<CustomerOutputDto>>(await _dbContext.Set<Customer>().AsNoTracking().ToListAsync(cancellationToken));
 
 
 
         public async Task<CustomerOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<CustomerOutputDto>(await _dbContext.Set<Customer>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+            => _mapper.Map<CustomerOutputDto>(await _dbContext.Set<Customer>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
 
         public async Task UpdateAsync(CustomerInputDto input, int id, CancellationToken cancellationToken)
@@ -54,5 +55,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Customer
             _dbContext.Set<Customer>().Update(entity);
             
         }
-    }
+		public int AllCustomersCount() => _dbContext.Set<Customer>().Count();
+
+	}
 }

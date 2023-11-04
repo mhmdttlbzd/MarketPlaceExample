@@ -6,6 +6,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Booth
 {
     public interface ICommentRepo : IBaseCrudRepository<Comment, CommentInputDto, CommentOutputDto>
     {
+		int GetRequestsCount();
 
-    }
+	}
 }

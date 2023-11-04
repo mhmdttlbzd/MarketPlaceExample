@@ -14,28 +14,21 @@ namespace MarketPlace.Domain.Services.Application._Product
         }
 
         public async Task<int> CreateAsync(ProductInputDto input, CancellationToken cancellationToken)
-        {
-            return await _productRepo.CreateAsync(input, cancellationToken);
-        }
+            => await _productRepo.CreateAsync(input, cancellationToken);
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
-        {
-            await _productRepo.DeleteAsync(id, cancellationToken);
-        }
+            =>await _productRepo.DeleteAsync(id, cancellationToken);
 
         public async Task<List<ProductOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-        {
-            return await _productRepo.GetAllAsync(cancellationToken);
-        }
+            => await _productRepo.GetAllAsync(cancellationToken);
 
         public async Task<ProductOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            return await _productRepo.GetByIdAsync(id, cancellationToken);
-        }
+            => await _productRepo.GetByIdAsync(id, cancellationToken);
 
         public async Task UpdateAsync(ProductInputDto input, int id, CancellationToken cancellationToken)
-        {
-            await _productRepo.UpdateAsync(input, id, cancellationToken);
-        }
-    }
+            =>await _productRepo.UpdateAsync(input, id, cancellationToken);
+
+        public int GetCount() => _productRepo.GetCount();
+        public int AllRequestsCount() => _productRepo.AllRequestsCount();
+	}
 }

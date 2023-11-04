@@ -6,6 +6,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Picture
 {
     public interface IAuctionPictureRepo : IBaseCrudRepository<AuctionPicture, AuctionPictureInputDto, AuctionPictureOutputDto>
     {
+		int GetRequestsCount();
 
-    }
+	}
 }

@@ -4,7 +4,9 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Order;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Picture;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Booth;
 using MarketPlace.Domain.Core.Application.Entities._Picture;
+using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -45,5 +47,6 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Picture
         public async Task<PictureDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
             => _mapper.Map<PictureDto>(await _dbContext.Set<Picture>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
-    }
+
+	}
 }

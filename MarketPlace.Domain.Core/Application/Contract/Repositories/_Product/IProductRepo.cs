@@ -11,5 +11,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Product
 {
     public interface IProductRepo : IBaseCrudRepository<Product,ProductInputDto, ProductOutputDto>
     {
-    }
+		int GetCount();
+		int AllRequestsCount();
+	}
 }
