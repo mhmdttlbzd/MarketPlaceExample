@@ -7,6 +7,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Picture
     public interface IAuctionPictureRepo : IBaseCrudRepository<AuctionPicture, AuctionPictureInputDto, AuctionPictureOutputDto>
     {
 		int GetRequestsCount();
-
+		Task<List<AuctionPicRequestDto>> GetRequests(CancellationToken cancellationToken);
+		Task FaleAsync(int id, CancellationToken cancellationToken);
+		Task ConfirmAsync(int id, CancellationToken cancellationToken);
 	}
 }

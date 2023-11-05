@@ -13,5 +13,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Product
     {
 		int GetCount();
 		int AllRequestsCount();
-	}
+        Task<List<ProductRequestDto>> GetRequests(CancellationToken cancellationToken);
+        Task FaleAsync(int id, CancellationToken cancellationToken);
+        Task ConfirmAsync(int id, CancellationToken cancellationToken);
+    }
 }

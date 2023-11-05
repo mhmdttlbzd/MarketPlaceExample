@@ -7,6 +7,9 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Booth
     public interface ICommentRepo : IBaseCrudRepository<Comment, CommentInputDto, CommentOutputDto>
     {
 		int GetRequestsCount();
+        Task ConfirmAsync(int id, CancellationToken cancellationToken);
+        Task FaleAsync(int id, CancellationToken cancellationToken);
 
-	}
+        Task<List<CommentRequestDto>> GetRequests(CancellationToken cancellationToken);
+    }
 }

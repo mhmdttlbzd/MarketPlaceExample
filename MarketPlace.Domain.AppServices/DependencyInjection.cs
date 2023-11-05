@@ -1,13 +1,10 @@
 ﻿using MarketPlace.Domain.AppServices.AppLication._Admin;
+using MarketPlace.Domain.AppServices.AppLication._Product;
 using MarketPlace.Domain.AppServices.Identity;
 using MarketPlace.Domain.Core.Application.Contract.AppServices._Admin;
+using MarketPlace.Domain.Core.Application.Contract.AppServices._Product;
 using MarketPlace.Domain.Core.Identity.Contract;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.AppServices
 {
@@ -17,6 +14,8 @@ namespace MarketPlace.Domain.AppServices
         {
             services.AddScoped<IAuthenticationAppService, AuthenticationAppService>();
             services.AddScoped<IAdminPanelAppService, AdminPanelAppService>();
+            services.AddScoped<IRequestsAppService, RequestsAppService>();
+            services.AddScoped<ICommentAppService,CommentAppService>();
         }
     }
 }

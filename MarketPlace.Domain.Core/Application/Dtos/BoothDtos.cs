@@ -48,9 +48,21 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         int Id, byte Satisfaction, string Description, GeneralStatus Status, int BoothProductId,
         BoothProductOutputDto BoothProduct, int CustomerId, CustomerOutputDto Customer
         );
-    public record CommentInputDto(
-         byte Satisfaction, string Description, int BoothProductId, int CustomerId,
-         GeneralStatus Status = GeneralStatus.AwaitConfirmation
-        );
+
+    public record CommentRequestDto
+    {
+        public int Id;
+        public string Description { get; set; }
+        public string BoothName { get; set; }
+        public int CustomerId { get; set; }
+        public string ProductName { get; set; }
+    }
+    public record CommentInputDto 
+    {
+        public byte Satisfaction { get; set; }
+        public string Description { get; set; }
+        public int? CustomerId { get; set; }
+        public int? BoothProductId { get; set; }
+    };
     #endregion
 }

@@ -53,5 +53,6 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
 				);
 			return res;
 		}
+
 	}
 }

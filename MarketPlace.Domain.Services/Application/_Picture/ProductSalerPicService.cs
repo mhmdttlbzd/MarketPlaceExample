@@ -30,6 +30,12 @@ namespace MarketPlace.Domain.Services.Application._Picture
 
 		public int GetRequestsCount() => _productSalerPicRepo.GetRequestsCount();
 
+		public async Task<List<SalerPicRequestDto>> GetRequests(CancellationToken cancellationToken)
+	=> await _productSalerPicRepo.GetRequests(cancellationToken);
+
+		public async Task ConfirmAsync(int id, CancellationToken cancellationToken) => await _productSalerPicRepo.ConfirmAsync(id, cancellationToken);
+		public async Task FaleAsync(int id, CancellationToken cancellationToken) => await _productSalerPicRepo.FaleAsync(id, cancellationToken);
+
 	}
 
 }

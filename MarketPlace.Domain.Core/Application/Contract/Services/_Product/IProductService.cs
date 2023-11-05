@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Domain.Core.Application.Dtos;
+using MarketPlace.Domain.Core.Application.Entities._Prodoct;
 
 namespace MarketPlace.Domain.Core.Application.Contract.Services._Product
 {
@@ -11,5 +12,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Product
         Task DeleteAsync(int id, CancellationToken cancellationToken);
         int GetCount();
         int AllRequestsCount();
-	}
+        Task<List<ProductRequestDto>> GetRequests(CancellationToken cancellationToken);
+        Task FaleAsync(int id, CancellationToken cancellationToken);
+        Task ConfirmAsync(int id, CancellationToken cancellationToken);
+    }
 }

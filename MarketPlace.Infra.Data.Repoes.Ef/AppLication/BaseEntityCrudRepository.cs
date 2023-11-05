@@ -42,7 +42,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
             => _mapper.Map<TOutput>(await _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
 
-        public async Task UpdateAsync( TInput input, int id , CancellationToken cancellationToken)
+        public virtual async Task UpdateAsync( TInput input, int id , CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<TEntity>(input);
             entity.Id = id;

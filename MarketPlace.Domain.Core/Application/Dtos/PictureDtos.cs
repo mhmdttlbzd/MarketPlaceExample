@@ -13,6 +13,8 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     #endregion
 
 
+
+
     #region ProductCustomerPic
     public record ProductCustomerPicOutputDto(
         int Id, int PictureId, int BoothProductId, int CustomerId,GeneralStatus Status,
@@ -21,6 +23,13 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     public record ProductCustomerPicInputDto(
         int PictureId, int BoothProductId, int CustomerId, GeneralStatus Status = GeneralStatus.AwaitConfirmation
     );
+    public record CustomerPicRequestDto
+    {
+        public int Id { get; set; }
+        public string Path { get; set; }
+        public int CustomerId { get; set; }
+        public string ProductName { get; set; }
+    }
     #endregion
 
 
@@ -32,16 +41,28 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     public record AuctionPictureInputDto(
         int PictureId, int ActionId,GeneralStatus Status = GeneralStatus.AwaitConfirmation
         );
-    #endregion 
+	public record AuctionPicRequestDto
+	{
+		public int Id { get; set; }
+		public string Path { get; set; }
+		public string ProductName { get; set; }
+	}
+	#endregion
 
 
-    #region ProductSalerPic
-    public record ProductSalerPicOutputDto(
+	#region ProductSalerPic
+	public record ProductSalerPicOutputDto(
         int Id, int PictureId, int BoothProductId,GeneralStatus Status,
         BoothProductOutputDto BoothProduct, PictureDto Picture
         );
     public record ProductSalerPicInputDto(
         int PictureId, int BoothProductId, GeneralStatus Status = GeneralStatus.AwaitConfirmation
         );
-    #endregion
+	public record SalerPicRequestDto
+    {
+        public int Id { get; set; }
+        public string Path { get; set; }
+        public string ProductName { get; set; }
+    }
+	#endregion
 }

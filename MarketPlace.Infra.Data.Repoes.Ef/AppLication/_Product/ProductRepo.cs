@@ -7,6 +7,7 @@ using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Prodoct;
 using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Infra.Db.SqlServer.Ef;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,37 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Product
     {
         public ProductRepo(MarketPlaceDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            
+
+        }
+        public override Task UpdateAsync(ProductInputDto input, int id, CancellationToken cancellationToken)
+        {
+            return base.UpdateAsync(input, id, cancellationToken);
         }
         public int GetCount() => _dbContext.Set<Product>().Count();
         public int AllRequestsCount() => _dbContext.Set<Product>().Where(p => p.Status == GeneralStatus.AwaitConfirmation).Count();
+        public async Task<List<ProductRequestDto>> GetRequests(CancellationToken cancellationToken)
+        {
+
+            var products = await _dbContext.Set<Product>().Where(p => p.Status == GeneralStatus.AwaitConfirmation)
+                .Include(p => p.Category)
+                .Select(selector: p => new ProductRequestDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    CategoryTitle = p.Category.Title
+                })
+                .AsNoTracking().ToListAsync(cancellationToken);
+            return products;
+        }
+        public async Task ConfirmAsync(int id, CancellationToken cancellationToken)
+        {
+            var product = await _dbContext.Set<Product>().FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            product.Status = GeneralStatus.Confirmed;
+        }
+        public async Task FaleAsync(int id, CancellationToken cancellationToken)
+        {
+            var product = await _dbContext.Set<Product>().FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            product.Status = GeneralStatus.Failed;
+        }
     }
 }

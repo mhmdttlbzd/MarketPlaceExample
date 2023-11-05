@@ -23,4 +23,12 @@
     <ProjectReference Include="..\MarketPlace.Infra.Data.Repoes.Ef\MarketPlace.Infra.Data.Repoes.Ef.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Product\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Requests\CustomerPictures.cshtml" />
+  </ItemGroup>
+
 </Project>

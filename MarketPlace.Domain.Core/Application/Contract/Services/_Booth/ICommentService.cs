@@ -10,6 +10,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Booth
         Task UpdateAsync(CommentInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
         int GetRequestsCount();
-
-	}
+        Task ConfirmAsync(int id, CancellationToken cancellationToken);
+        Task FaleAsync(int id, CancellationToken cancellationToken);
+        Task<List<CommentRequestDto>> GetRequests(CancellationToken cancellationToken);
+    }
 }

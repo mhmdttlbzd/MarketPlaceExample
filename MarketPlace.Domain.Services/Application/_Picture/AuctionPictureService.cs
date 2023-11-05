@@ -32,6 +32,11 @@ namespace MarketPlace.Domain.Services.Application._Picture
 
 
         public int GetRequestsCount() => _auctionPictureRepo.GetRequestsCount();
+		public async Task<List<AuctionPicRequestDto>> GetRequests(CancellationToken cancellationToken)
+=> await _auctionPictureRepo.GetRequests(cancellationToken);
+
+		public async Task ConfirmAsync(int id, CancellationToken cancellationToken) => await _auctionPictureRepo.ConfirmAsync(id, cancellationToken);
+		public async Task FaleAsync(int id, CancellationToken cancellationToken) => await _auctionPictureRepo.FaleAsync(id, cancellationToken);
 
 	}
 
