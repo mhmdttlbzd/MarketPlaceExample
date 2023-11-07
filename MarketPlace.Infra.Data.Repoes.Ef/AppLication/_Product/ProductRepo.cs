@@ -23,10 +23,14 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Product
         {
 
         }
-        public override Task UpdateAsync(ProductInputDto input, int id, CancellationToken cancellationToken)
+        public async override Task UpdateAsync(ProductInputDto input, int id, CancellationToken cancellationToken)
         {
-            return base.UpdateAsync(input, id, cancellationToken);
+            var product =  await _dbContext.Set<Product>().FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            product.Name = input.Name;
+            product.CategoryId = input.CategoryId;
         }
+
+
         public int GetCount() => _dbContext.Set<Product>().Count();
         public int AllRequestsCount() => _dbContext.Set<Product>().Where(p => p.Status == GeneralStatus.AwaitConfirmation).Count();
         public async Task<List<ProductRequestDto>> GetRequests(CancellationToken cancellationToken)

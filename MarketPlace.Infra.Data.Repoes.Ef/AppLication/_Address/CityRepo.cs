@@ -33,5 +33,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address
         public async Task<CityDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
             => _mapper.Map<CityDto>(await _dbContext.Set<City>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
+
+        public async Task<List<CityDto>> GetByProvinceId(int id)
+        {
+            return _mapper.Map<List<CityDto>>(await _dbContext.Set<City>().Where(c => c.ProvinceId == id).AsNoTracking().ToListAsync());
+        }
     }
 }

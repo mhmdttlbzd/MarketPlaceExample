@@ -23,7 +23,9 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Product
         public async Task<IActionResult> EditPost(string description , byte satisfaction,int id, CancellationToken cancellationToken)
         {
             await _commentAppService.UpdateAsync(new CommentInputDto { Description = description, Satisfaction = satisfaction }, id, User.Identity.Name, cancellationToken);
-            return LocalRedirect("~/Comment/Edit/"+id);
+            return LocalRedirect("~/Comment/Edit/" + id);
         }
+
+
     }
 }

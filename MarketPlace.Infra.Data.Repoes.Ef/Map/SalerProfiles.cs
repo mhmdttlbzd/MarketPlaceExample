@@ -15,7 +15,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
         public SalerProfiles()
         {
             CreateMap<Saler,SalerOutputDto>();
-            CreateMap<Saler,SalerInputDto>();
+            CreateMap<SalerInputDto, Saler>();
 
             CreateMap<SalerType, SalerTypeDto>();
         }

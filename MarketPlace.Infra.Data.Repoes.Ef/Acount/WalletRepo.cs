@@ -1,4 +1,6 @@
-﻿using MarketPlace.Domain.Core.Application.Contract.Repositories;
+﻿using AutoMapper;
+using MarketPlace.Domain.Core.Application.Contract.Repositories;
+using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Identity.Entities;
 using MarketPlace.Infra.Db.SqlServer.Ef;
@@ -14,10 +16,12 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Acount
 	public class WalletRepo : IWalletRepo
 	{
 		private readonly MarketPlaceDbContext _dbContext;
+		private readonly IMapper _mapper;
 
-		public WalletRepo(MarketPlaceDbContext dbContext)
+		public WalletRepo(MarketPlaceDbContext dbContext, IMapper mapper)
 		{
 			_dbContext = dbContext;
+			_mapper = mapper;
 		}
 
 		public async Task<long> GetAllWage(CancellationToken cancellationToken)
@@ -30,5 +34,8 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Acount
 			}
 			return res;
 		}
+		public async Task<List<WalletTransactionOutputDto>> GetAllWalletTransactions(CancellationToken cancellationToken)
+			=> _mapper.Map<List<WalletTransactionOutputDto>>(await _dbContext.Set<WalletTransaction>().AsNoTracking().ToListAsync(cancellationToken));
+
 	}
 }

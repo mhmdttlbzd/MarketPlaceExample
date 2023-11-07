@@ -7,6 +7,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Saler
     public interface ISalerRepo : IBaseCrudRepository<Saler,SalerInputDto, SalerOutputDto>
     {
 		int AllSalersCount();
+        Task<List<GeneralSalerDto>> GetGeneralSalers(CancellationToken cancellationToken);
 
-	}
+    }
 }

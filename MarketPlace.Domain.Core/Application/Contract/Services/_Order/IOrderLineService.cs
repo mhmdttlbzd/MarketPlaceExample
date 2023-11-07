@@ -9,5 +9,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Order
         Task<OrderLineOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(OrderLineInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
+        Task<List<SaleOrderLineDto>> GetSaledProducts(CancellationToken cancellationToken);
     }
 }

@@ -6,5 +6,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Address
     {
         Task<List<ProvinceDto>> GetAllAsync(CancellationToken cancellationToken);
         Task<ProvinceDto> GetByIdAsync(int id, CancellationToken cancellationToken);
+        List<ProvinceDto> GetAll();
     }
 }

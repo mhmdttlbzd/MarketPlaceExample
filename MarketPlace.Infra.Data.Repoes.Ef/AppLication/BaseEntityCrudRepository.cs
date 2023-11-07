@@ -18,10 +18,11 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
             _mapper = mapper;
         }
 
-        public async Task<int> CreateAsync(TInput InputDto, CancellationToken cancellationToken)
+        public virtual async Task<int> CreateAsync(TInput InputDto, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<TEntity>(InputDto);
             await _dbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return entity.Id;
         }
 

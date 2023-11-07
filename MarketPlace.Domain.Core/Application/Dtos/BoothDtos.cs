@@ -13,7 +13,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
          ICollection<BoothProductOutputDto> BoothsProducts, SalerOutputDto Saler
         );
     public record BoothInputDto(
-        int SalerId, string Name, int? ShopAddressId
+        int Id, string Name, int? ShopAddressId
     );
     #endregion
 

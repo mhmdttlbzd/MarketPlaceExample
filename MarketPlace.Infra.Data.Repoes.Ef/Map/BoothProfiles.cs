@@ -10,16 +10,16 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
         public BoothProfiles()
         {
             CreateMap<Booth, BoothOutputDto>();
-            CreateMap<Booth, BoothInputDto>();
+            CreateMap<BoothInputDto, Booth>();
 
-            CreateMap<Booth, BoothProductOutputDto>();
-            CreateMap<Booth, BoothProductInputDto>();
+            CreateMap<BoothProduct, BoothProductOutputDto>();
+            CreateMap<BoothProductInputDto, BoothProduct>();
 
-            CreateMap<Booth, BoothProductsPriceOutputDto>();
-            CreateMap<Booth, BoothProductsPriceInputDto>();
+            CreateMap<BoothProductsPrice, BoothProductsPriceOutputDto>();
+            CreateMap<BoothProductsPriceInputDto, BoothProductsPrice>();
 
             CreateMap<Comment, CommentOutputDto>();
-            CreateMap<Comment, CommentInputDto>();
+            CreateMap<CommentInputDto, Comment>();
         }
     }
 }

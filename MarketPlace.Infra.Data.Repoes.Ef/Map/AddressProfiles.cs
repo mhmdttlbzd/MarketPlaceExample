@@ -10,7 +10,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
         public AddressProfiles()
         {
             CreateMap<MainAddress, MainAddressOutputDto>();
-            CreateMap<MainAddress, MainAddressInputDto>();
+            CreateMap<MainAddressInputDto, MainAddress>();
 
             CreateMap<City, CityDto>();
             CreateMap<Province, ProvinceDto>();

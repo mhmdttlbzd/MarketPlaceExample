@@ -1,6 +1,8 @@
 ﻿using MarketPlace.Domain.Core.Application.Contract.AppServices._Admin;
+using MarketPlace.Domain.Core.Application.Contract.Repositories;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Services;
+using MarketPlace.Domain.Core.Application.Contract.Services._Address;
 using MarketPlace.Domain.Core.Application.Contract.Services._Booth;
 using MarketPlace.Domain.Core.Application.Contract.Services._Customer;
 using MarketPlace.Domain.Core.Application.Contract.Services._Order;
@@ -8,7 +10,12 @@ using MarketPlace.Domain.Core.Application.Contract.Services._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Services._Product;
 using MarketPlace.Domain.Core.Application.Contract.Services._Saler;
 using MarketPlace.Domain.Core.Application.Dtos;
+using MarketPlace.Domain.Core.Application.Entities._Saler;
+using MarketPlace.Domain.Core.Application.Enums;
+using MarketPlace.Domain.Core.Identity.Entities;
 using MarketPlace.Domain.Services.Application._Picture;
+using Microsoft.AspNetCore.Identity;
+using System.Threading;
 
 namespace MarketPlace.Domain.AppServices.AppLication._Admin
 {
@@ -23,21 +30,31 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
 		private readonly IProductSalerPicService _productSalerPicService;
 		private readonly IProductCustomerPicService _productCustomerPicService;
 		private readonly IAuctionPictureService _auctionPictureService;
+		private readonly IOrderLineService _orderLineService;
+		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IMainAddressService _mainAddressService;
+		private readonly IUnitOfWorks _unitOfWorks;
+        private readonly IBoothService _boothService;
 
-		public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService)
-		{
-			_walletService = walletService;
-			_commentService = commentService;
-			_orderService = orderService;
-			_customerService = customerService;
-			_salerService = salerService;
-			_poductService = poductService;
-			_productSalerPicService = productSalerPicService;
-			_productCustomerPicService = productCustomerPicService;
-			_auctionPictureService = auctionPictureService;
-		}
+        public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService)
+        {
+            _walletService = walletService;
+            _commentService = commentService;
+            _orderService = orderService;
+            _customerService = customerService;
+            _salerService = salerService;
+            _poductService = poductService;
+            _productSalerPicService = productSalerPicService;
+            _productCustomerPicService = productCustomerPicService;
+            _auctionPictureService = auctionPictureService;
+            _orderLineService = orderLineService;
+            _userManager = userManager;
+            _mainAddressService = mainAddressService;
+            _unitOfWorks = unitOfWorks;
+            _boothService = boothService;
+        }
 
-		public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
+        public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
 		{
 			int saledProductCount =await _orderService.GetSaledProductCount(cancellationToken);
 			long sumWages =await _walletService.GetAllWage(cancellationToken);
@@ -54,5 +71,84 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
 			return res;
 		}
 
-	}
+		public async Task<List<SaleOrderLineDto>> GetSaledProducts(CancellationToken cancellationToken)
+			=> await _orderLineService.GetSaledProducts(cancellationToken);
+		public async Task<List<WalletTransactionOutputDto>> GetAllWalletTransactions(CancellationToken cancellationToken)
+			=> await _walletService.GetAllWalletTransactions(cancellationToken);
+
+
+        public async Task<List<GeneralCustomerDto>> GetAllCustomers(CancellationToken cancellationToken)
+        {
+            var customers = await _customerService.GetGeneralCustomers(cancellationToken);
+            foreach (var customer in customers)
+            {
+                var user = await _userManager.FindByIdAsync(customer.Id.ToString());
+                customer.Name = user.Name;
+                customer.Family = user.Family;
+                customer.Email = user.Email;
+                customer.Status = user.Status;
+            }
+            return customers;
+        }
+        public async Task<List<GeneralSalerDto>> GetAllSalers(CancellationToken cancellationToken)
+        {
+            var salers = await _salerService.GetGeneralSalers(cancellationToken);
+            foreach (var saler in salers)
+            {
+                var user = await _userManager.FindByIdAsync(saler.Id.ToString());
+                saler.Name = user.Name;
+                saler.Family = user.Family;
+                saler.Email = user.Email;
+                saler.Status = user.Status;
+            }
+            return salers;
+        }
+        public async Task DeActiveUser(int id , CancellationToken cancellationToken)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.Status = UserStatus.DeActive;
+            await _userManager.UpdateAsync(user);
+        }
+        public async Task ActiveUser(int id, CancellationToken cancellationToken)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.Status = UserStatus.Active;
+            await _userManager.UpdateAsync(user);
+        }
+
+        public async Task CreateCustomer(GeneralCustomerInputDto inputDto, CancellationToken cancellationToken)
+        {
+            int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
+            var user = new ApplicationUser
+            {
+                Name = inputDto.Name,
+                Family = inputDto.Family,
+                Email = inputDto.Email,
+                UserName = inputDto.Email
+            };
+            await _userManager.CreateAsync(user);
+            await _userManager.AddPasswordAsync(user, inputDto.Password);
+            await _customerService.CreateAsync(new CustomerInputDto(user.Id, addressId), cancellationToken);
+            await _unitOfWorks.SaveChangesAsync(cancellationToken);
+        }
+        public async Task CreateSaler(GeneralSalerInputDto inputDto, CancellationToken cancellationToken)
+        {
+            int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
+
+            var user = new ApplicationUser
+            {
+                Name = inputDto.Name,
+                Family = inputDto.Family,
+                Email = inputDto.Email,
+                UserName = inputDto.Email
+            };
+            await _userManager.CreateAsync(user);
+            await _userManager.AddPasswordAsync(user, inputDto.Password);
+
+
+			var saler = await _salerService.CreateAsync(new SalerInputDto(user.Id, inputDto.SalerTypeId), cancellationToken);
+			await _boothService.CreateAsync(new BoothInputDto(saler, inputDto.BoothName, addressId), cancellationToken);
+			await _unitOfWorks.SaveChangesAsync(cancellationToken);
+		}
+    }
 }

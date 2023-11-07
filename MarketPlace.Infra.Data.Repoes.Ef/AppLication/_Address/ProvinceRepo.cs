@@ -5,6 +5,8 @@ using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Address;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address
 {
@@ -20,6 +22,8 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address
             _dbContext = dbContext;
             //_entities = _dbContext.Set<Province>();
         }
+        public List<ProvinceDto> GetAll() => _mapper.Map<List<ProvinceDto>>(_dbContext.Set<Province>().AsNoTracking().ToList());
+
         public async Task<List<ProvinceDto>> GetAllAsync(CancellationToken cancellationToken)
     => _mapper.Map<List<ProvinceDto>>(await _dbContext.Set<Province>().ToListAsync(cancellationToken));
 

@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Domain.Core.Application.Contract.Repositories;
 using MarketPlace.Domain.Core.Application.Contract.Services;
+using MarketPlace.Domain.Core.Application.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,8 @@ namespace MarketPlace.Domain.Services.Acount
 
 		public async Task<long> GetAllWage(CancellationToken cancellationToken)
 			=> await _walletRepo.GetAllWage(cancellationToken);
-	}
+		public async Task<List<WalletTransactionOutputDto>> GetAllWalletTransactions(CancellationToken cancellationToken)
+			=> await _walletRepo.GetAllWalletTransactions(cancellationToken);
+
+    }
 }

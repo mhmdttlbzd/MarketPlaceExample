@@ -15,6 +15,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Saler
         Task UpdateAsync(SalerInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
         int AllSalersCount();
+        Task<List<GeneralSalerDto>> GetGeneralSalers(CancellationToken cancellationToken);
 
-	}
+    }
 }

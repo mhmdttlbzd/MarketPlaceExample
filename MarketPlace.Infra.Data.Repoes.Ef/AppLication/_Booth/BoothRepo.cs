@@ -53,10 +53,9 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 
         public async Task UpdateAsync(BoothInputDto input, int id, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<Booth>(input);
-            entity.Id = id;
-            _dbContext.Set<Booth>().Update(entity);
-           
+            var booth = await _dbContext.Set<Booth>().FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+            booth.Name = input.Name;
+            booth.ShopAddressId = input.ShopAddressId;
         }
     }
 }

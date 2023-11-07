@@ -15,7 +15,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
         public CustomerProfiles()
         {
             CreateMap<Customer, CustomerOutputDto>();
-            CreateMap<Customer, CustomerInputDto>();
+            CreateMap<CustomerInputDto, Customer>();
         }
     }
 }

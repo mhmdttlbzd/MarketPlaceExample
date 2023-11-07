@@ -12,6 +12,7 @@ namespace MarketPlace.Domain.Services.Application._Address
         {
             _provinceRepo = provinceRepo;
         }
+        public List<ProvinceDto> GetAll() => _provinceRepo.GetAll();
 
         public async Task<List<ProvinceDto>> GetAllAsync(CancellationToken cancellationToken)
         {

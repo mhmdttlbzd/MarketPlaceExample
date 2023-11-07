@@ -211,7 +211,7 @@
                                         </svg>
                                     </div><!--//col-->
                                 </div><!--//row-->
-                                <a class="item-link-mask" href="#"></a>
+                                <a class="item-link-mask" asp-controller="Admin" asp-action="SaledProducts"></a>
                             </div><!--//item-->
 
 
@@ -229,7 +229,7 @@
                                         </svg>
                                     </div><!--//col-->
                                 </div><!--//row-->
-                                <a class="item-link-mask" href="#"></a>
+                                <a class="item-link-mask" asp-controller="Admin" asp-action="WalletTransactions"></a>
                             </div><!--//item-->
 
                             <div class="item p-3">
@@ -304,7 +304,7 @@
                             <div class="intro">تعداد کل کالا های سایت : @Model.ProductsCount</div>
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto mx-auto">
-                            <a class="py-2 px-3 app-btn-secondary" href="#">مشاهده</a>
+                            <a class="py-2 px-3 app-btn-secondary" asp-controller="Product" asp-action="AllProducts">مشاهده</a>
                         </div><!--//app-card-footer-->
                     </div><!--//app-card-->
                 </div><!--//col-->
@@ -331,7 +331,7 @@
                             <div class="intro">تعداد کل فروشنده های سایت : @Model.SalersCount</div>
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto mx-auto">
-                            <a class="py-2 px-3 app-btn-secondary" href="#">مشاهده</a>
+                            <a class="py-2 px-3 app-btn-secondary" asp-action="AllSalers">مشاهده</a>
                         </div><!--//app-card-footer-->
                     </div><!--//app-card-->
                 </div><!--//col-->
@@ -358,7 +358,7 @@
                             <div class="intro">تعداد کل خریدار های سایت : @Model.CustomersCount</div>
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto mx-auto">
-                            <a class="py-2 px-3 app-btn-secondary" href="#">مشاهده</a>
+                            <a class="py-2 px-3 app-btn-secondary" asp-action="AllCustomers">مشاهده</a>
                         </div><!--//app-card-footer-->
                     </div><!--//app-card-->
                 </div><!--//col-->

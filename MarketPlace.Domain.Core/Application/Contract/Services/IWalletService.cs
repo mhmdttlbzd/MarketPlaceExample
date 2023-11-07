@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketPlace.Domain.Core.Application.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services
 	public interface IWalletService
 	{
 		Task<long> GetAllWage(CancellationToken cancellationToken);
-	}
+        Task<List<WalletTransactionOutputDto>> GetAllWalletTransactions(CancellationToken cancellationToken);
+
+    }
 }

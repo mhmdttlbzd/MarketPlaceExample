@@ -27,5 +27,7 @@ namespace MarketPlace.Domain.Services.Application._Address
         {
             return await _cityRepo.GetByIdAsync(id, cancellationToken);
         }
+        public async Task<List<CityDto>> GetByProvinceId(int id) => await _cityRepo.GetByProvinceId(id);
+
     }
 }

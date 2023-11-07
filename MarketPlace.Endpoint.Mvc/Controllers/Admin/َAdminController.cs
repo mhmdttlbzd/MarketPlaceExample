@@ -1,5 +1,7 @@
 ﻿using MarketPlace.Domain.Core.Application.Contract.AppServices._Admin;
+using MarketPlace.Domain.Core.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -19,6 +21,37 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Admin
         {
             return View(await _adminPanelAppService.GetInformation(cancellationToken));
 
+        }
+
+        public async Task<IActionResult> SaledProducts(CancellationToken cancellationToken)
+        {
+            return View(await _adminPanelAppService.GetSaledProducts(cancellationToken));
+        }
+
+        public async Task<IActionResult> WalletTransactions(CancellationToken cancellationToken)
+        {
+            return View(await _adminPanelAppService.GetAllWalletTransactions(cancellationToken));
+        }
+
+        public async Task<IActionResult> AllCustomers(CancellationToken cancellationToken)
+        {
+            return View(await _adminPanelAppService.GetAllCustomers(cancellationToken));
+        }
+        public async Task<IActionResult> AllSalers(CancellationToken cancellationToken)
+        {
+            return View(await _adminPanelAppService.GetAllSalers(cancellationToken));
+        }
+
+        public async Task<IActionResult> DeActiveUser(int id , CancellationToken cancellationToken)
+        {
+            await _adminPanelAppService.DeActiveUser(id,cancellationToken);
+            return RedirectToAction("Index");
+        }
+        
+        public async Task<IActionResult> ActiveUser(int id, CancellationToken cancellationToken)
+        {
+            await _adminPanelAppService.ActiveUser(id , cancellationToken);
+            return RedirectToAction("Index");
         }
     }
 }

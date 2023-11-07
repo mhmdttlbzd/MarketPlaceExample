@@ -38,6 +38,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef
             services.AddScoped<AuditableEntitySaveChangesInterceptor>();
             services.AddScoped<IUnitOfWorks, UnitOfWorks>();
             services.AddScoped<IWalletRepo, WalletRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
             #region DbContext
             services.AddDbContext<MarketPlaceDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),

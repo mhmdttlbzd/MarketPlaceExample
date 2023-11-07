@@ -12,6 +12,15 @@ namespace MarketPlace.Domain.Core.Application.Dtos
          int Id, int CustomerId, CustomerOutputDto Customer, ICollection<OrderLineOutputDto> OrderLines, OrderStatus Status
         );
     public record OrderInputDto(int CustomerId, OrderStatus Status = OrderStatus.Active);
+
+    public record SaleOrderLineDto
+    {
+        public int CustomerId { get; set; }
+        public DateTime dateTime { get; set; }
+        public string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public string BoothName { get; set; }
+    }
     #endregion
 
     #region OrderLine

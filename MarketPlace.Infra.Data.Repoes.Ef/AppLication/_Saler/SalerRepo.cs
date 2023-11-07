@@ -3,6 +3,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Product;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Saler;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
@@ -48,35 +49,22 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
 
         public async Task UpdateAsync(SalerInputDto input, int id, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<Saler>(input);
-            entity.Id = id;
-            _dbContext.Set<Saler>().Update(entity);
+            var saler = await _dbContext.Set<Saler>().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+            saler.SalerTypeId = input.SalerTypeId;
            
         }
         public int AllSalersCount() => _dbContext.Set<Saler>().Count();
-    }
 
-
-
-    public class SalerTypeRepo : ISalerTypeRepo
-    {
-        private readonly IMapper _mapper;
-        private readonly MarketPlaceDbContext _dbContext;
-        private readonly DbSet<SalerType> _entities;
-
-        public SalerTypeRepo(IMapper mapper, MarketPlaceDbContext dbContext)
+        public async Task<List<GeneralSalerDto>> GetGeneralSalers(CancellationToken cancellationToken)
         {
-            _mapper = mapper;
-            _dbContext = dbContext;
-            _entities = _dbContext.Set<SalerType>();
+            return await _dbContext.Set<Saler>().Select(c => new GeneralSalerDto
+            {
+                Id = c.Id,
+                CityName = c.Booth.ShopAddress.City.Name,
+                ProvinsName = c.Booth.ShopAddress.City.Province.Name,
+                BoothName = c.Booth.Name,
+                SalerTypeName = c.SalerType.Title
+            }).AsNoTracking().ToListAsync(cancellationToken);
         }
-        public async Task<List<SalerTypeDto>> GetAllAsync(CancellationToken cancellationToken)
-    => _mapper.Map<List<SalerTypeDto>>(await _entities.AsNoTracking().ToListAsync(cancellationToken));
-
-
-
-        public async Task<SalerTypeDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<SalerTypeDto>(await _entities.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
-
     }
 }

@@ -91,8 +91,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 				NormalizedEmail = "MHMDTTLBZD@GMAIL.COM".ToUpper(),
 				Name = "محمد",
 				Family = "طالب زاده",
+				Status = UserStatus.Active,
 				SecurityStamp = Guid.NewGuid().ToString("D")
-			}; var user2 = new ApplicationUser
+            }; var user2 = new ApplicationUser
 			{
 				Id = 2,
 				UserName = "example@gmail.com",
@@ -100,8 +101,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 				Email = "example@gmail.com",
 				Name = "محمد",
 				Family = "علی زاده",
+				Status = UserStatus.Active,
 				SecurityStamp = Guid.NewGuid().ToString("D")
-			};
+            };
 			var user3 = new ApplicationUser
 			{
 				Id = 3,
@@ -111,8 +113,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 				NormalizedEmail = "ALI@GMAIL.COM".ToUpper(),
 				Name = "علی",
 				Family = "سعیدی",
+				Status = UserStatus.Active,
 				SecurityStamp = Guid.NewGuid().ToString("D")
-			};
+            };
 			var user4 = new ApplicationUser
 			{
 				Id = 4,
@@ -122,8 +125,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 				NormalizedEmail = "REZA@GMAIL.COM".ToUpper(),
 				Name = "رضا",
 				Family = "شریفی",
+				Status = UserStatus.Active,
 				SecurityStamp = Guid.NewGuid().ToString("D")
-			};
+            };
 			var user5 = new ApplicationUser
 			{
 				Id = 5,
@@ -133,6 +137,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 				NormalizedEmail = "SAEED@GMAIL.COM".ToUpper(),
 				Name = "سعید",
 				Family = "افشار",
+				Status = UserStatus.Active,
 				SecurityStamp = Guid.NewGuid().ToString("D")
 			};
 			user1.PasswordHash = hasher.HashPassword(user1, "2682");

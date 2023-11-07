@@ -1,0 +1,58 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+
+@model List<ProvinceDto>;
+
+<div class="">
+    <select name="provinceId" onchange="getProducts(this.value)" class="form-select w-50 p-2 mb-2">
+        <option selected="" value="">...</option>
+        @foreach (var province in Model)
+        {
+
+            <option value="@province.Id">@province.Name</option>
+        }
+    </select>
+    <select name="cityId " class="city form-select w-50 p-2 mb-2"></select>
+    <div class="mb-3 Address">
+    </div>
+    <div class="mb-3 PostalCode">
+    </div>
+</div>
+<script>
+    function getProducts(id) {
+        console.log(id);
+        $.get(`https://localhost:7078/Address/GetCitiesByProvinceId/` + `${id}`,
+            function (data) {
+                console.log(data);
+                Make(data);
+            },
+            "json"
+        );
+    }
+    function Make(cities) {
+        console.log(cities)
+        var options = $(`<select name="cityId" class="city form-select w-50 p-2 mb-2">`);
+        cities.forEach(
+            function (city) {
+                console.log(city);
+                var option = $(`<option  value = "${city.id}" > ${city.name}</option>`);
+                options.append(option)
+            }
+        )
+        $(".city").replaceWith(options);
+
+        var main = $(`<div class='mb-3'>`)
+        var lable = $(`<label for='addressDescription' class='form-label' />`).append("آدرس")
+        var input = $(`<input class='form-control'>`).attr("name", "AddressDescription")
+        var postal = $(`<div class='mb-3'>`)
+        var plable = $(`<label for='addressDescription' class='form-label' />`).append("کد پستی")
+        var pinput = $(`<input class='form-control'>`).attr("name", "PostalCode").attr("type", "number")
+
+        main.append(lable);
+        main.append(input);
+        $(".Address").replaceWith(main);
+
+        postal.append(plable);
+        postal.append(pinput);
+        $(".PostalCode").replaceWith(postal);
+    }
+</script>

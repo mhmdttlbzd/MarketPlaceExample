@@ -31,6 +31,16 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Customer
             return entity.Id;
         }
 
+        public async Task<List<GeneralCustomerDto>> GetGeneralCustomers(CancellationToken cancellationToken)
+        {
+            return await _dbContext.Set<Customer>().Select(c => new GeneralCustomerDto
+            {
+                Id = c.Id,
+                CityName = c.Address.City.Name,
+                ProvinsName = c.Address.City.Province.Name
+            }).AsNoTracking().ToListAsync(cancellationToken); 
+        }
+
         public async Task DeleteAsync(int Id, CancellationToken cancellationToken)
         {
             var entity = await _dbContext.Set<Customer>().FindAsync(Id, cancellationToken);
@@ -50,12 +60,13 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Customer
 
         public async Task UpdateAsync(CustomerInputDto input, int id, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<Customer>(input);
-            entity.Id = id;
-            _dbContext.Set<Customer>().Update(entity);
+            var entity = await _dbContext.Set<Customer>().FirstOrDefaultAsync(c => c.Id == id ,cancellationToken);
+            entity.AddressId = input.AddressId;
+            
             
         }
 		public int AllCustomersCount() => _dbContext.Set<Customer>().Count();
 
+       
 	}
 }

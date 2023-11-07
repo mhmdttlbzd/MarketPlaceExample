@@ -31,9 +31,11 @@ namespace MarketPlace.Domain.Services.Application._Customer
             => await _customerRepo.GetByIdAsync(id, cancellationToken);
 
         public async Task UpdateAsync(CustomerInputDto input, int id, CancellationToken cancellationToken)
-           =>await UpdateAsync(input, id, cancellationToken);
+           => await _customerRepo.UpdateAsync(input, id, cancellationToken);
 
 		public int AllCustomersCount() => _customerRepo.AllCustomersCount();
 
-	}
+        public async Task<List<GeneralCustomerDto>> GetGeneralCustomers(CancellationToken cancellationToken)
+            => await _customerRepo.GetGeneralCustomers(cancellationToken);
+    }
 }

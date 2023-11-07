@@ -1,0 +1,68 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@using MarketPlace.Domain.Core.Application.Enums;
+@model List<GeneralSalerDto>;
+
+<div class="app-content pt-3 p-md-3 p-lg-4">
+    <div class="container-xl">
+
+        <div class="tab-content" id="orders-table-tab-content">
+            <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                <div class="app-card app-card-orders-table shadow-sm mb-5">
+                    <div class="app-card-body">
+                        <div class="table-responsive">
+                            <a asp-controller="Saler" asp-action="Create">اضافه کردن</a>
+                            <table class="table app-table-hover mb-0 text-left">
+                                <thead>
+                                    <tr>
+                                        <th class="cell">آیدی</th>
+                                        <th class="cell">نام</th>
+                                        <th class="cell">نام خانوادگی</th>
+                                        <th class="cell">ایمیل</th>
+                                        <th class="cell">استان</th>
+                                        <th class="cell">شهر</th>
+                                        <th class="cell">وضعیت</th>
+                                        <th class="cell">نام غرفه</th>
+                                        <th class="cell">مدال</th>
+                                        <th class="cell"></th>
+                                        <th class="cell"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var saler in Model)
+                                    {
+                                        <tr id="@saler.Id">
+                                            <td class="cell">#@saler.Id</td>
+                                            <td class="cell">@saler.Name</td>
+                                            <td class="cell">@saler.Family</td>
+                                            <td class="cell">@saler.Email</td>
+                                            <td class="cell">@saler.ProvinsName</td>
+                                            <td class="cell">@saler.CityName</td>
+                                            <td class="cell">@saler.Status</td>
+                                            <td class="cell">@saler.BoothName</td>
+                                            <td class="cell">@saler.SalerTypeName</td>
+                                            <td class="cell"><a class="btn-sm app-btn-secondary" asp-controller="Saler" asp-action="Edit" asp-route-id="@saler.Id">ویرایش</a></td>
+                                            @if (saler.Status == UserStatus.Active)
+                                            {
+                                                <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="DeActiveUser" asp-route-id="@saler.Id">غیر فعال کردن</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="ActiveUser" asp-route-id="@saler.Id">فعال کردن</a></td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div><!--//table-responsive-->
+
+                    </div><!--//app-card-body-->
+                </div><!--//app-card-->
+
+            </div><!--//tab-pane-->
+
+        </div><!--//tab-content-->
+
+
+
+    </div><!--//container-fluid-->
+</div><!--//app-content-->

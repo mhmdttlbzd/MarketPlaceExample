@@ -13,5 +13,5 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Order
     {
 		Task<int> GetSaledProductCount(CancellationToken cancellationToken);
 
-	}
+    }
 }

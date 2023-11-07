@@ -19,16 +19,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationFrameWorke\ApplicationFrameWorke.csproj" />
     <ProjectReference Include="..\MarketPlace.Domain.AppServices\MarketPlace.Domain.AppServices.csproj" />
     <ProjectReference Include="..\MarketPlace.Infra.Data.Repoes.Ef\MarketPlace.Infra.Data.Repoes.Ef.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Product\" />
+    <None Include="Views\Customer\Edit.cshtml" />
+    <None Include="Views\Requests\CustomerPictures.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Requests\CustomerPictures.cshtml" />
+    <UpToDateCheckInput Remove="Views\Customer\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Customer\Edit.cshtml" />
   </ItemGroup>
 
 </Project>

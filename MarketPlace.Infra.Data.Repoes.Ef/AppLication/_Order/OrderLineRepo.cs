@@ -3,6 +3,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Order;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Order;
+using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,6 +53,22 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
             entity.Id = id;
             _dbContext.Set<OrderLine>().Update(entity);
           
+        }
+
+        public async Task<List<SaleOrderLineDto>> GetSaledProducts(CancellationToken cancellationToken)
+        {
+            var date = DateTime.Now - TimeSpan.FromDays(7);
+            var QuantitiesList = await _dbContext.Set<OrderLine>()
+                .Where(o => o.Order.Status == OrderStatus.Bought && o.Order.BuyedAt >= date)
+                .Select(o => new SaleOrderLineDto
+                {
+                    CustomerId = o.Order.CustomerId,
+                    dateTime = o.Order.BuyedAt,
+                    ProductName = o.BoothProduct.Product.Name,
+                    Quantity = o.Quantity,
+                    BoothName = o.BoothProduct.Booth.Name
+                }).AsNoTracking().ToListAsync(cancellationToken);
+            return QuantitiesList;
         }
     }
 }

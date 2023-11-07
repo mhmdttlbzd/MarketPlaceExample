@@ -60,21 +60,22 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
 			_dbContext.Set<Order>().Update(entity);
 
 		}
-		public async Task<int> GetSaledProductCount(CancellationToken cancellationToken)
-		{
-			int res = 0;
-			var date = DateTime.Now - TimeSpan.FromDays(7);
-			var QuantitiesList =await _dbContext.Set<Order>()
-				.Where(o => o.Status == OrderStatus.Bought && o.BuyedAt >= date)
-				.Select(o => o.OrderLines.Select(l => l.Quantity).ToList()).AsNoTracking().ToListAsync(cancellationToken);
-			foreach (var item in QuantitiesList)
-			{
-				foreach (var i in item)
-				{
-					res += i;
-				}
-			}
-			return res;
-		}
-	}
+        public async Task<int> GetSaledProductCount(CancellationToken cancellationToken)
+        {
+            int res = 0;
+            var date = DateTime.Now - TimeSpan.FromDays(7);
+            var QuantitiesList = await _dbContext.Set<Order>()
+                .Where(o => o.Status == OrderStatus.Bought && o.BuyedAt >= date)
+                .Select(o => o.OrderLines.Select(l => l.Quantity).ToList()).AsNoTracking().ToListAsync(cancellationToken);
+            foreach (var item in QuantitiesList)
+            {
+                foreach (var i in item)
+                {
+                    res += i;
+                }
+            }
+            return res;
+        }
+
+    }
 }
