@@ -10,5 +10,7 @@ namespace MarketPlace.Domain.Core.Identity.Contract
     public interface IAuthenticationAppService
     {
         Task<SignInResult> Login(string username, string password);
-    }
+        Task Logout();
+
+	}
 }

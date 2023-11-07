@@ -36,5 +36,12 @@ namespace MarketPlace.Endpoint.Mvc.Controllers
             }
             return View("Login");
         }
+
+        [HttpPost] 
+        public async Task<IActionResult> Logout()
+        {
+            await _authenticationAppService.Logout();
+			return LocalRedirect("/Home/");
+		}
     }
 }

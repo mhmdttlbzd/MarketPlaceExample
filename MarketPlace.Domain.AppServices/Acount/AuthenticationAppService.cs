@@ -37,5 +37,9 @@ namespace MarketPlace.Domain.AppServices.Identity
             }
             return null;
         }
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }
