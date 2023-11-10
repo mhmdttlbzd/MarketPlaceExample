@@ -131,6 +131,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
             await _customerService.CreateAsync(new CustomerInputDto(user.Id, addressId), cancellationToken);
             await _unitOfWorks.SaveChangesAsync(cancellationToken);
         }
+
         public async Task CreateSaler(GeneralSalerInputDto inputDto, CancellationToken cancellationToken)
         {
             int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);

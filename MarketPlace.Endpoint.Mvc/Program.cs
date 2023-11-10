@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Identity;
 using MarketPlace.Domain.AppServices;
 using System.Data;
 using MarketPlace.Domain.Services;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
@@ -49,7 +50,6 @@ builder.Services.ConfigureApplicationCookie(option =>
 {
     // cookie setting
     option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-
     option.LoginPath = "/Account/login";
     option.AccessDeniedPath = "/Account/AccessDenied";
     option.SlidingExpiration = true;
@@ -75,5 +75,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseMvc(routes => {
+    routes.MapRoute("AdminRoute", "{area:exists}/{controller=Admin}/{action=index}");
+    routes.MapRoute("default", "{controller = Home}/{action = Index}");
+});
 
 app.Run();
