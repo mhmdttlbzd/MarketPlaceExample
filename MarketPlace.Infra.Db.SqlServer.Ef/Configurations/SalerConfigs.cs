@@ -9,11 +9,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
     {
         public void Configure(EntityTypeBuilder<Saler> builder)
         {
-            builder.ToTable("Salers");
-            builder.HasKey(e => e.Id).HasName("PK_Saler");
-
-            builder.Property(e => e.Id).ValueGeneratedNever(); 
-
             builder.HasOne(d => d.SalerType).WithMany(p => p.Salers)
                 .HasForeignKey(d => d.SalerTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

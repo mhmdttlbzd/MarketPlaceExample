@@ -1,4 +1,7 @@
 ﻿using MarketPlace.Domain.Core;
+using MarketPlace.Domain.Core.Application.Entities._Admin;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
+using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Domain.Core.Identity.Entities;
 using MarketPlace.Infra.Db.SqlServer.Ef.Interceptors;
 using Microsoft.AspNetCore.Identity;
@@ -24,12 +27,22 @@ public class MarketPlaceDbContext : IdentityDbContext<ApplicationUser,Applicatio
 
     
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
 
+        base.OnModelCreating(builder);
+        builder.Entity<ApplicationUser>(entity => { entity.ToTable("Accounts"); });
+        builder.Entity<Customer>(entity => { entity.ToTable("Customers"); });
+        builder.Entity<Saler>(entity => { entity.ToTable("Salers"); });
+        builder.Entity<Admin>(entity => { entity.ToTable("Admins"); });
+        builder.Entity<IdentityRole<int>>(entity => { entity.ToTable("Roles"); });
+        builder.Entity<IdentityUserRole<int>>(entity => { entity.ToTable("AccountRoles"); });
+        builder.Entity<IdentityUserClaim<int>>(entity => { entity.ToTable("AccountClaims"); });
+        builder.Entity<IdentityUserLogin<int>>(entity => { entity.ToTable("AccountLogins"); });
+        builder.Entity<IdentityUserToken<int>>(entity => { entity.ToTable("AccountTokens"); });
+        builder.Entity<IdentityRoleClaim<int>>(entity => { entity.ToTable("RoleClaims"); });
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        base.OnModelCreating(modelBuilder);
     }
 
 

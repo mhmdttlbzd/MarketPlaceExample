@@ -1,4 +1,4 @@
-using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
+using Microsoft.EntityFrameworkCore;
 using MarketPlace.Domain.Core.Identity.Entities;
 using MarketPlace.Infra.Data.Repoes.Ef;
 using MarketPlace.Infra.Db.SqlServer.Ef;
@@ -7,6 +7,11 @@ using MarketPlace.Domain.AppServices;
 using System.Data;
 using MarketPlace.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
+using MarketPlace.Domain.Core.Application.Entities._Saler;
+using MarketPlace.Domain.Core.Application.Entities._Admin;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +24,28 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddAppServices();
 
-builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
-.AddEntityFrameworkStores<MarketPlaceDbContext>()
-.AddDefaultTokenProviders()
-.AddRoles<ApplicationRole>();
+builder.Services.AddIdentity<ApplicationUser , ApplicationRole>(options =>
+{
+    options.Password.RequireDigit = false;
+}).AddEntityFrameworkStores<MarketPlaceDbContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.AddIdentityCore<Customer>(options =>
+{
+    options.Password.RequireDigit = false;
+}).AddEntityFrameworkStores<MarketPlaceDbContext>().AddDefaultTokenProviders();
+
+ builder.Services.AddIdentityCore<Saler>(options =>
+{
+    options.Password.RequireDigit = false;
+}).AddEntityFrameworkStores<MarketPlaceDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddIdentityCore<Admin>(options =>
+{
+    options.Password.RequireDigit = false;
+}).AddEntityFrameworkStores<MarketPlaceDbContext>().AddDefaultTokenProviders();
+
+
 builder.Services.Configure<IdentityOptions>(option =>
 {
     //UserSetting

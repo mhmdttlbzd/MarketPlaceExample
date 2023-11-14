@@ -27,22 +27,22 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._CustomAttribute
             _dbContext = dbContext;
             //_entities = _dbContext.Set<CustomAttributeTemplate>();
         }
-        public async Task<List<AttributeTemplateOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-    => _mapper.Map<List<AttributeTemplateOutputDto>>(await _dbContext.Set<CustomAttributeTemplate>().ToListAsync(cancellationToken));
+        public async Task<List<AttributeTemplateDto>> GetAllAsync(CancellationToken cancellationToken)
+    => _mapper.Map<List<AttributeTemplateDto>>(await _dbContext.Set<CustomAttributeTemplate>().ToListAsync(cancellationToken));
 
 
 
-        public async Task<AttributeTemplateOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<AttributeTemplateOutputDto>(await _dbContext.Set<CustomAttributeTemplate>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+        public async Task<AttributeTemplateDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
+            => _mapper.Map<AttributeTemplateDto>(await _dbContext.Set<CustomAttributeTemplate>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
-        public async Task UpdateAsync(AttributeTemplateInputDto input, int id, CancellationToken cancellationToken)
+        public async Task UpdateAsync(AttributeTemplateDto input, int id, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<CustomAttributeTemplate>(input);
             entity.Id = id;
             _dbContext.Set<CustomAttributeTemplate>().Update(entity);
            
         }
-        public async Task<int> CreateAsync(AttributeTemplateInputDto InputDto, CancellationToken cancellationToken)
+        public async Task<int> CreateAsync(AttributeTemplateDto InputDto, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<CustomAttributeTemplate>(InputDto);
             await _dbContext.Set<CustomAttributeTemplate>().AddAsync(entity, cancellationToken);
@@ -52,9 +52,19 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._CustomAttribute
 
         public async Task DeleteAsync(int Id, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Set<Booth>().FindAsync(Id, cancellationToken);
-            _dbContext.Set<Booth>().Remove(entity);
+            var entity = await _dbContext.Set<CustomAttributeTemplate>().FirstOrDefaultAsync(c => c.Id ==Id, cancellationToken);
+            _dbContext.Set<CustomAttributeTemplate>().Remove(entity);
 
+        }
+
+        public async Task<List<AttributeTemplateDto>> GetByCategoryId(int? id,CancellationToken cancellationToken)
+        {
+             return await _dbContext.Set<CategoryCustomAttribute>().Where(c => c.CategoryId == id)
+                .Select(c => new AttributeTemplateDto
+                {
+                    Id = c.CustomAttributeTemplateId,
+                    Title = c.CustomAttributeTemplate.Title
+                }).ToListAsync(cancellationToken);
         }
     }
 }

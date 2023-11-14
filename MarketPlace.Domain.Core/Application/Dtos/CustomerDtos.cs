@@ -43,6 +43,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 		public string? Email { get; set; }
 		public string? Name { get; set; }
 		public string? Family { get; set; }
+        public MainAddressOutputDto Address { get; set; }
 	}
 	#endregion
 }

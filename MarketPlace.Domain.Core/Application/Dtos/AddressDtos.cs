@@ -10,13 +10,18 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 {
 
     #region MainAddress
-    public record MainAddressOutputDto(
-        int Id, int CityId, string Address, int PostalCode, ICollection<Booth> Booths,
-         CityDto City, ICollection<CustomerOutputDto> Customers
-        );
+
     public record MainAddressInputDto(
         int CityId, string Address, int PostalCode
         );
+    public record MainAddressOutputDto
+    {
+        public int CityId { get; set; }
+        public int PostalCode { get; set; }
+        public string Description { get; set; }
+        public int ProvinceId { get; set; }
+    }
+
     #endregion
 
 

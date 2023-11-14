@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Identity.Entities;
 
 namespace MarketPlace.Domain.Core.Application.Entities._Saler;
 

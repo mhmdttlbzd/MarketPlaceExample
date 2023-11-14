@@ -18,7 +18,7 @@ namespace MarketPlace.Domain.Services.Application._CustomAttribute
             _attributeTemplateRepo = attributeTemplateRepo;
         }
 
-        public async Task<int> CreateAsync(AttributeTemplateInputDto input, CancellationToken cancellationToken)
+        public async Task<int> CreateAsync(AttributeTemplateDto input, CancellationToken cancellationToken)
         {
             return await _attributeTemplateRepo.CreateAsync(input, cancellationToken);
         }
@@ -28,19 +28,21 @@ namespace MarketPlace.Domain.Services.Application._CustomAttribute
             await _attributeTemplateRepo.DeleteAsync(id, cancellationToken);
         }
 
-        public async Task<List<AttributeTemplateOutputDto>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<List<AttributeTemplateDto>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _attributeTemplateRepo.GetAllAsync(cancellationToken);
         }
 
-        public async Task<AttributeTemplateOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<AttributeTemplateDto> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
             return await _attributeTemplateRepo.GetByIdAsync(id, cancellationToken);
         }
 
-        public async Task UpdateAsync(AttributeTemplateInputDto input, int id, CancellationToken cancellationToken)
+        public async Task UpdateAsync(AttributeTemplateDto input, int id, CancellationToken cancellationToken)
         {
             await _attributeTemplateRepo.UpdateAsync(input, id, cancellationToken);
         }
+        public async Task<List<AttributeTemplateDto>> GetByCategoryId(int? id, CancellationToken cancellationToken)
+            => await _attributeTemplateRepo.GetByCategoryId(id, cancellationToken);
     }
 }

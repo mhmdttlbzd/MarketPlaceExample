@@ -10,7 +10,7 @@ namespace MarketPlace.Domain.Core.Identity.Contract
     public interface ICustomerAppService
     {
         Task UpdateCustomer(GeneralCustomerInputDto inputDto, CancellationToken cancellationToken);
-        Task<GeneralCustomerEditDto> GetById(int id);
+        Task<GeneralCustomerEditDto> GetById(int id,CancellationToken cancellationToken);
 
 	}
 }

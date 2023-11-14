@@ -27,6 +27,5 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Product
 
         public async Task<CategoryDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
             => _mapper.Map<CategoryDto>(await _dbContext.Set<Category>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
-
     }
 }

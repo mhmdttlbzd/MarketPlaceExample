@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.Infra.Data.Repo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.Endpoint.Mvc", "MarketPlace.Endpoint.Mvc\MarketPlace.Endpoint.Mvc.csproj", "{C7AD21AB-A1B0-4A03-BFE7-82B45562B22A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationFrameWorke", "ApplicationFrameWorke\ApplicationFrameWorke.csproj", "{C351A254-C28B-40B2-9F0A-0A22EB904CD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationFrameWorke", "ApplicationFrameWorke\ApplicationFrameWorke.csproj", "{C351A254-C28B-40B2-9F0A-0A22EB904CD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

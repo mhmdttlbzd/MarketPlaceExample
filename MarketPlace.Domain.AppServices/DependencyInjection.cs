@@ -23,6 +23,7 @@ namespace MarketPlace.Domain.AppServices
             services.AddScoped<IAddressAppService, AddressAppService>();
             services.AddScoped<ICustomerAppService, CustomerAppService>();
             services.AddScoped<ISalerAppService, SalerAppService>();
+            services.AddScoped<ICategoryAppService, CategoryAppService>();
         }
     }
 }

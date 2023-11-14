@@ -59,7 +59,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             FromWalletId = 2,
                             PaidPrice = 1000000L,
                             SaleType = 2,
-                            Time = new DateTime(2023, 11, 12, 16, 15, 54, 538, DateTimeKind.Local).AddTicks(8083),
+                            Time = new DateTime(2023, 11, 6, 9, 59, 19, 163, DateTimeKind.Local).AddTicks(4132),
                             ToWalletId = 5,
                             Wage = 50000
                         },
@@ -69,7 +69,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             FromWalletId = 2,
                             PaidPrice = 500000L,
                             SaleType = 2,
-                            Time = new DateTime(2023, 11, 12, 16, 15, 54, 538, DateTimeKind.Local).AddTicks(8097),
+                            Time = new DateTime(2023, 11, 6, 9, 59, 19, 163, DateTimeKind.Local).AddTicks(4154),
                             ToWalletId = 5,
                             Wage = 25000
                         },
@@ -79,7 +79,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             FromWalletId = 2,
                             PaidPrice = 100000L,
                             SaleType = 2,
-                            Time = new DateTime(2023, 11, 12, 16, 15, 54, 538, DateTimeKind.Local).AddTicks(8099),
+                            Time = new DateTime(2023, 11, 6, 9, 59, 19, 163, DateTimeKind.Local).AddTicks(4156),
                             ToWalletId = 5,
                             Wage = 5000
                         },
@@ -89,7 +89,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             FromWalletId = 2,
                             PaidPrice = 1400000L,
                             SaleType = 2,
-                            Time = new DateTime(2023, 11, 12, 16, 15, 54, 538, DateTimeKind.Local).AddTicks(8100),
+                            Time = new DateTime(2023, 11, 6, 9, 59, 19, 163, DateTimeKind.Local).AddTicks(4158),
                             ToWalletId = 4,
                             Wage = 75000
                         },
@@ -99,7 +99,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             FromWalletId = 3,
                             PaidPrice = 1300000L,
                             SaleType = 2,
-                            Time = new DateTime(2023, 11, 12, 16, 15, 54, 538, DateTimeKind.Local).AddTicks(8102),
+                            Time = new DateTime(2023, 11, 6, 9, 59, 19, 163, DateTimeKind.Local).AddTicks(4159),
                             ToWalletId = 4,
                             Wage = 65000
                         });
@@ -217,8 +217,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("int");
+                    b.Property<long>("PostalCode")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasName("PK_Address");
@@ -233,36 +233,36 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 1,
                             Address = "خیابان رحمت جنب کوچه 2",
                             CityId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5214),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2072),
                             IsDeleted = false,
-                            PostalCode = 1626627277
+                            PostalCode = 2626627277L
                         },
                         new
                         {
                             Id = 2,
                             Address = "خیابان ملاصدرا جنب کوچه 2",
                             CityId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5225),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2079),
                             IsDeleted = false,
-                            PostalCode = 1234567890
+                            PostalCode = 1234567890L
                         },
                         new
                         {
                             Id = 3,
                             Address = "خیابان شهناز جنب کوچه 2",
                             CityId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5227),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2081),
                             IsDeleted = false,
-                            PostalCode = 1634567611
+                            PostalCode = 2634567611L
                         },
                         new
                         {
                             Id = 4,
                             Address = "خیابان داریوش جنب کوچه 2",
                             CityId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5228),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2083),
                             IsDeleted = false,
-                            PostalCode = 1213435657
+                            PostalCode = 1213435657L
                         });
                 });
 
@@ -306,6 +306,32 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 5,
                             Name = "آذربایجان شرقی"
+                        });
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Admin.Admin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PersonalCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id")
+                        .HasName("PK_Admin");
+
+                    b.ToTable("Admins", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PersonalCode = "2682"
                         });
                 });
 
@@ -360,9 +386,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 1,
                             BasePrice = 500000L,
                             BoothId = 4,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(7717),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(4547),
                             Description = "یک کار ترک عالی با قیمتی باور نکردنی همین کار رو داخل غرفه و جنس ایرانی داریم میفروشیم یک ملیون نخری ضرر کردی",
-                            ExpiredTime = new DateTime(2023, 11, 19, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(7720),
+                            ExpiredTime = new DateTime(2023, 11, 13, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(4551),
                             IsDeleted = false,
                             ProductId = 20
                         });
@@ -437,9 +463,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.HasKey("Id")
                         .HasName("PK_Booth");
 
-                    b.HasIndex("ShopAddressId")
-                        .IsUnique()
-                        .HasFilter("[ShopAddressId] IS NOT NULL");
+                    b.HasIndex("ShopAddressId");
 
                     b.ToTable("Booths", (string)null);
 
@@ -447,7 +471,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(9258),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5878),
                             IsDeleted = false,
                             Name = "رضا لباس",
                             ShopAddressId = 3
@@ -455,7 +479,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(9263),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5883),
                             IsDeleted = false,
                             Name = "برادران افشار",
                             ShopAddressId = 4
@@ -669,121 +693,121 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             BoothProductId = 1,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8638),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5425),
                             Price = 400000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8641)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5429)
                         },
                         new
                         {
                             Id = 2,
                             BoothProductId = 2,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8653),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5440),
                             Price = 300000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8654)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5441)
                         },
                         new
                         {
                             Id = 3,
                             BoothProductId = 3,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8657),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5443),
                             Price = 300000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8658)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5445)
                         },
                         new
                         {
                             Id = 4,
                             BoothProductId = 4,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8686),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5447),
                             Price = 1000000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8687)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5448)
                         },
                         new
                         {
                             Id = 5,
                             BoothProductId = 5,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8690),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5449),
                             Price = 700000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8690)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5450)
                         },
                         new
                         {
                             Id = 6,
                             BoothProductId = 6,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8693),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5452),
                             Price = 700000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8694)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5453)
                         },
                         new
                         {
                             Id = 7,
                             BoothProductId = 7,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8696),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5455),
                             Price = 700000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8697)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5455)
                         },
                         new
                         {
                             Id = 8,
                             BoothProductId = 8,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8699),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5457),
                             Price = 700000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8700)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5467)
                         },
                         new
                         {
                             Id = 9,
                             BoothProductId = 9,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8702),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5469),
                             Price = 700000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8703)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5470)
                         },
                         new
                         {
                             Id = 10,
                             BoothProductId = 10,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8705),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5479),
                             Price = 500000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8706)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5496)
                         },
                         new
                         {
                             Id = 11,
                             BoothProductId = 11,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8708),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5499),
                             Price = 500000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8709)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5500)
                         },
                         new
                         {
                             Id = 12,
                             BoothProductId = 12,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8711),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5502),
                             Price = 500000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8712)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5503)
                         },
                         new
                         {
                             Id = 13,
                             BoothProductId = 13,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8714),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5505),
                             Price = 20000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8715)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5506)
                         },
                         new
                         {
                             Id = 14,
                             BoothProductId = 14,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8717),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5508),
                             Price = 100000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8717)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5509)
                         },
                         new
                         {
                             Id = 15,
                             BoothProductId = 15,
-                            FromDate = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8719),
+                            FromDate = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5510),
                             Price = 500000L,
-                            ToDate = new DateTime(2023, 12, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(8720)
+                            ToDate = new DateTime(2023, 12, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(5511)
                         });
                 });
 
@@ -841,7 +865,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(894),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(368),
                             CustomerId = 2,
                             Description = "عالی واقعا راضی بودم از همین برا دمکنی و دستگیره استفاده میکنم",
                             IsDeleted = false,
@@ -852,7 +876,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 2,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(900),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(400),
                             CustomerId = 2,
                             Description = "عالی",
                             IsDeleted = false,
@@ -863,7 +887,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 3,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(902),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(401),
                             CustomerId = 3,
                             Description = "بد بود",
                             IsDeleted = false,
@@ -874,7 +898,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 4,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(904),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(403),
                             CustomerId = 3,
                             Description = "راضی بودم ولی خاک تو سرشون با بسته بندیشون",
                             IsDeleted = false,
@@ -885,7 +909,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 5,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(906),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(405),
                             CustomerId = 2,
                             Description = "دوسش داشتم",
                             IsDeleted = false,
@@ -896,7 +920,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 6,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(908),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(407),
                             CustomerId = 2,
                             Description = "برا بابام کادو گرفتم هنوز ندیده که بگم خوبه یا بد",
                             IsDeleted = false,
@@ -907,7 +931,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 7,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(909),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(409),
                             CustomerId = 3,
                             Description = "بدک نبود",
                             IsDeleted = false,
@@ -918,7 +942,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 8,
                             BoothProductId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(911),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(411),
                             CustomerId = 3,
                             Description = "خیلی خوب دمتون گرم",
                             IsDeleted = false,
@@ -929,7 +953,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 9,
                             BoothProductId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(913),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(413),
                             CustomerId = 2,
                             Description = "مضخرف",
                             IsDeleted = false,
@@ -940,7 +964,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 10,
                             BoothProductId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 13, DateTimeKind.Local).AddTicks(914),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(415),
                             CustomerId = 2,
                             Description = "یه هفتس خریدم به دستم نرسیده",
                             IsDeleted = false,
@@ -1086,7 +1110,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 1,
                             AttributeId = 1,
                             AttributeValue = "2kg",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6810),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3857),
                             IsDeleted = false,
                             ProductId = 1
                         },
@@ -1095,7 +1119,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 2,
                             AttributeId = 1,
                             AttributeValue = "300g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6814),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3863),
                             IsDeleted = false,
                             ProductId = 2
                         },
@@ -1104,7 +1128,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 3,
                             AttributeId = 1,
                             AttributeValue = "500g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6816),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3865),
                             IsDeleted = false,
                             ProductId = 3
                         },
@@ -1113,7 +1137,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 4,
                             AttributeId = 1,
                             AttributeValue = "100g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6817),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3866),
                             IsDeleted = false,
                             ProductId = 4
                         },
@@ -1122,7 +1146,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 5,
                             AttributeId = 1,
                             AttributeValue = "50g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6819),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3868),
                             IsDeleted = false,
                             ProductId = 5
                         },
@@ -1131,7 +1155,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 6,
                             AttributeId = 1,
                             AttributeValue = "150g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6820),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3870),
                             IsDeleted = false,
                             ProductId = 6
                         },
@@ -1140,7 +1164,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 7,
                             AttributeId = 1,
                             AttributeValue = "500g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6821),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3872),
                             IsDeleted = false,
                             ProductId = 7
                         },
@@ -1149,7 +1173,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 8,
                             AttributeId = 1,
                             AttributeValue = "300g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6823),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3873),
                             IsDeleted = false,
                             ProductId = 8
                         },
@@ -1158,7 +1182,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 9,
                             AttributeId = 1,
                             AttributeValue = "3kg",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6824),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3875),
                             IsDeleted = false,
                             ProductId = 9
                         },
@@ -1167,7 +1191,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 10,
                             AttributeId = 1,
                             AttributeValue = "400g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6826),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3876),
                             IsDeleted = false,
                             ProductId = 10
                         },
@@ -1176,7 +1200,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 11,
                             AttributeId = 1,
                             AttributeValue = "200g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6827),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3878),
                             IsDeleted = false,
                             ProductId = 11
                         },
@@ -1185,7 +1209,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 12,
                             AttributeId = 1,
                             AttributeValue = "5kg",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6829),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3880),
                             IsDeleted = false,
                             ProductId = 12
                         },
@@ -1194,7 +1218,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 13,
                             AttributeId = 1,
                             AttributeValue = "500g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6831),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3881),
                             IsDeleted = false,
                             ProductId = 13
                         },
@@ -1203,7 +1227,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 14,
                             AttributeId = 1,
                             AttributeValue = "500g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6832),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3883),
                             IsDeleted = false,
                             ProductId = 14
                         },
@@ -1212,7 +1236,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 15,
                             AttributeId = 1,
                             AttributeValue = "900g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6834),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3884),
                             IsDeleted = false,
                             ProductId = 15
                         },
@@ -1221,7 +1245,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 16,
                             AttributeId = 1,
                             AttributeValue = "100g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6835),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3886),
                             IsDeleted = false,
                             ProductId = 17
                         },
@@ -1230,7 +1254,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 17,
                             AttributeId = 1,
                             AttributeValue = "100g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6837),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3888),
                             IsDeleted = false,
                             ProductId = 18
                         },
@@ -1239,7 +1263,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 18,
                             AttributeId = 1,
                             AttributeValue = "100g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6838),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3889),
                             IsDeleted = false,
                             ProductId = 19
                         },
@@ -1248,7 +1272,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 19,
                             AttributeId = 1,
                             AttributeValue = "50g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6839),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3891),
                             IsDeleted = false,
                             ProductId = 20
                         },
@@ -1257,7 +1281,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 20,
                             AttributeId = 1,
                             AttributeValue = "400g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6841),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3893),
                             IsDeleted = false,
                             ProductId = 21
                         },
@@ -1266,7 +1290,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 21,
                             AttributeId = 1,
                             AttributeValue = "300g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6842),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3894),
                             IsDeleted = false,
                             ProductId = 22
                         },
@@ -1275,7 +1299,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 22,
                             AttributeId = 1,
                             AttributeValue = "50g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6844),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3896),
                             IsDeleted = false,
                             ProductId = 23
                         },
@@ -1284,7 +1308,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 23,
                             AttributeId = 1,
                             AttributeValue = "50g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6845),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3897),
                             IsDeleted = false,
                             ProductId = 24
                         },
@@ -1293,7 +1317,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 24,
                             AttributeId = 1,
                             AttributeValue = "50g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6847),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3899),
                             IsDeleted = false,
                             ProductId = 25
                         },
@@ -1302,7 +1326,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 25,
                             AttributeId = 1,
                             AttributeValue = "50g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6849),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3901),
                             IsDeleted = false,
                             ProductId = 16
                         },
@@ -1311,9 +1335,36 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                             Id = 26,
                             AttributeId = 1,
                             AttributeValue = "50g",
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(6850),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(3902),
                             IsDeleted = false,
                             ProductId = 26
+                        });
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Customers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AddressId = 2
                         });
                 });
 
@@ -1345,35 +1396,35 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         new
                         {
                             Id = 1,
-                            BuyedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5945),
+                            BuyedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2969),
                             CustomerId = 2,
                             Status = 3
                         },
                         new
                         {
                             Id = 2,
-                            BuyedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5948),
+                            BuyedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2974),
                             CustomerId = 2,
                             Status = 3
                         },
                         new
                         {
                             Id = 3,
-                            BuyedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5949),
+                            BuyedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2975),
                             CustomerId = 2,
                             Status = 3
                         },
                         new
                         {
                             Id = 4,
-                            BuyedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5951),
+                            BuyedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2977),
                             CustomerId = 2,
                             Status = 3
                         },
                         new
                         {
                             Id = 5,
-                            BuyedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(5952),
+                            BuyedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(2978),
                             CustomerId = 3,
                             Status = 3
                         });
@@ -1499,7 +1550,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             AuctionId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(7342),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(4071),
                             IsDeleted = false,
                             PictureId = 6,
                             Status = 1
@@ -1508,7 +1559,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 2,
                             AuctionId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(7366),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(4097),
                             IsDeleted = false,
                             PictureId = 7,
                             Status = 1
@@ -1517,7 +1568,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 3,
                             AuctionId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(7368),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(4099),
                             IsDeleted = false,
                             PictureId = 8,
                             Status = 1
@@ -1526,7 +1577,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 4,
                             AuctionId = 1,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 12, DateTimeKind.Local).AddTicks(7370),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 269, DateTimeKind.Local).AddTicks(4100),
                             IsDeleted = false,
                             PictureId = 9,
                             Status = 1
@@ -1651,7 +1702,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7179),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(4366),
                             CustomerId = 2,
                             IsDeleted = false,
                             PictureId = 1,
@@ -1661,7 +1712,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 2,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7183),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(4371),
                             CustomerId = 2,
                             IsDeleted = false,
                             PictureId = 2,
@@ -1671,7 +1722,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 3,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7184),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(4373),
                             CustomerId = 2,
                             IsDeleted = false,
                             PictureId = 3,
@@ -1722,7 +1773,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7481),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(4812),
                             IsDeleted = false,
                             PictureId = 4,
                             Status = 1
@@ -1731,7 +1782,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 2,
                             BoothProductId = 15,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7484),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(4817),
                             IsDeleted = false,
                             PictureId = 5,
                             Status = 1
@@ -2100,7 +2151,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 1,
                             CategoryId = 13,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7954),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5275),
                             IsDeleted = false,
                             Name = "سرویس قابلمه 8 پارچه گرانیت",
                             Status = 2
@@ -2109,7 +2160,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 2,
                             CategoryId = 13,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7959),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5282),
                             IsDeleted = false,
                             Name = "کباب زن آرکا",
                             Status = 2
@@ -2118,7 +2169,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 3,
                             CategoryId = 13,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7961),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5285),
                             IsDeleted = false,
                             Name = "کباب روگازی کیوبی",
                             Status = 2
@@ -2127,7 +2178,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 4,
                             CategoryId = 16,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7963),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5288),
                             IsDeleted = false,
                             Name = "ظرف پلاستیکی یکبار مصرف",
                             Status = 2
@@ -2136,7 +2187,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 5,
                             CategoryId = 16,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7965),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5290),
                             IsDeleted = false,
                             Name = "لیوان کاغذی 50 عددی cc220",
                             Status = 1
@@ -2145,7 +2196,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 6,
                             CategoryId = 18,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7969),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5292),
                             IsDeleted = false,
                             Name = "دستگیره درب یخچال پارس",
                             Status = 1
@@ -2154,7 +2205,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 7,
                             CategoryId = 19,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7971),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5295),
                             IsDeleted = false,
                             Name = "فانل گتر قهوه سایز 51 مگنتیفانل گتر قهوه سایز 51 مگنتی",
                             Status = 1
@@ -2163,7 +2214,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 8,
                             CategoryId = 19,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7973),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5297),
                             IsDeleted = false,
                             Name = "قهوه جوش مسی دسته چوبی سیمین مس سایز یک",
                             Status = 2
@@ -2172,7 +2223,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 9,
                             CategoryId = 20,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7975),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5299),
                             IsDeleted = false,
                             Name = "جاروبرقی سطلی بوش",
                             Status = 1
@@ -2181,7 +2232,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 10,
                             CategoryId = 20,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7977),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5302),
                             IsDeleted = false,
                             Name = "جارو شارژی ماشین مدل HQ-01",
                             Status = 2
@@ -2190,7 +2241,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 11,
                             CategoryId = 21,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7980),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5304),
                             IsDeleted = false,
                             Name = "کاور مبل هفت نفره ماشال",
                             Status = 1
@@ -2199,7 +2250,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 12,
                             CategoryId = 21,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7982),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5307),
                             IsDeleted = false,
                             Name = "مبل راحتی اسکارلت 7 نفره پایه فلزی",
                             Status = 2
@@ -2208,7 +2259,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 13,
                             CategoryId = 22,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7984),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5309),
                             IsDeleted = false,
                             Name = "میز تحریر تاشو پنل دار وایت بردی (سایز 70)",
                             Status = 2
@@ -2217,7 +2268,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 14,
                             CategoryId = 23,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7986),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5311),
                             IsDeleted = false,
                             Name = "صندلی نماز حرمی قهوه ای کد 10(پایه استیل)",
                             Status = 2
@@ -2226,7 +2277,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 15,
                             CategoryId = 23,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7988),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5314),
                             IsDeleted = false,
                             Name = "صندلی گیمینگ ،صندلی گیم اریا ",
                             Status = 2
@@ -2235,7 +2286,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 16,
                             CategoryId = 29,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7991),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5316),
                             IsDeleted = false,
                             Name = "پیراهن مردانه پشمی تک جیب",
                             Status = 2
@@ -2244,7 +2295,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 17,
                             CategoryId = 29,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7993),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5318),
                             IsDeleted = false,
                             Name = "پیراهن مردانه بنگال کشی",
                             Status = 2
@@ -2253,7 +2304,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 18,
                             CategoryId = 29,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7996),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5321),
                             IsDeleted = false,
                             Name = "پیراهن مردانه تترون درجه یک",
                             Status = 2
@@ -2262,7 +2313,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 19,
                             CategoryId = 31,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(7998),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5324),
                             IsDeleted = false,
                             Name = "جلیقه مردانه",
                             Status = 2
@@ -2271,7 +2322,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 20,
                             CategoryId = 31,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(8000),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5349),
                             IsDeleted = false,
                             Name = "کت و شلوار فاستونی",
                             Status = 2
@@ -2280,7 +2331,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 21,
                             CategoryId = 31,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(8002),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5353),
                             IsDeleted = false,
                             Name = "کت وشلوار سوپر کش",
                             Status = 1
@@ -2289,7 +2340,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 22,
                             CategoryId = 32,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(8004),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5355),
                             IsDeleted = false,
                             Name = "عینک آفتابی مردانه شیشه سنگ امریکن اپتیک AO",
                             Status = 2
@@ -2298,7 +2349,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 23,
                             CategoryId = 32,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(8007),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5357),
                             IsDeleted = false,
                             Name = "عینک آفتابی مارک جنتل مانستر دارای یووی 400",
                             Status = 2
@@ -2307,7 +2358,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 24,
                             CategoryId = 32,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(8009),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5360),
                             IsDeleted = false,
                             Name = "عینک آفتابی مارک پلیس و دیتیا دارای یووی 400 ",
                             Status = 2
@@ -2316,7 +2367,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 25,
                             CategoryId = 32,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(8011),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5362),
                             IsDeleted = false,
                             Name = "عینک ریبن خلبانی شیشه سنگ با پک کامل اورجینال",
                             Status = 2
@@ -2325,10 +2376,54 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         {
                             Id = 26,
                             CategoryId = 32,
-                            CreatedAt = new DateTime(2023, 11, 12, 16, 15, 54, 261, DateTimeKind.Local).AddTicks(8013),
+                            CreatedAt = new DateTime(2023, 11, 6, 9, 59, 17, 270, DateTimeKind.Local).AddTicks(5364),
                             IsDeleted = false,
                             Name = "عینک آفتابی رندلف AO صاایران",
                             Status = 2
+                        });
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SalerTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id")
+                        .HasName("PK_Saler");
+
+                    b.HasIndex("SalerTypeId");
+
+                    b.ToTable("Salers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            SalerTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            SalerTypeId = 1
                         });
                 });
 
@@ -2497,9 +2592,103 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
 
-                    b.UseTptMappingStrategy();
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6d7b79a7-f118-4536-98d8-669e239c0633",
+                            Email = "mhmdttlbzd@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "طالب زاده",
+                            LockoutEnabled = false,
+                            Name = "محمد",
+                            NormalizedEmail = "MHMDTTLBZD@GMAIL.COM",
+                            NormalizedUserName = "MHMDTTLBZD@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBAmpYO0e9yQKN2itHlQl7IZ/6qNcBZGuqwidvUiILWQvC40eVRBqdX/LUe5rnbKjw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "37b71016-f575-44c5-989f-993d0ff7139d",
+                            Status = 1,
+                            TwoFactorEnabled = false,
+                            UserName = "mhmdttlbzd@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ecb60f53-1d5c-4e02-af3c-dcd7e3c23fd8",
+                            Email = "example@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "علی زاده",
+                            LockoutEnabled = false,
+                            Name = "محمد",
+                            NormalizedUserName = "EXAMPLE@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENOSBZi71lQ5BCsW5jOe9ao1Gn+13F8glTVQdR1QZeKJmKyhfQ+uygGMy+/UZXqeLw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "371350bb-a49a-43bd-a9be-93929c770c99",
+                            Status = 1,
+                            TwoFactorEnabled = false,
+                            UserName = "example@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "efc073e2-665f-471c-9c7c-54192f4f3857",
+                            Email = "ali@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "سعیدی",
+                            LockoutEnabled = false,
+                            Name = "علی",
+                            NormalizedEmail = "ALI@GMAIL.COM",
+                            NormalizedUserName = "ALI@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA4EUxjLv5WXudvNUkv8f5RCoM6E6fNhEz6otxRkJEFDDam9e3tnquQv6WIRZSVjLg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "0cd55188-e23d-4073-be57-88b3e7c9a968",
+                            Status = 1,
+                            TwoFactorEnabled = false,
+                            UserName = "ali@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7c4aed67-1132-442c-8c82-a9439f68ccb9",
+                            Email = "reza@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "شریفی",
+                            LockoutEnabled = false,
+                            Name = "رضا",
+                            NormalizedEmail = "REZA@GMAIL.COM",
+                            NormalizedUserName = "REZA@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF7cV1Sv/wYQDTdOwQGliH8I6+znjeiC28ZDEzJf7BBeAyBnsyLn4T1AJRjMJs9m0A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b1bb6403-db2f-4e41-8963-aa4774017b25",
+                            Status = 1,
+                            TwoFactorEnabled = false,
+                            UserName = "reza@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "01433c61-432d-42d0-9ff8-7f66885e9813",
+                            Email = "saeed@gmail.com",
+                            EmailConfirmed = false,
+                            Family = "افشار",
+                            LockoutEnabled = false,
+                            Name = "سعید",
+                            NormalizedEmail = "SAEED@GMAIL.COM",
+                            NormalizedUserName = "SAEED@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEKII7jgWnoKa2zrX4TKQp3TdcLytrvucyr4z6YDd0TBCgnflkk27vivwGUf4fJghg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "64789b44-c29a-4827-bf71-c17f7ec3527f",
+                            Status = 1,
+                            TwoFactorEnabled = false,
+                            UserName = "saeed@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Identity.Entities.Wallet", b =>
@@ -2545,28 +2734,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -2588,7 +2755,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
@@ -2612,7 +2779,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AccountClaims", (string)null);
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
@@ -2633,7 +2800,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AccountLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -2648,7 +2815,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AccountRoles", (string)null);
+                    b.ToTable("AspNetUserRoles", (string)null);
 
                     b.HasData(
                         new
@@ -2694,150 +2861,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AccountTokens", (string)null);
-                });
-
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Admin.Admin", b =>
-                {
-                    b.HasBaseType("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser");
-
-                    b.Property<string>("PersonalCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.ToTable("Admins", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ebafa75b-bd71-46b3-af6e-361b3d05996f",
-                            Email = "mhmdttlbzd@gmail.com",
-                            EmailConfirmed = false,
-                            Family = "طالب زاده",
-                            LockoutEnabled = false,
-                            Name = "محمد",
-                            NormalizedEmail = "MHMDTTLBZD@GMAIL.COM",
-                            NormalizedUserName = "MHMDTTLBZD@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEENO/MyQBfJ8PUx374tRMaKKaS9qTja+w8lhV1HI8rURPHrEgiIPhAkW4MGYyCMPqA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4cfa88de-1360-42c2-ab83-77e7785e2d1c",
-                            Status = 1,
-                            TwoFactorEnabled = false,
-                            UserName = "mhmdttlbzd@gmail.com",
-                            PersonalCode = "2682"
-                        });
-                });
-
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
-                {
-                    b.HasBaseType("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser");
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("AddressId")
-                        .IsUnique()
-                        .HasFilter("[AddressId] IS NOT NULL");
-
-                    b.ToTable("Customers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e2cdeaa-c14a-419c-b68c-d17037e9ca8d",
-                            Email = "example@gmail.com",
-                            EmailConfirmed = false,
-                            Family = "علی زاده",
-                            LockoutEnabled = false,
-                            Name = "محمد",
-                            NormalizedUserName = "EXAMPLE@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEESoudMfd9Luy8wF/PPd21Kc5oIjvmdms+x/DyCYT/BQcWjRRbsZ18fmn/kiDaMlYg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d679af30-db00-4987-9821-14b14cce63e5",
-                            Status = 1,
-                            TwoFactorEnabled = false,
-                            UserName = "example@gmail.com",
-                            AddressId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6094981a-2843-4e15-ab7c-d419ce7b90c2",
-                            Email = "ali@gmail.com",
-                            EmailConfirmed = false,
-                            Family = "سعیدی",
-                            LockoutEnabled = false,
-                            Name = "علی",
-                            NormalizedEmail = "ALI@GMAIL.COM",
-                            NormalizedUserName = "ALI@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF1b/LUE47+uvT+ztPzm+uqzFmGa/LScpCS4SZ7iHsxt7VdZi06wanD7uL1WTYuJXQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f7e6fb18-49c1-4f17-9fa6-37e46d23a5e9",
-                            Status = 1,
-                            TwoFactorEnabled = false,
-                            UserName = "ali@gmail.com",
-                            AddressId = 2
-                        });
-                });
-
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", b =>
-                {
-                    b.HasBaseType("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser");
-
-                    b.Property<int>("SalerTypeId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("SalerTypeId");
-
-                    b.ToTable("Salers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 4,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9cce170b-f029-4eed-a276-9f82f7cbaed0",
-                            Email = "reza@gmail.com",
-                            EmailConfirmed = false,
-                            Family = "شریفی",
-                            LockoutEnabled = false,
-                            Name = "رضا",
-                            NormalizedEmail = "REZA@GMAIL.COM",
-                            NormalizedUserName = "REZA@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI+W9OYAxS6mxhnx/+MC6DtbJFPluwculws6HujRmKwNW88ao0nCBnorKokpfXI83A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "90b826ce-c1bb-4128-bd1e-74fd19cc53d0",
-                            Status = 1,
-                            TwoFactorEnabled = false,
-                            UserName = "reza@gmail.com",
-                            SalerTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6383aa86-b0d0-4d12-80e9-624b4c60b787",
-                            Email = "saeed@gmail.com",
-                            EmailConfirmed = false,
-                            Family = "افشار",
-                            LockoutEnabled = false,
-                            Name = "سعید",
-                            NormalizedEmail = "SAEED@GMAIL.COM",
-                            NormalizedUserName = "SAEED@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPMmrIzfxOXI79VF2Xpi/u7jkalW+m9ZIOaaHIJ9PHF2CLD1oLMOyCiRW76ewjGx8Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "233d6665-6d65-40a3-9dd9-eb1865679734",
-                            Status = 1,
-                            TwoFactorEnabled = false,
-                            UserName = "saeed@gmail.com",
-                            SalerTypeId = 1
-                        });
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.City", b =>
@@ -2909,8 +2933,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         .HasConstraintName("FK_Booth_Saler");
 
                     b.HasOne("MarketPlace.Domain.Core.Application.Entities._Address.MainAddress", "ShopAddress")
-                        .WithOne("Booth")
-                        .HasForeignKey("MarketPlace.Domain.Core.Application.Entities._Booth.Booth", "ShopAddressId");
+                        .WithMany("Booths")
+                        .HasForeignKey("ShopAddressId")
+                        .HasConstraintName("FK_Booth_Address");
 
                     b.Navigation("Saler");
 
@@ -3003,6 +3028,17 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Navigation("Attribute");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
+                {
+                    b.HasOne("MarketPlace.Domain.Core.Application.Entities._Address.MainAddress", "Address")
+                        .WithMany("Customers")
+                        .HasForeignKey("AddressId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Customers_Address");
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Order.Order", b =>
@@ -3111,6 +3147,17 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", b =>
+                {
+                    b.HasOne("MarketPlace.Domain.Core.Application.Entities._Saler.SalerType", "SalerType")
+                        .WithMany("Salers")
+                        .HasForeignKey("SalerTypeId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Saler_SalerTypes");
+
+                    b.Navigation("SalerType");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationRole", null)
@@ -3162,49 +3209,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Admin.Admin", b =>
-                {
-                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", null)
-                        .WithOne()
-                        .HasForeignKey("MarketPlace.Domain.Core.Application.Entities._Admin.Admin", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
-                {
-                    b.HasOne("MarketPlace.Domain.Core.Application.Entities._Address.MainAddress", "Address")
-                        .WithOne("Customer")
-                        .HasForeignKey("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", null)
-                        .WithOne()
-                        .HasForeignKey("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", b =>
-                {
-                    b.HasOne("MarketPlace.Domain.Core.Identity.Entities.ApplicationUser", null)
-                        .WithOne()
-                        .HasForeignKey("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MarketPlace.Domain.Core.Application.Entities._Saler.SalerType", "SalerType")
-                        .WithMany("Salers")
-                        .HasForeignKey("SalerTypeId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Saler_SalerTypes");
-
-                    b.Navigation("SalerType");
-                });
-
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.City", b =>
                 {
                     b.Navigation("Addresses");
@@ -3212,11 +3216,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.MainAddress", b =>
                 {
-                    b.Navigation("Booth")
-                        .IsRequired();
+                    b.Navigation("Booths");
 
-                    b.Navigation("Customer")
-                        .IsRequired();
+                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Address.Province", b =>
@@ -3256,6 +3258,15 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Navigation("ProductsCustomAttributes");
                 });
 
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
+                {
+                    b.Navigation("AuctionProposals");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Order.Order", b =>
                 {
                     b.Navigation("OrderLines");
@@ -3286,23 +3297,14 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Navigation("ProductsCustomAttributes");
                 });
 
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.SalerType", b =>
-                {
-                    b.Navigation("Salers");
-                });
-
-            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Customer.Customer", b =>
-                {
-                    b.Navigation("AuctionProposals");
-
-                    b.Navigation("Comments");
-
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.Saler", b =>
                 {
                     b.Navigation("Booth");
+                });
+
+            modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Saler.SalerType", b =>
+                {
+                    b.Navigation("Salers");
                 });
 #pragma warning restore 612, 618
         }

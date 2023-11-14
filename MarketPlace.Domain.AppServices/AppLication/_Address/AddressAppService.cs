@@ -23,6 +23,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Address
         public async Task<List<CityDto>> GetCitiesByProvinceId(int id) => await _cityService.GetByProvinceId(id);
         public List<ProvinceDto> GetProvinces() 
             =>  _provinceService.GetAll();
-
+        public  List<CityDto> GetCities()
+            =>  _cityService.GetAll();
     }
 }

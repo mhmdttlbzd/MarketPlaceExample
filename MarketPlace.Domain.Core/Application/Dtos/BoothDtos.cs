@@ -9,7 +9,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 {
     #region Booth
     public record BoothOutputDto(
-         int SalerId, string Name, int? ShopAddressId, MainAddressOutputDto? ShopAddress,
+         int SalerId, string Name, int ShopAddressId, MainAddressOutputDto? ShopAddress,
          ICollection<BoothProductOutputDto> BoothsProducts, SalerOutputDto Saler
         );
     public record BoothInputDto(

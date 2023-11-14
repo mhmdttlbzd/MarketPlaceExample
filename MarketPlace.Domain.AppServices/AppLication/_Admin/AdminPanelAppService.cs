@@ -10,6 +10,7 @@ using MarketPlace.Domain.Core.Application.Contract.Services._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Services._Product;
 using MarketPlace.Domain.Core.Application.Contract.Services._Saler;
 using MarketPlace.Domain.Core.Application.Dtos;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Domain.Core.Identity.Entities;
@@ -31,12 +32,14 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
 		private readonly IProductCustomerPicService _productCustomerPicService;
 		private readonly IAuctionPictureService _auctionPictureService;
 		private readonly IOrderLineService _orderLineService;
-		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IMainAddressService _mainAddressService;
+		private readonly UserManager<Customer> _customerManager;
+		private readonly UserManager<Saler> _salerManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMainAddressService _mainAddressService;
 		private readonly IUnitOfWorks _unitOfWorks;
         private readonly IBoothService _boothService;
 
-        public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService)
+        public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService, UserManager<Customer> customerManager, UserManager<Saler> salerManager)
         {
             _walletService = walletService;
             _commentService = commentService;
@@ -52,6 +55,8 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
             _mainAddressService = mainAddressService;
             _unitOfWorks = unitOfWorks;
             _boothService = boothService;
+            _customerManager = customerManager;
+            _salerManager = salerManager;
         }
 
         public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
@@ -119,36 +124,36 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
         public async Task CreateCustomer(GeneralCustomerInputDto inputDto, CancellationToken cancellationToken)
         {
             int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
-            var user = new ApplicationUser
+            var customer = new Customer
             {
                 Name = inputDto.Name,
                 Family = inputDto.Family,
                 Email = inputDto.Email,
-                UserName = inputDto.Email
+                UserName = inputDto.Email,
+                AddressId = addressId
             };
-            await _userManager.CreateAsync(user);
-            await _userManager.AddPasswordAsync(user, inputDto.Password);
-            await _customerService.CreateAsync(new CustomerInputDto(user.Id, addressId), cancellationToken);
-            await _unitOfWorks.SaveChangesAsync(cancellationToken);
+            await _customerManager.CreateAsync(customer);
+            await _customerManager.AddPasswordAsync(customer, inputDto.Password);
+            await _customerManager.AddToRoleAsync(customer, "Customer");
         }
 
         public async Task CreateSaler(GeneralSalerInputDto inputDto, CancellationToken cancellationToken)
         {
             int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
 
-            var user = new ApplicationUser
+            var saler = new Saler
             {
                 Name = inputDto.Name,
                 Family = inputDto.Family,
                 Email = inputDto.Email,
-                UserName = inputDto.Email
+                UserName = inputDto.Email,
+                SalerTypeId = inputDto.SalerTypeId
             };
-            await _userManager.CreateAsync(user);
-            await _userManager.AddPasswordAsync(user, inputDto.Password);
+            await _salerManager.CreateAsync(saler);
+            await _salerManager.AddPasswordAsync(saler, inputDto.Password);
+            await _salerManager.AddToRoleAsync(saler, "Saler");
 
-
-			var saler = await _salerService.CreateAsync(new SalerInputDto(user.Id, inputDto.SalerTypeId), cancellationToken);
-			await _boothService.CreateAsync(new BoothInputDto(saler, inputDto.BoothName, addressId), cancellationToken);
+			await _boothService.CreateAsync(new BoothInputDto(saler.Id, inputDto.BoothName, addressId), cancellationToken);
 			await _unitOfWorks.SaveChangesAsync(cancellationToken);
 		}
     }

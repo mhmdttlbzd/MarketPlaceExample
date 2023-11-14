@@ -37,9 +37,9 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id,CancellationToken cancellationToken)
         {
-            var res = await _customerAppService.GetById(id);
+            var res = await _customerAppService.GetById(id,cancellationToken);
             return View(res);
         }
 

@@ -39,7 +39,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 
 
 
-        public async Task<TOutput> GetByIdAsync(int Id, CancellationToken cancellationToken)
+        public virtual async Task<TOutput> GetByIdAsync(int Id, CancellationToken cancellationToken)
             => _mapper.Map<TOutput>(await _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
 

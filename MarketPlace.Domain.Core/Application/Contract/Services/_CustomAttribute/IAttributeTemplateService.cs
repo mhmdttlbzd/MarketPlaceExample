@@ -9,10 +9,11 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._CustomAttribute
 {
     public interface IAttributeTemplateService
     {
-        Task<int> CreateAsync(AttributeTemplateInputDto input, CancellationToken cancellationToken);
-        Task<List<AttributeTemplateOutputDto>> GetAllAsync(CancellationToken cancellationToken);
-        Task<AttributeTemplateOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
-        Task UpdateAsync(AttributeTemplateInputDto input, int id, CancellationToken cancellationToken);
+        Task<int> CreateAsync(AttributeTemplateDto input, CancellationToken cancellationToken);
+        Task<List<AttributeTemplateDto>> GetAllAsync(CancellationToken cancellationToken);
+        Task<AttributeTemplateDto> GetByIdAsync(int id, CancellationToken cancellationToken);
+        Task UpdateAsync(AttributeTemplateDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
+        Task<List<AttributeTemplateDto>> GetByCategoryId(int? id, CancellationToken cancellationToken);
     }
 }

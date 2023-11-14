@@ -49,6 +49,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 		public string? Name { get; set; }
 		public string? Family { get; set; }
         public string? BoothName { get; set; }
+       public MainAddressOutputDto Address { get; set; }
 	}
 	#endregion
 

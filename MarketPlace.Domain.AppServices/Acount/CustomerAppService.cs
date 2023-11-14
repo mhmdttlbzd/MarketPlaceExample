@@ -2,6 +2,7 @@
 using MarketPlace.Domain.Core.Application.Contract.Services._Address;
 using MarketPlace.Domain.Core.Application.Contract.Services._Customer;
 using MarketPlace.Domain.Core.Application.Dtos;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Identity.Contract;
 using MarketPlace.Domain.Core.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -19,42 +20,46 @@ namespace MarketPlace.Domain.AppServices.Acount
         private readonly IMainAddressService _mainAddressService;
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<Customer> _customerManager;
 
-        public CustomerAppService(ICustomerService customerService, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, UserManager<ApplicationUser> userManager)
+
+        public CustomerAppService(ICustomerService customerService, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, UserManager<ApplicationUser> userManager, UserManager<Customer> customerManager)
         {
             _customerService = customerService;
             _mainAddressService = mainAddressService;
             _unitOfWorks = unitOfWorks;
             _userManager = userManager;
+            _customerManager = customerManager;
         }
 
         public async Task UpdateCustomer(GeneralCustomerInputDto inputDto, CancellationToken cancellationToken)
         {
-            if (inputDto.CityId != -1)
+			var customer = await _customerManager.FindByIdAsync(inputDto.Id.ToString());
+            customer.Name = inputDto.Name;
+            customer.Family = inputDto.Family;
+            customer.Email = inputDto.Email;
+            customer.UserName = inputDto.Email;
+            var address = await _mainAddressService.GetByIdAsync(customer.AddressId, cancellationToken);
+            if (inputDto.CityId != -1 || inputDto.CityId != address.CityId || inputDto.AddressDescription != address.Description)
             {
-                int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
-                await _customerService.UpdateAsync(new CustomerInputDto(inputDto.Id, addressId), inputDto.Id, cancellationToken);
-                await _unitOfWorks.SaveChangesAsync(cancellationToken);
+                customer.AddressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
             }
-			var user = await _userManager.FindByIdAsync(inputDto.Id.ToString());
-            user.Name = inputDto.Name;
-            user.Family = inputDto.Family;
-            user.Email = inputDto.Email;
-            user.UserName = inputDto.Email;
-            await _userManager.UpdateAsync(user);
+            await _customerManager.UpdateAsync(customer);
         }
-		public async Task<GeneralCustomerEditDto> GetById(int id)
+		public async Task<GeneralCustomerEditDto> GetById(int id , CancellationToken cancellationToken)
 		{
-			var user = await _userManager.FindByIdAsync(id.ToString());
-            var customer = new GeneralCustomerEditDto
+			var customer = await _customerManager.FindByIdAsync(id.ToString());
+            var address = await _mainAddressService.GetByIdAsync(customer.AddressId, cancellationToken);
+            var res = new GeneralCustomerEditDto
             {
-                Id = user.Id,
-                Name = user.Name,
-                Family = user.Family,
-                Email = user.Email
+                Id = customer.Id,
+                Name = customer.Name,
+                Family = customer.Family,
+                Email = customer.Email,
+                Address = address
             };
 
-			return customer;
+			return res;
 		}
 	}
 }

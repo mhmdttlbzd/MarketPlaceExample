@@ -1,9 +1,11 @@
 ﻿using MarketPlace.Domain.Core.Application.Contract.AppServices._Address;
+using MarketPlace.Domain.Core.Application.Dtos;
+using MarketPlace.Endpoint.Mvc.Models.Address;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketPlace.Endpoint.Mvc.Components
 {
-    [ViewComponent(Name = "ProvinceVM")]
+    [ViewComponent(Name = "AddressVM")]
     public class ProvinceViewComponent : ViewComponent
     {
         private readonly IAddressAppService _addressAppService;
@@ -13,10 +15,17 @@ namespace MarketPlace.Endpoint.Mvc.Components
             _addressAppService = addressAppService;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(MainAddressOutputDto address)
         {
-            var cities = _addressAppService.GetProvinces();
-            return View(cities);
+            var provinces = _addressAppService.GetProvinces();
+            var cities =  _addressAppService.GetCities();
+            var res = new GeneralAddressViewModel
+            {
+                Provinces = provinces,
+                Cities = cities,
+                Address = address
+            };
+            return View(res);
         }
     }
 }

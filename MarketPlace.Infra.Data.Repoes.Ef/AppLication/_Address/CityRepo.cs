@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address
@@ -28,7 +29,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address
         public async Task<List<CityDto>> GetAllAsync(CancellationToken cancellationToken)
     => _mapper.Map<List<CityDto>>(await _dbContext.Set<City>().ToListAsync(cancellationToken));
 
-
+        public List<CityDto> GetAll() => _mapper.Map<List<CityDto>>(_dbContext.Set<City>().ToList());
 
         public async Task<CityDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
             => _mapper.Map<CityDto>(await _dbContext.Set<City>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));

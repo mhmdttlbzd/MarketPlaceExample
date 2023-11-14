@@ -11,5 +11,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Address
     {
         List<ProvinceDto> GetProvinces();
         Task<List<CityDto>> GetCitiesByProvinceId(int id);
+
+        List<CityDto> GetCities();
     }
 }

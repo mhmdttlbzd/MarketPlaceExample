@@ -13,9 +13,9 @@ public class MainAddress : BaseEntity
 
     public int PostalCode { get; set; }
 
-    public virtual ICollection<Booth> Booths { get; set; } = new List<Booth>();
+    public virtual Booth Booth { get; set; }
 
     public virtual City City { get; set; } = null!;
 
-    public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
+    public virtual Customer Customer { get; set; } 
 }

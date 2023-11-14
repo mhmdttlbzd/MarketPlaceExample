@@ -20,9 +20,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.Property(e => e.Id).ValueGeneratedNever();
             builder.Property(e => e.Name).HasMaxLength(50);
 
-            builder.HasOne(d => d.ShopAddress).WithMany(p => p.Booths)
-                .HasForeignKey(d => d.ShopAddressId)
-                .HasConstraintName("FK_Booth_Address");
+            builder.HasOne(d => d.ShopAddress).WithOne(p => p.Booth)
+                .HasForeignKey<Booth>(d=>d.ShopAddressId);
 
             builder.HasOne(d => d.Saler).WithOne(p => p.Booth)
                 .HasForeignKey<Booth>(d => d.Id)

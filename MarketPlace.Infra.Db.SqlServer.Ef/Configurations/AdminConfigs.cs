@@ -8,10 +8,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
     {
         public void Configure(EntityTypeBuilder<Admin> builder)
         {
-            builder.ToTable("Admins");
-            builder.HasKey(e => e.Id).HasName("PK_Admin");
-
-            builder.Property(e => e.Id);
             builder.Property(d => d.PersonalCode).HasMaxLength(10);
         }
     }

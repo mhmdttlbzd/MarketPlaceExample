@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
     #region Temlate
-    public record AttributeTemplateOutputDto(
-        int Id,  string Title, 
-        ICollection<ProductAttributeInputDto> ProductsCustomAttributes
-        );
-    public record AttributeTemplateInputDto(
-         int CategoryId, string Title);
+
+    public record AttributeTemplateDto
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+    }
+
     #endregion
 
 
     #region Product
     public record ProductAttributeOutputDto(
-        int Id, int ProductId, int AttributeId, string AttributeValue, AttributeTemplateOutputDto Attribute,
+        int Id, int ProductId, int AttributeId, string AttributeValue, AttributeTemplateDto Attribute,
         ProductOutputDto Product
         );
     public record ProductAttributeInputDto(

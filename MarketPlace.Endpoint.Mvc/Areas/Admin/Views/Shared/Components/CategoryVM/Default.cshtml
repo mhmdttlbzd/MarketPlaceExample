@@ -1,0 +1,50 @@
+﻿
+<select class="Category-1 form-select w-50 py-2 px-5 mb-2">
+</select>
+<select class="Category-2 form-select w-50 py-2 px-5 mb-2">
+</select>
+<select class="Category-3 form-select w-50 py-2 px-5 mb-2">
+</select>
+<script>
+    $(document).ready(function () {
+        console.log("..")
+        getCategoryByParentId(-1,1);
+    });
+    function getCategoryByParentId(id , sub) {
+        console.log(id);
+        $.get(`https://localhost:7078/Category/GetByParentId/ ${id}`,
+            function (data) {
+                if(data.length == 0) {make}
+                console.log(data);
+                Make(data,sub);
+            },
+            "json"
+        );
+    }
+    function Make(categories,sub) {
+        console.log(categories)
+        var options = $(`<select onchange="getCategoryByParentId(this.value,${sub+1})" class="Category-${sub} form-select w-50 py-2 px-5 mb-2">`);
+        if (sub == 3) { $(options).attr("name","CategoryId"); }
+
+
+        categories.forEach(
+            function (category) {
+                console.log(category);
+                var option = $(`<option  value = "${category.id}" > ${category.title}</option>`);
+                options.append(option)
+            }
+        )
+        $(`.Category-${sub}`).replaceWith(options);
+    }
+    function MakeAttr(id){
+        console.log(id);
+        $.get(`https://localhost:7078/Category/GetByParentId/ ${id}`,
+            function (data) {
+                if (data.length == 0) { make }
+                console.log(data);
+                Make(data, sub);
+            },
+            "json"
+        );
+    }
+</script>
