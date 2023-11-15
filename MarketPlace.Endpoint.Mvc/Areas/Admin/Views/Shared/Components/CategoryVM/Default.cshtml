@@ -42,13 +42,11 @@
         var table = $(`<table class="attrs mb-5"/>`)
         $.get(`/Category/GetAttrByCategoryId/ ${id}`,
             function (data) {
-                console.log(data);
                 var i =0;
                 data.forEach(
                     function (attr) {
                         var tr = $(`<tr/>`)
                         var td = $(`<td/>`)
-                        console.log(attr);
                         var lable = $(`<label class="form-label"> ${attr.title} </label>`)
                         var hiden = $(`<input name="attributes[${i}].AttributeId" hidden class="form-control" value="${attr.id}">`)
                         var input = $(`<input name="attributes[${i}].AttributeValue" type="text" class="form-control" required>`);
