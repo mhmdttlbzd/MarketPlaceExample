@@ -27,5 +27,17 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     public record ProductAttributeInputDto(
     int ProductId, int AttributeId, string AttributeValue
     );
+
+    public record ProductAttrModel
+    {
+        public int AttributeId { get; set; }
+        public string AttributeValue { get; set; }
+    }
+    public record ProductAttrOutModel
+    {
+        public string AttributeName { get; set; }
+        public int Id { get; set; }
+        public string AttributeValue { get; set; }
+    }
     #endregion
 }

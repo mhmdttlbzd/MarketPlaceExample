@@ -5,46 +5,66 @@
 </select>
 <select class="Category-3 form-select w-50 py-2 px-5 mb-2">
 </select>
+<div class="attrs">
+</div>
 <script>
     $(document).ready(function () {
-        console.log("..")
-        getCategoryByParentId(-1,1);
+        getCategoryByParentId(-1, 1);
     });
-    function getCategoryByParentId(id , sub) {
-        console.log(id);
-        $.get(`https://localhost:7078/Category/GetByParentId/ ${id}`,
+    function getCategoryByParentId(id, sub) {
+        $.get(`/Category/GetByParentId/ ${id}`,
             function (data) {
-                if(data.length == 0) {make}
-                console.log(data);
-                Make(data,sub);
+                if (data.length == 0) {
+                    MakeAttr(id);
+                }
+                else {
+                    Make(data, sub);
+                }
             },
             "json"
         );
     }
-    function Make(categories,sub) {
-        console.log(categories)
-        var options = $(`<select onchange="getCategoryByParentId(this.value,${sub+1})" class="Category-${sub} form-select w-50 py-2 px-5 mb-2">`);
-        if (sub == 3) { $(options).attr("name","CategoryId"); }
-
+    function Make(categories, sub) {
+        var options = $(`<select onchange="getCategoryByParentId(this.value,${sub + 1})" class="Category-${sub} form-select w-50 py-2 px-5 mb-2">`);
+        if (sub == 3) { $(options).attr("name", "CategoryId"); }
 
         categories.forEach(
             function (category) {
-                console.log(category);
                 var option = $(`<option  value = "${category.id}" > ${category.title}</option>`);
                 options.append(option)
             }
         )
         $(`.Category-${sub}`).replaceWith(options);
     }
-    function MakeAttr(id){
-        console.log(id);
-        $.get(`https://localhost:7078/Category/GetByParentId/ ${id}`,
+
+    function MakeAttr(id) {
+        
+        var table = $(`<table class="attrs mb-5"/>`)
+        $.get(`/Category/GetAttrByCategoryId/ ${id}`,
             function (data) {
-                if (data.length == 0) { make }
                 console.log(data);
-                Make(data, sub);
+                var i =0;
+                data.forEach(
+                    function (attr) {
+                        var tr = $(`<tr/>`)
+                        var td = $(`<td/>`)
+                        console.log(attr);
+                        var lable = $(`<label class="form-label"> ${attr.title} </label>`)
+                        var hiden = $(`<input name="attributes[${i}].AttributeId" hidden class="form-control" value="${attr.id}">`)
+                        var input = $(`<input name="attributes[${i}].AttributeValue" type="text" class="form-control" required>`);
+                        td.append(lable)
+                        td.append(hiden)
+                        td.append(input)
+                        tr.append(td)
+                        table.append(tr)
+                        i+=1;
+                    }
+                )
+               
             },
             "json"
+                 
         );
+        $(`.attrs`).replaceWith(table)
     }
 </script>

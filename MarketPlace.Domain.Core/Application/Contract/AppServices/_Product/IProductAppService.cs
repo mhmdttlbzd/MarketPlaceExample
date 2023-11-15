@@ -10,8 +10,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
     public interface IProductAppService
     {
         Task<List<ProductOutputDto>> GetAllProducts(CancellationToken cancellationToken);
-        Task<bool> UpdateProduct(int id, string name, int categoryId, CancellationToken cancellationToken);
+        Task<bool> UpdateProduct(int id, string name, List<ProductAttrModel> productAttrModels, int categoryId, CancellationToken cancellationToken);
         Task<ProductOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
-        Task<bool> CreateProduct(string username, string name, int categoryId, CancellationToken cancellationToken);
+        Task<bool> CreateProduct(string username, string name, List<ProductAttrModel> productAttrModels, int categoryId, CancellationToken cancellationToken);
     }
 }

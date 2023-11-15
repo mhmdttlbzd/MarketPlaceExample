@@ -46,6 +46,6 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
         }
 
         public async Task<List<AttributeTemplateDto>> GetAttrByCategoryId(int id, CancellationToken cancellationToken)
-            => await _attributeTemplateService.GetByCategoryId(id, cancellationToken);
+            => await GetAttr(id,new List<AttributeTemplateDto>(), cancellationToken);
     }
 }

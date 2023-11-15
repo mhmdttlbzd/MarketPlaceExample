@@ -19,8 +19,12 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Product
         public async Task<JsonResult> GetByParentId(int id,CancellationToken cancellationToken)
         {
             var res = await _categoryAppService.GetByParentId(id, cancellationToken);
-            var t = Json(res);
-            return t;
+            return Json(res);
+        }
+        public async Task<JsonResult> GetAttrByCategoryId(int id , CancellationToken cancellationToken)
+        {
+            var res = await _categoryAppService.GetAttrByCategoryId(id, cancellationToken);
+            return Json(res);
         }
     }
 }

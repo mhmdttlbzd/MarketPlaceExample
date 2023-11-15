@@ -25,8 +25,8 @@
                                     <td class="cell">#@product.Id</td>
                                     <td class="cell"><span class="truncate">@product.Name</span></td>
                                     <td class="cell">@product.CategoryTitle</td>
-                                    <td class="cell"><a class="btn-sm app-btn-secondary" onclick="Confirm(@product.Id)" href="#">تایید</a></td>
-                                    <td class="cell"><a class="btn-sm app-btn-secondary" onclick="Fale(@product.Id)" href="#">رد</a></td>
+                                    <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="ConfirmProduct" asp-route-id="@product.Id" >تایید</a></td>
+                                    <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="FaleProduct" asp-route-id="@product.Id">رد</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -44,38 +44,5 @@
 
 
 
-<script>
-    function Confirm(id) {
-        $.ajax({
-            type: "patch",
-            url: `/Requests/ConfirmProduct/` + id,
-            data: { id: id },
-            dataType: "JSON",
-            success: function (response) {
-                console.log(response)
-                //console.log(response.carts[3].products);
-                DeletTr(id);
-            },
-        });
-    }
-    function Fale(id) {
-        $.ajax({
-            type: "patch",
-            url: `/Requests/FaleProduct/` + id,
-            data: { id: id },
-            dataType: "JSON",
-            success: function (response) {
-                console.log(response)
-                //console.log(response.carts[3].products);
-                DeletTr(id);
-            },
-            fail: function (resp) {
-                console.log(resp);
-            },
-        });
-    }
-    function DeletTr(id) {
-        $(`#` + id).remove();
-    }
-</script>
+
 

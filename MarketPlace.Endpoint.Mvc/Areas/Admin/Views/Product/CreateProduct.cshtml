@@ -28,10 +28,6 @@
                         </label>
                         <input type="text" class="form-control" name="name" id="setting-input-1" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="setting-input-2" class="form-label">آیدی دسته بندی</label>
-                        <input type="number" name="categoryId" class="form-control" id="setting-input-2" required>
-                    </div>
                     @await Component.InvokeAsync("CategoryVM")
                     <button type="submit" class="btn app-btn-primary">ثبت</button>
                     

@@ -13,7 +13,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
             CreateMap<CustomAttributeTemplate, AttributeTemplateDto>();
 
             CreateMap<ProductsCustomAttribute, ProductAttributeOutputDto>();
-            CreateMap<ProductsCustomAttribute, ProductAttributeInputDto>();
+            CreateMap<ProductAttributeInputDto, ProductsCustomAttribute>();
         }
     }
 }

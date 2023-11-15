@@ -36,11 +36,11 @@
                                     <td class="cell"><a class="btn-sm app-btn-secondary" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id">ویرایش</a></td>
                                     @if (product.Status == GeneralStatus.AwaitConfirmation || product.Status == GeneralStatus.Failed)
                                     {
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" onclick="Confirm(@product.Id)" href="#">تایید</a></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="ConfirmProduct" asp-route-id="@product.Id">تایید</a></td>
                                     }
                                     @if (product.Status == GeneralStatus.AwaitConfirmation || product.Status == GeneralStatus.Confirmed)
                                     {
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" onclick="Fale(@product.Id)" href="#">رد</a></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="FaleProduct" asp-route-id="@product.Id">رد</a></td>
                                     }
 
                                 </tr>
@@ -57,41 +57,3 @@
 </div><!--//tab-content-->
 
 
-
-<script>
-    function Confirm(id) {
-        $.ajax({
-            type: "patch",
-            url: `/Requests/ConfirmProduct/` + id,
-            data: { id: id },
-            dataType: "JSON",
-            success: function (response) {
-                console.log(response)
-                //console.log(response.carts[3].products);
-                DeletTr(id);
-            },
-
-        });
-        DeletTr(id);
-    }
-    function Fale(id) {
-        $.ajax({
-            type: "patch",
-            url: `/Requests/FaleProduct/` + id,
-            data: { id: id },
-            dataType: "JSON",
-            success: function (response) {
-                console.log(response)
-                //console.log(response.carts[3].products);
-                DeletTr(id);
-            },
-            fail: function (resp) {
-                console.log(resp);
-            },
-        });
-        DeletTr(id);
-    }
-    function DeletTr(id) {
-        $(`#` + id).remove();
-    }
-</script>

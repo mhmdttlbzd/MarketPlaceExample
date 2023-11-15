@@ -30,6 +30,22 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Product
             product.CategoryId = input.CategoryId;
         }
 
+        public async override Task<ProductOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Set<Product>().Where(p => p.Id == Id).Select(p => new ProductOutputDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                CategoryId = p.CategoryId,
+                attributes = p.ProductsCustomAttributes.Select(a => new ProductAttrOutModel
+                {
+                    Id = a.Id,
+                    AttributeValue = a.AttributeValue,
+                    AttributeName = a.Attribute.Title
+                }).ToList()
+            }).AsNoTracking().FirstAsync(cancellationToken);
+        }
+
 
         public int GetCount() => _dbContext.Set<Product>().Count();
         public int AllRequestsCount() => _dbContext.Set<Product>().Where(p => p.Status == GeneralStatus.AwaitConfirmation).Count();

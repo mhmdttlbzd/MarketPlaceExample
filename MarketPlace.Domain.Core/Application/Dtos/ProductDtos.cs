@@ -4,11 +4,14 @@ using MarketPlace.Domain.Core.Application.Enums;
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
     #region Product
-    public record ProductOutputDto(
-        int Id, string Name, ICollection<ProductsCustomAttribute>? ProductsCustomAttributes,
-        ICollection<AuctionOutputDto>? BoothProductsActions,ICollection<BoothProductOutputDto>? BoothsProducts, int CategoryId,
-        CategoryDto? Category, GeneralStatus? Status
-        );
+    public record ProductOutputDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int CategoryId { get; set; }
+        public List<ProductAttrOutModel> attributes { get; set; }
+        public GeneralStatus Status { get; set; }
+    };
 
     public record ProductRequestDto
     {
@@ -20,6 +23,11 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     public record ProductInputDto(
         string Name, int CategoryId, GeneralStatus Status = GeneralStatus.AwaitConfirmation
         );
+
+    public record ProductEditModel
+    {
+
+    }
     #endregion
 
     #region Category

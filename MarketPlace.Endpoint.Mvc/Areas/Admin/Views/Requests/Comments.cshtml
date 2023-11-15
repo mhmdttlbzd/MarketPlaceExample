@@ -30,8 +30,8 @@
                                     <td class="cell">@comment.ProductName</td>
                                     <td class="cell">@comment.BoothName</td>
                                     <td class="cell">@comment.CustomerId</td>
-                                    <td class="cell"><a class="btn-sm app-btn-secondary" onclick="Confirm(@comment.Id)" href="#">تایید</a></td>
-                                    <td class="cell"><a class="btn-sm app-btn-secondary" onclick="Fale(@comment.Id)" href="#">رد</a></td>
+                                    <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="ConfirmComment" asp-route-id="@comment.Id">تایید</a></td>
+                                    <td class="cell"><a class="btn-sm app-btn-secondary" asp-action="FaleComment" asp-route-id="@comment.Id">رد</a></td>
                                     <td class="cell"><a class="btn-sm app-btn-secondary" asp-controller="Comment" asp-action="Edit" asp-route-id="@comment.Id">ویرایش</a></td>
                                 </tr>
                             }
@@ -47,30 +47,3 @@
 </div><!--//tab-content-->
 
 
-
-
-
-<script>
-    function Confirm(id) {
-        $.ajax({
-            type: "patch",
-            url: `/Requests/ConfirmComment/` + id,
-            data: { id: id },
-            dataType: "JSON",
-
-        });
-        DeletTr(id);
-    }
-    function Fale(id) {
-        $.ajax({
-            type: "patch",
-            url: `/Requests/FaleComment/` + id,
-            data: { id: id },
-            dataType: "JSON",
-        });
-        DeletTr(id);
-    }
-    function DeletTr(id) {
-        $(`#` + id).remove();
-    }
-</script>
