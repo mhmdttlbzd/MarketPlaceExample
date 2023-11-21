@@ -14,5 +14,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Auction
         Task<AuctionProposalOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(AuctionProposalInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
+        List<AuctionProposalDto> GetProposalsByAuctionId(int auctionId);
     }
 }

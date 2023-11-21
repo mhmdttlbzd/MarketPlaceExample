@@ -26,7 +26,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.HasOne(d => d.Saler).WithOne(p => p.Booth)
                 .HasForeignKey<Booth>(d => d.Id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Booth_Saler");
+                .HasConstraintName("FK_Booth_Seller");
         }
     }
     public class BoothProductConfigs : BaseEntityConfiguration<BoothProduct>
@@ -36,8 +36,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.ToTable("BoothProducts");
             builder.HasKey(e => e.Id).HasName("PK_BoothProducts");
 
-            builder.Property(e => e.Id);
-
             builder.HasOne(d => d.Booth).WithMany(p => p.BoothsProducts)
                 .HasForeignKey(d => d.BoothId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -46,7 +44,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
             builder.HasOne(d => d.Product).WithMany(p => p.BoothsProducts)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_BoothProducts_Peoducts");
+                .HasConstraintName("FK_BoothProducts_Products");
             base.Configure(builder);
         }
     }

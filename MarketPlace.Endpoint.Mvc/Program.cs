@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Domain.Core.Application.Entities._Admin;
-
-
+using MarketPlace.Domain.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +21,10 @@ builder.Services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
-builder.Services.AddAppServices();
+builder.Services.AddAppServices(builder.Configuration);
+
+builder.Services.AddSingleton(new AppSetting(builder.Configuration));
+
 
 builder.Services.AddIdentity<ApplicationUser , ApplicationRole>(options =>
 {
@@ -35,7 +37,7 @@ builder.Services.AddIdentityCore<Customer>(options =>
     options.Password.RequireDigit = false;
 }).AddEntityFrameworkStores<MarketPlaceDbContext>().AddDefaultTokenProviders();
 
- builder.Services.AddIdentityCore<Saler>(options =>
+ builder.Services.AddIdentityCore<Seller>(options =>
 {
     options.Password.RequireDigit = false;
 }).AddEntityFrameworkStores<MarketPlaceDbContext>().AddDefaultTokenProviders();
@@ -101,6 +103,7 @@ app.MapControllerRoute(
 
 app.UseMvc(routes => {
     routes.MapRoute("AdminRoute", "{area:exists}/{controller=Admin}/{action=index}");
+    routes.MapRoute("SellerRoute", "{area:exists}/{controller=Seller}/{action=index}");
     routes.MapRoute("default", "{controller = Home}/{action = Index}");
 });
 

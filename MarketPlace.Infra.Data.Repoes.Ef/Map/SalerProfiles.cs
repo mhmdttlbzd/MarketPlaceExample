@@ -14,10 +14,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
     {
         public SalerProfiles()
         {
-            CreateMap<Saler,SalerOutputDto>();
-            CreateMap<SalerInputDto, Saler>();
+            CreateMap<Seller,SellerOutputDto>();
+            CreateMap<SellerInputDto, Seller>();
 
-            CreateMap<SalerType, SalerTypeDto>();
+            CreateMap<SellerType, SellerTypeDto>();
         }
     }
 }

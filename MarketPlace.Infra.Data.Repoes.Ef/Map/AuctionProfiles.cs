@@ -15,10 +15,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
         public AuctionProfiles()
         {
             CreateMap<Auction, AuctionOutputDto>();
-            CreateMap<Auction, AuctionInputDto>();
+            CreateMap<AuctionInputDto, Auction>();
 
             CreateMap<AuctionProposal, AuctionProposalOutputDto>();
-            CreateMap<AuctionProposal, AuctionProposalInputDto>();
+            CreateMap<AuctionProposalInputDto, AuctionProposal>();
         }
     }
 }

@@ -9,12 +9,38 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 {
     #region Booth
     public record BoothOutputDto(
-         int SalerId, string Name, int ShopAddressId, MainAddressOutputDto? ShopAddress,
-         ICollection<BoothProductOutputDto> BoothsProducts, SalerOutputDto Saler
+         int SellerId, string Name, int ShopAddressId, MainAddressOutputDto? ShopAddress,
+         ICollection<BoothProductOutputDto> BoothsProducts, SellerOutputDto Seller
         );
     public record BoothInputDto(
         int Id, string Name, int? ShopAddressId
     );
+
+    public record GeneralBoothDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string? CityName { get; set; }
+        public string? Address { get; set; }
+        public int PostalCode { get; set; }
+        public long TotalSales { get; set; }
+        public int BoothProductsCount { get; set; }
+    }
+
+    public record BoothModel
+    {
+        public int Id { get; set; }
+        public string SellerName { get; set; }
+        public string SellerFamily { get; set; }
+        public string Name { get; set; }
+        public string CityName { get; set; }
+        public string Address { get; set; }
+        public int PostalCode { get; set; }
+        public string SellerEmail { get; set; }
+        public long TotalSales { get; set; }
+        public int BoothProductsCount { get; set; }
+        public List<GeneralAuctionDto> Auctions { get; set; }
+    }
     #endregion
 
     #region BoothProduct
@@ -22,11 +48,18 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         int Id, int Quantity, int BoothId, BoothOutputDto Booth, ICollection<BoothProductsPriceOutputDto> BoothProductsPrices,
         ICollection<CommentOutputDto> Comments, ICollection<ProductCustomerPicOutputDto> CustomersProductPices,
         ICollection<OrderLineOutputDto> OrderLines, int ProductId, ProductOutputDto Product, 
-        ICollection<ProductSalerPicOutputDto> SalersProductPics
+        ICollection<ProductSalerPicOutputDto> SellersProductPics
         );
     public record BoothProductInputDto(
         int Quantity, int BoothId, int ProductId
         );
+
+    public record BoothProductModel
+    {
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public long Price { get; set; }
+    }
     #endregion
 
 

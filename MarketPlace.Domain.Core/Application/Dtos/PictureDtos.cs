@@ -39,7 +39,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         AuctionOutputDto Action, PictureDto Picture
         );
     public record AuctionPictureInputDto(
-        int PictureId, int ActionId,GeneralStatus Status = GeneralStatus.AwaitConfirmation
+        int PictureId, int AuctionId, GeneralStatus Status = GeneralStatus.AwaitConfirmation
         );
 	public record AuctionPicRequestDto
 	{

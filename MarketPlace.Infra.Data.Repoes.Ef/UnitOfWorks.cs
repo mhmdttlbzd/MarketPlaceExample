@@ -21,5 +21,9 @@ namespace MarketPlace.Infra.Data.Repoes.Ef
         {
             return await _dbContext.SaveChangesAsync(cancellationToken);
         }
+        public int SaveChanges()
+        {
+            return  _dbContext.SaveChanges();
+        }
     }
 }

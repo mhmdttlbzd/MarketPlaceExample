@@ -10,7 +10,10 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories
 	public interface IWalletRepo
 	{
 		Task<long> GetAllWage(CancellationToken cancellationToken);
-        Task<List<WalletTransactionOutputDto>> GetAllWalletTransactions(CancellationToken cancellationToken);
-
+        Task<List<WalletTransactionDto>> GetAllWalletTransactions(CancellationToken cancellationToken);
+        long GetMoneyByUserId(int userId);
+        Task Deposit(int userId, long money);
+        Task Withdraw(int userId, long money);
+        Task CreateTransaction(WalletTransactionDto Input);
     }
 }

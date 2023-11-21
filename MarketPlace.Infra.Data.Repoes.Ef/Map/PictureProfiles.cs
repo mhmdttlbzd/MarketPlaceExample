@@ -17,13 +17,13 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
             CreateMap<Picture, PictureDto>();
 
             CreateMap<ProductCustomerPic, ProductCustomerPicOutputDto>();
-            CreateMap<ProductCustomerPic, ProductCustomerPicInputDto>();
+            CreateMap<ProductCustomerPicInputDto, ProductCustomerPic>();
 
             CreateMap<AuctionPicture, AuctionPictureOutputDto>();
-            CreateMap<AuctionPicture, AuctionPictureInputDto>();
+            CreateMap<AuctionPictureInputDto, AuctionPicture>();
 
             CreateMap<ProductSalerPic, ProductSalerPicOutputDto>();
-            CreateMap<ProductSalerPic, ProductSalerPicInputDto>();
+            CreateMap<ProductSalerPicInputDto, ProductSalerPic>();
         }
     }
 }

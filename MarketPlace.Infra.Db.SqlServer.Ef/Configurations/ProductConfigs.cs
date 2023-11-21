@@ -15,12 +15,13 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
         public override void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Products");
+            builder.HasKey(e => e.Id);
             builder.Property(e => e.Name).HasMaxLength(100);
 
             builder.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Peoducts_Categories");
+                .HasConstraintName("FK_Products_Categories");
             base.Configure(builder);
         }
     }

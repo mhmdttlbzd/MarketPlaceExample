@@ -6,5 +6,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Auctions
 {
     public interface IAuctionProposalRepo : IBaseCrudRepository<AuctionProposal, AuctionProposalInputDto, AuctionProposalOutputDto>
     {
+        int GetProposalCountByActionId(int auctionId);
+        long GetLastProposalPrice(int auctionId);
+        List<AuctionProposalDto> GetProposalsByAuctionId(int auctionId);
     }
 }

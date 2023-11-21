@@ -949,7 +949,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             migrationBuilder.InsertData(
                 table: "Salers",
-                columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "SalerTypeId" },
+                columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "SellerTypeId" },
                 values: new object[,]
                 {
                     { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, 1 },
@@ -1296,7 +1296,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Salers_SalerTypeId",
                 table: "Salers",
-                column: "SalerTypeId");
+                column: "SellerTypeId");
         }
 
         /// <inheritdoc />

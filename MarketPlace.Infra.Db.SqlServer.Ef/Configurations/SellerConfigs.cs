@@ -5,22 +5,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
 {
-    public class SalerConfigs : IEntityTypeConfiguration<Saler>
+    public class SellerConfigs : IEntityTypeConfiguration<Seller>
     {
-        public void Configure(EntityTypeBuilder<Saler> builder)
+        public void Configure(EntityTypeBuilder<Seller> builder)
         {
-            builder.HasOne(d => d.SalerType).WithMany(p => p.Salers)
-                .HasForeignKey(d => d.SalerTypeId)
+            builder.HasOne(d => d.SellerType).WithMany(p => p.Salers)
+                .HasForeignKey(d => d.SellerTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Saler_SalerTypes");
+                .HasConstraintName("FK_Seller_SellerTypes");
         }
     }
 
-    public class SalerTypeConfigs : IEntityTypeConfiguration<SalerType>
+    public class SalerTypeConfigs : IEntityTypeConfiguration<SellerType>
     {
-        public void Configure(EntityTypeBuilder<SalerType> builder)
+        public void Configure(EntityTypeBuilder<SellerType> builder)
         {
-            builder.ToTable("SalerTypes");
+            builder.ToTable("SellerTypes");
             builder.Property(e => e.Title)
                 .HasMaxLength(10)
                 .IsFixedLength();

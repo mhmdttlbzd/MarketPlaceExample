@@ -22,7 +22,7 @@ public partial class Product : BaseEntity
 
 public partial class Product
 {
-    public virtual ICollection<Auction> BoothProductsActions { get; set; } = new List<Auction>();
+    public virtual ICollection<Auction> BoothProductsAuctions { get; set; } = new List<Auction>();
 
     public virtual ICollection<BoothProduct> BoothsProducts { get; set; } = new List<BoothProduct>();
 

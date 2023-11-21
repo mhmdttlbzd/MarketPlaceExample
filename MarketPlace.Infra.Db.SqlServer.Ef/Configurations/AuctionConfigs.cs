@@ -14,16 +14,15 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Configurations
     {
         public override void Configure(EntityTypeBuilder<Auction> builder)
         {
-            builder.ToTable("Actions");
-            builder.HasKey(e => e.Id).HasName("PK_BoothProductsAction");
+            builder.ToTable("Auctions");
+            builder.HasKey(e => e.Id).HasName("PK_BoothProductsAuction");
 
-            builder.Property(e => e.Id);
             builder.Property(e => e.ExpiredTime).HasColumnType("date");
 
-            builder.HasOne(d => d.Product).WithMany(p => p.BoothProductsActions)
+            builder.HasOne(d => d.Product).WithMany(p => p.BoothProductsAuctions)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_BoothProductsAction_Peoducts");
+                .HasConstraintName("FK_BoothProductsAuction_Products");
             base.Configure(builder);
         }
     }

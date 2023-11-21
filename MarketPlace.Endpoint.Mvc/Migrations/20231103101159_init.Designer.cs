@@ -2263,13 +2263,13 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SalerTypeId")
+                    b.Property<int>("SellerTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id")
                         .HasName("PK_Saler");
 
-                    b.HasIndex("SalerTypeId");
+                    b.HasIndex("SellerTypeId");
 
                     b.ToTable("Salers", (string)null);
 
@@ -2714,7 +2714,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         .IsRequired();
 
                     b.HasOne("MarketPlace.Domain.Core.Application.Entities._Prodoct.Product", "Product")
-                        .WithMany("BoothProductsActions")
+                        .WithMany("BoothProductsAuctions")
                         .HasForeignKey("ProductId")
                         .IsRequired()
                         .HasConstraintName("FK_BoothProductsAction_Peoducts");
@@ -2970,7 +2970,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 {
                     b.HasOne("MarketPlace.Domain.Core.Application.Entities._Saler.SalerType", "SalerType")
                         .WithMany("Salers")
-                        .HasForeignKey("SalerTypeId")
+                        .HasForeignKey("SellerTypeId")
                         .IsRequired()
                         .HasConstraintName("FK_Saler_SalerTypes");
 
@@ -3109,7 +3109,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             modelBuilder.Entity("MarketPlace.Domain.Core.Application.Entities._Prodoct.Product", b =>
                 {
-                    b.Navigation("BoothProductsActions");
+                    b.Navigation("BoothProductsAuctions");
 
                     b.Navigation("BoothsProducts");
 

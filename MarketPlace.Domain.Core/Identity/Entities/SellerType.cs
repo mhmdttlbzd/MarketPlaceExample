@@ -5,7 +5,7 @@ using MarketPlace.Domain.Core.Identity.Entities;
 
 namespace MarketPlace.Domain.Core.Application.Entities._Saler;
 
-public class SalerType
+public class SellerType
 {
     public int Id { get; set; }
 
@@ -13,5 +13,7 @@ public class SalerType
 
     public byte WagePercent { get; set; }
 
-    public virtual ICollection<Saler> Salers { get; set; } = new List<Saler>();
+    public long BaseSalesMoney { get; set; }
+
+    public virtual ICollection<Seller> Salers { get; set; } = new List<Seller>();
 }

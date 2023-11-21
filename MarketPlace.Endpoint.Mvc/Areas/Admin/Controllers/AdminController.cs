@@ -21,7 +21,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
             return View(await _adminPanelAppService.GetInformation(cancellationToken));
         }
 
-        public async Task<IActionResult> SaledProducts(CancellationToken cancellationToken)
+        public async Task<IActionResult> SelledProducts(CancellationToken cancellationToken)
         {
             return View(await _adminPanelAppService.GetSaledProducts(cancellationToken));
         }

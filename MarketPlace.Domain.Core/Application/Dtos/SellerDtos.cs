@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
-    #region Saler
-    public record SalerOutputDto(
-        int Id, int SalerTypeId, BoothOutputDto? Booth, SalerTypeDto SalerTipe
+    #region Seller
+    public record SellerOutputDto(
+        int Id, int SellerTypeId, BoothOutputDto? Booth, SellerTypeDto SellerType
         );
-    public record SalerInputDto( int Id, int SalerTypeId=1 );
+    public record SellerInputDto( int Id, int SellerTypeId=1 );
 
-    public record GeneralSalerDto
+    public record GeneralSellerDto
     {
         public int Id { get; set; }
-        public string SalerTypeName { get; set; }
+        public string SellerTypeName { get; set; }
         public string ProvinsName { get; set; }
         public string BoothName { get; set; }
         public string CityName { get; set; }
@@ -28,21 +28,21 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     }
 
 
-    public record GeneralSalerInputDto
+    public record GeneralSellerInputDto
     {
         public int Id { get; set; }
         public int CityId { get; set; } = -1;
         public string AddressDescription { get; set; }
         public int PostalCode { get; set; }
         public string BoothName { get; set; }
-        public int SalerTypeId { get; set; }
+        public int SellerTypeId { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }
         public string? Family { get; set; }
         public string? Password { get; set; }
     }
 
-	public record GeneralSalerEditDto
+	public record GeneralSellerEditDto
 	{
 		public int Id { get; set; }
 		public string? Email { get; set; }
@@ -53,7 +53,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 	}
 	#endregion
 
-	#region SalerType
-	public record SalerTypeDto(int Id, string Title, byte TaskPercent, ICollection<SalerOutputDto> Salers);
+	#region SellerType
+	public record SellerTypeDto(int Id, string Title, byte TaskPercent,long BaseSalesMoney);
     #endregion
 }

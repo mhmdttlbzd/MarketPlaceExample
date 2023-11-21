@@ -33,7 +33,7 @@ public class MarketPlaceDbContext : IdentityDbContext<ApplicationUser,Applicatio
         base.OnModelCreating(builder);
         builder.Entity<ApplicationUser>(entity => { entity.ToTable("Accounts"); });
         builder.Entity<Customer>(entity => { entity.ToTable("Customers"); });
-        builder.Entity<Saler>(entity => { entity.ToTable("Salers"); });
+        builder.Entity<Seller>(entity => { entity.ToTable("Salers"); });
         builder.Entity<Admin>(entity => { entity.ToTable("Admins"); });
         builder.Entity<IdentityRole<int>>(entity => { entity.ToTable("Roles"); });
         builder.Entity<IdentityUserRole<int>>(entity => { entity.ToTable("AccountRoles"); });

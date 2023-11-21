@@ -11,21 +11,25 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
     {
         private readonly IMapper _mapper;
         private readonly MarketPlaceDbContext _dbContext;
-        private readonly DbSet<SalerType> _entities;
+        private readonly DbSet<SellerType> _entities;
 
         public SalerTypeRepo(IMapper mapper, MarketPlaceDbContext dbContext)
         {
             _mapper = mapper;
             _dbContext = dbContext;
-            _entities = _dbContext.Set<SalerType>();
+            _entities = _dbContext.Set<SellerType>();
         }
-        public async Task<List<SalerTypeDto>> GetAllAsync(CancellationToken cancellationToken)
-    => _mapper.Map<List<SalerTypeDto>>(await _entities.AsNoTracking().ToListAsync(cancellationToken));
+        public async Task<List<SellerTypeDto>> GetAllAsync(CancellationToken cancellationToken)
+    => _mapper.Map<List<SellerTypeDto>>(await _entities.AsNoTracking().ToListAsync(cancellationToken));
+
+        public List<SellerTypeDto> GetAll()
+=> _mapper.Map<List<SellerTypeDto>>( _entities.AsNoTracking().ToList());
 
 
 
-        public async Task<SalerTypeDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<SalerTypeDto>(await _entities.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+        public async Task<SellerTypeDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
+            => _mapper.Map<SellerTypeDto>(await _entities.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+
 
     }
 }

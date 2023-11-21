@@ -28,7 +28,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 
         public async Task DeleteAsync(int Id, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Set<TEntity>().FindAsync(Id, cancellationToken);
+            var entity = await _dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == Id , cancellationToken);
             _dbContext.Set<TEntity>().Remove(entity);
             
         }
@@ -40,7 +40,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
 
 
         public virtual async Task<TOutput> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<TOutput>(await _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+            => _mapper.Map<TOutput>(await _dbContext.Set<TEntity>().FindAsync(Id, cancellationToken));
 
 
         public virtual async Task UpdateAsync( TInput input, int id , CancellationToken cancellationToken)

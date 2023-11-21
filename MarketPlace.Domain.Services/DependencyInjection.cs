@@ -92,8 +92,8 @@ namespace MarketPlace.Domain.Services
             #endregion
 
             #region
-            services.AddScoped<ISalerService, SalerService>();
-            services.AddScoped<ISalerTypeService, SalerTypeService>();
+            services.AddScoped<ISalerService, SellerService>();
+            services.AddScoped<ISalerTypeService, SellerTypeService>();
             #endregion
 
         }

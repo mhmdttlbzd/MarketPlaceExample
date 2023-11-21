@@ -33,13 +33,13 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
 		private readonly IAuctionPictureService _auctionPictureService;
 		private readonly IOrderLineService _orderLineService;
 		private readonly UserManager<Customer> _customerManager;
-		private readonly UserManager<Saler> _salerManager;
+		private readonly UserManager<Seller> _sellerManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMainAddressService _mainAddressService;
 		private readonly IUnitOfWorks _unitOfWorks;
         private readonly IBoothService _boothService;
 
-        public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService, UserManager<Customer> customerManager, UserManager<Saler> salerManager)
+        public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService, UserManager<Customer> customerManager, UserManager<Seller> salerManager)
         {
             _walletService = walletService;
             _commentService = commentService;
@@ -56,7 +56,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
             _unitOfWorks = unitOfWorks;
             _boothService = boothService;
             _customerManager = customerManager;
-            _salerManager = salerManager;
+            _sellerManager = salerManager;
         }
 
         public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
@@ -78,7 +78,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
 
 		public async Task<List<SaleOrderLineDto>> GetSaledProducts(CancellationToken cancellationToken)
 			=> await _orderLineService.GetSaledProducts(cancellationToken);
-		public async Task<List<WalletTransactionOutputDto>> GetAllWalletTransactions(CancellationToken cancellationToken)
+		public async Task<List<WalletTransactionDto>> GetAllWalletTransactions(CancellationToken cancellationToken)
 			=> await _walletService.GetAllWalletTransactions(cancellationToken);
 
 
@@ -95,7 +95,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
             }
             return customers;
         }
-        public async Task<List<GeneralSalerDto>> GetAllSalers(CancellationToken cancellationToken)
+        public async Task<List<GeneralSellerDto>> GetAllSalers(CancellationToken cancellationToken)
         {
             var salers = await _salerService.GetGeneralSalers(cancellationToken);
             foreach (var saler in salers)
@@ -137,21 +137,21 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
             await _customerManager.AddToRoleAsync(customer, "Customer");
         }
 
-        public async Task CreateSaler(GeneralSalerInputDto inputDto, CancellationToken cancellationToken)
+        public async Task CreateSaler(GeneralSellerInputDto inputDto, CancellationToken cancellationToken)
         {
             int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
 
-            var saler = new Saler
+            var saler = new Seller
             {
                 Name = inputDto.Name,
                 Family = inputDto.Family,
                 Email = inputDto.Email,
                 UserName = inputDto.Email,
-                SalerTypeId = inputDto.SalerTypeId
+                SellerTypeId = inputDto.SellerTypeId
             };
-            await _salerManager.CreateAsync(saler);
-            await _salerManager.AddPasswordAsync(saler, inputDto.Password);
-            await _salerManager.AddToRoleAsync(saler, "Saler");
+            await _sellerManager.CreateAsync(saler);
+            await _sellerManager.AddPasswordAsync(saler, inputDto.Password);
+            await _sellerManager.AddToRoleAsync(saler, "Seller");
 
 			await _boothService.CreateAsync(new BoothInputDto(saler.Id, inputDto.BoothName, addressId), cancellationToken);
 			await _unitOfWorks.SaveChangesAsync(cancellationToken);

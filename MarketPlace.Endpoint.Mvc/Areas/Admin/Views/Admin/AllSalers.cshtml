@@ -1,6 +1,6 @@
 ﻿@using MarketPlace.Domain.Core.Application.Dtos;
 @using MarketPlace.Domain.Core.Application.Enums;
-@model List<GeneralSalerDto>;
+@model List<GeneralSellerDto>;
 
 
 
@@ -39,7 +39,7 @@
                                     <td class="cell">@saler.CityName</td>
                                     <td class="cell">@saler.Status</td>
                                     <td class="cell">@saler.BoothName</td>
-                                    <td class="cell">@saler.SalerTypeName</td>
+                                    <td class="cell">@saler.SellerTypeName</td>
                                     <td class="cell"><a class="btn-sm app-btn-secondary" asp-controller="Saler" asp-action="Edit" asp-route-id="@saler.Id">ویرایش</a></td>
                                     @if (saler.Status == UserStatus.Active)
                                     {

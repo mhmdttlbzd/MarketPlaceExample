@@ -13,9 +13,11 @@ public class Booth : BaseEntity
 
     public int? ShopAddressId { get; set; }
 
+    public long SalesMoney { get; set; }
+
     public virtual MainAddress? ShopAddress { get; set; }
 
     public virtual ICollection<BoothProduct> BoothsProducts { get; set; } = new List<BoothProduct>();
 
-    public virtual Saler Saler { get; set; } = null!;
+    public virtual Seller Saler { get; set; } = null!;
 }

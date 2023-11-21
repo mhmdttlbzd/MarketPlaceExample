@@ -9,13 +9,13 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Saler
 {
     public interface ISalerService
     {
-        Task<int> CreateAsync(SalerInputDto input, CancellationToken cancellationToken);
-        Task<List<SalerOutputDto>> GetAllAsync(CancellationToken cancellationToken);
-        Task<SalerOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
-        Task UpdateAsync(SalerInputDto input, int id, CancellationToken cancellationToken);
+        Task<int> CreateAsync(SellerInputDto input, CancellationToken cancellationToken);
+        Task<List<SellerOutputDto>> GetAllAsync(CancellationToken cancellationToken);
+        Task<SellerOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
+        Task UpdateAsync(SellerInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
         int AllSalersCount();
-        Task<List<GeneralSalerDto>> GetGeneralSalers(CancellationToken cancellationToken);
-
+        Task<List<GeneralSellerDto>> GetGeneralSalers(CancellationToken cancellationToken);
+        byte GetWagePercent(int sellerId);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
-    public record WalletTransactionOutputDto
+    public record WalletTransactionDto
     {
         public int Wage { get; set; }
         public long PaidPrice { get; set; }

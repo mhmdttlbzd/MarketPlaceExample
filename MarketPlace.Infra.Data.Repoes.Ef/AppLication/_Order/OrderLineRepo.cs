@@ -62,7 +62,22 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
                 .Where(o => o.Order.Status == OrderStatus.Bought && o.Order.BuyedAt >= date)
                 .Select(o => new SaleOrderLineDto
                 {
-                    CustomerId = o.Order.CustomerId,
+                    CustomerName = o.Order.Customer.UserName,
+                    dateTime = o.Order.BuyedAt,
+                    ProductName = o.BoothProduct.Product.Name,
+                    Quantity = o.Quantity,
+                    BoothName = o.BoothProduct.Booth.Name
+                }).AsNoTracking().ToListAsync(cancellationToken);
+            return QuantitiesList;
+        }
+        public async Task<List<SaleOrderLineDto>> GetSaledProducts(int sellerId, CancellationToken cancellationToken)
+        {
+            var date = DateTime.Now - TimeSpan.FromDays(7);
+            var QuantitiesList = await _dbContext.Set<OrderLine>()
+                .Where(o => o.Order.Status == OrderStatus.Bought && o.Order.BuyedAt >= date && o.BoothProduct.BoothId == sellerId)
+                .Select(o => new SaleOrderLineDto
+                {
+                    CustomerName = o.Order.Customer.UserName,
                     dateTime = o.Order.BuyedAt,
                     ProductName = o.BoothProduct.Product.Name,
                     Quantity = o.Quantity,

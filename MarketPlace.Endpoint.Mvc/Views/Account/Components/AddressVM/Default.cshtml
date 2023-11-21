@@ -1,0 +1,94 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@using MarketPlace.Endpoint.Mvc.Models.Address;
+
+@model GeneralAddressViewModel;
+
+
+
+<div>
+    <label for='provinceId' class='form-label'>استان </label>
+    <select name="provinceId" onchange="ChangeCities(this.value)" class="form-select w-50 py-2 px-5 mb-2">
+        @foreach (var province in Model.Provinces.OrderBy(p => p.Id))
+        {
+            if (Model.Address != null && province.Id == Model.Address.ProvinceId)
+            {
+                <option selected value="@province.Id">@province.Name</option>
+            }
+            else
+            {
+                <option value="@province.Id">@province.Name</option>
+            }
+        }
+
+    </select>
+    <label for='cityId' class='form-label'>شهر </label>
+    <select name="CityId" class="form-select w-50 py-2 px-5 mb-2">
+
+        @if (Model.Address != null)
+        {
+            foreach (var city in Model.Cities.OrderBy(c => c.Id))
+            {
+                if (city.Id == Model.Address.CityId)
+                {
+                    <option selected class="provinceId-{@city.ProvinceId} city" value="@city.Id">@city.Name</option>
+                }
+                else
+                {
+                    <option class="provinceId-@city.ProvinceId city" value="@city.Id">@city.Name</option>
+                }
+            }
+        }
+        else
+        {
+            foreach (var city in Model.Cities.OrderBy(c => c.Id))
+            {
+                <option class="provinceId-@city.ProvinceId city" value="@city.Id">@city.Name</option>
+            }
+        }
+
+    </select>
+    <div class="mb-3 Address">
+        <label for='addressDescription' class='form-label'>آدرس </label>
+        <input class='form-control' value="@if (Model.Address != null) {
+        @Model.Address.Description
+}" name="AddressDescription">
+    </div>
+    <div class="mb-3 PostalCode">
+        <label for='postalCode' class='form-label'>کد پستی </label>
+        <input class='form-control' value="@if (Model.Address != null) {
+        @Model.Address.PostalCode
+}" name="PostalCode" type="number">
+    </div>
+</div>
+
+@if (Model.Address != null)
+{
+    <script>
+        function Start() {
+        
+            $(".city").hide();
+            $(`.provinceId-${@Model.Address.ProvinceId}`).show();
+        }
+    </script>
+}
+else
+{
+    <script>
+        function Start() {
+            $(".city").hide();
+            $(`.provinceId-1`).show();
+        }
+    </script>
+
+}
+
+<script>
+    function ChangeCities(provinceId) {
+        $(".city").hide().removeAttr("selected");
+        $(`.provinceId-${provinceId}`).show();
+    }
+    $(document).ready( function(){Start()})
+</script>
+
+
+

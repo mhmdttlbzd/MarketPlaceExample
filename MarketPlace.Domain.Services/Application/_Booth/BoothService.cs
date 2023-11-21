@@ -38,6 +38,9 @@ namespace MarketPlace.Domain.Services.Application._Booth
             return await _boothRepo.GetByIdAsync(id, cancellationToken);
         }
 
+        public async Task<GeneralBoothDto> GetGeneralBoothById(int id, CancellationToken cancellationToken)
+            => await _boothRepo.GetGeneralBoothById(id, cancellationToken);
+
         public async Task UpdateAsync(BoothInputDto input, int id, CancellationToken cancellationToken)
         {
             await _boothRepo.UpdateAsync(input, id, cancellationToken);

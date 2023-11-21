@@ -47,10 +47,31 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 
 
 
-        public async Task<BoothOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<BoothOutputDto>(await _dbContext.Set<Booth>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
+        public async Task<BoothOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
+        {
+            var booth = await _dbContext.Set<Booth>().FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+            return new BoothOutputDto(booth.Id, booth.Name, (int)booth.ShopAddressId, null, null, null);
+        }
+        
+        public async Task<long> GetSalesMoney(int sellerId)
+        {
+            return await _dbContext.Set<Booth>().Where(b => b.Id == sellerId).Select(b => b.SalesMoney).FirstOrDefaultAsync();
+        }
 
-
+        public async Task<GeneralBoothDto> GetGeneralBoothById(int id,CancellationToken cancellationToken)
+        {
+            var res = await _dbContext.Set<Booth>().Where(b => b.Id == id).Select(b => new GeneralBoothDto
+            {
+                Id = b.Id,
+                Name = b.Name,
+                CityName = b.ShopAddress.City.Name,
+                Address = b.ShopAddress.Address,
+                PostalCode = b.ShopAddress.PostalCode,
+                TotalSales = b.SalesMoney,
+                BoothProductsCount = b.BoothsProducts.Count()
+            }).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
+            return res;
+        }
         public async Task UpdateAsync(BoothInputDto input, int id, CancellationToken cancellationToken)
         {
             var booth = await _dbContext.Set<Booth>().FirstOrDefaultAsync(b => b.Id == id, cancellationToken);

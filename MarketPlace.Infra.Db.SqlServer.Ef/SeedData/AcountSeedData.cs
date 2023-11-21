@@ -73,12 +73,12 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
             builder.HasData(user2,user3);
 		}
 	}
-	public class SalerSeedData : IEntityTypeConfiguration<Saler>
+	public class SalerSeedData : IEntityTypeConfiguration<Seller>
 	{
-		public void Configure(EntityTypeBuilder<Saler> builder)
+		public void Configure(EntityTypeBuilder<Seller> builder)
         {
             var hasher = new PasswordHasher<ApplicationUser>();
-            var user4 = new Saler
+            var user4 = new Seller
             {
                 Id = 4,
                 UserName = "reza@gmail.com",
@@ -89,9 +89,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
                 Family = "شریفی",
                 Status = UserStatus.Active,
                 SecurityStamp = Guid.NewGuid().ToString("D"),
-                SalerTypeId = 1
+                SellerTypeId = 1
             };
-            var user5 = new Saler
+            var user5 = new Seller
             {
                 Id = 5,
                 UserName = "saeed@gmail.com",
@@ -102,7 +102,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
                 Family = "افشار",
                 Status = UserStatus.Active,
                 SecurityStamp = Guid.NewGuid().ToString("D"),
-                SalerTypeId = 1
+                SellerTypeId = 1
             };
 
             user4.PasswordHash = hasher.HashPassword(user4, "1212");
@@ -111,13 +111,13 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 		}
 	}
 
-	public class SalerTypeSeedData : IEntityTypeConfiguration<SalerType>
+	public class SalerTypeSeedData : IEntityTypeConfiguration<SellerType>
 	{
-		public void Configure(EntityTypeBuilder<SalerType> builder)
+		public void Configure(EntityTypeBuilder<SellerType> builder)
 		{
 			builder.HasData(
-				new SalerType { Id = 1, Title = "normal", WagePercent = 5 },
-				new SalerType { Id = 2, Title = "golden", WagePercent = 3 }
+				new SellerType { Id = 1, Title = "normal", WagePercent = 5 },
+				new SellerType { Id = 2, Title = "golden", WagePercent = 3 }
 			);
 		}
 	}
@@ -133,7 +133,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 			builder.HasData(
 				new ApplicationRole { Id = 1, Name = "Admin", NormalizedName = "ADMIN".ToUpper() },
 				new ApplicationRole { Id = 2, Name = "Customer", NormalizedName = "CUSTOMER".ToUpper() },
-				new ApplicationRole { Id = 3, Name = "Saler", NormalizedName = "SALER".ToUpper() }
+				new ApplicationRole { Id = 3, Name = "Seller", NormalizedName = "SALER".ToUpper() }
 				);
 
 		}

@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Domain.Core.Application.Contract.Repositories._Auction;
+using MarketPlace.Domain.Core.Application.Contract.Repositories._Auctions;
 using MarketPlace.Domain.Core.Application.Contract.Services._Auction;
 using MarketPlace.Domain.Core.Application.Dtos;
 using System;
@@ -12,10 +13,12 @@ namespace MarketPlace.Domain.Services.Application._Auction
     public class AuctionService : IAuctionService
     {
         private readonly IAuctionRepo _auctionRepo;
+        private readonly IAuctionProposalRepo _auctionProposalRepo;
 
-        public AuctionService(IAuctionRepo auctionRepo)
+        public AuctionService(IAuctionRepo auctionRepo, IAuctionProposalRepo auctionProposalRepo)
         {
             _auctionRepo = auctionRepo;
+            _auctionProposalRepo = auctionProposalRepo;
         }
 
         public async Task<int> CreateAsync(AuctionInputDto input, CancellationToken cancellationToken)
@@ -41,6 +44,18 @@ namespace MarketPlace.Domain.Services.Application._Auction
         public async Task UpdateAsync(AuctionInputDto input, int id, CancellationToken cancellationToken)
         {
             await _auctionRepo.UpdateAsync(input, id, cancellationToken);
+        }
+        public List<GeneralAuctionDto> GetGeneralAuctionBySellerId(int sellerId)
+        {
+            var auctions =  _auctionRepo.GetGeneralAuctionBySellerId(sellerId);
+            foreach (var auction in auctions)
+            {
+                if (_auctionProposalRepo.GetProposalCountByActionId(auction.Id) != 0)
+                {
+                    auction.LastPrice = _auctionProposalRepo.GetLastProposalPrice(auction.Id);
+                }
+            }
+            return auctions;
         }
     }
 }

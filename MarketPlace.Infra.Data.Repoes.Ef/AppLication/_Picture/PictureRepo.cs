@@ -33,9 +33,9 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Picture
         public async Task<int> CreateAsync(string path, CancellationToken cancellationToken, string? alt = null)
         {
             var entity = new Picture { Path = path, Alt = alt };
-            await _dbContext.Set<Picture>().AddAsync(entity, cancellationToken);
-           
-            return entity.Id;
+            var res = await _dbContext.Set<Picture>().AddAsync(entity, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return res.Entity.Id;
         }
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)

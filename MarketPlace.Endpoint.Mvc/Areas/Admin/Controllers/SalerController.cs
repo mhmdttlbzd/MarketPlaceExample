@@ -11,9 +11,9 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
     public class SalerController : Controller
     {
         private readonly IAdminPanelAppService _adminPanelAppService;
-        private readonly ISalerAppService _salerAppService;
+        private readonly ISellerAppService _salerAppService;
 
-        public SalerController(IAdminPanelAppService adminPanelAppService, ISalerAppService salerAppService)
+        public SalerController(IAdminPanelAppService adminPanelAppService, ISellerAppService salerAppService)
         {
             _adminPanelAppService = adminPanelAppService;
             _salerAppService = salerAppService;
@@ -31,7 +31,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreatePost(GeneralSalerInputDto input, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreatePost(GeneralSellerInputDto input, CancellationToken cancellationToken)
         {
             await _adminPanelAppService.CreateSaler(input, cancellationToken);
             return LocalRedirect("/Admin");
@@ -46,9 +46,9 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> EditPost(GeneralSalerInputDto input, CancellationToken cancellationToken)
+        public async Task<IActionResult> EditPost(GeneralSellerInputDto input, CancellationToken cancellationToken)
         {
-            await _salerAppService.UpdateCustomer(input, cancellationToken);
+            await _salerAppService.UpdateSeller(input, cancellationToken);
             return LocalRedirect("/Admin");
         }
     }

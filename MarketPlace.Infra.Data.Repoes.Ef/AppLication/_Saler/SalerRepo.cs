@@ -7,6 +7,7 @@ using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
 {
@@ -22,49 +23,58 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
             _mapper = mapper;
         }
 
-        public async Task<int> CreateAsync(SalerInputDto InputDto, CancellationToken cancellationToken)
+        public async Task<int> CreateAsync(SellerInputDto InputDto, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<Saler>(InputDto);
-            await _dbContext.Set<Saler>().AddAsync(entity, cancellationToken);
+            var entity = _mapper.Map<Seller>(InputDto);
+            await _dbContext.Set<Seller>().AddAsync(entity, cancellationToken);
            
             return entity.Id;
         }
 
         public async Task DeleteAsync(int Id, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.Set<Saler>().FindAsync(Id, cancellationToken);
-            _dbContext.Set<Saler>().Remove(entity);
+            var entity = await _dbContext.Set<Seller>().FindAsync(Id, cancellationToken);
+            _dbContext.Set<Seller>().Remove(entity);
 
+        }
+        public async Task UpdateType(int sellerId,int sellerTypeId)
+        {
+            var seller = await _dbContext.Set<Seller>().FirstOrDefaultAsync(s => s.Id == sellerId);
+            seller.SellerTypeId = sellerTypeId;
         }
 
 
-        public async Task<List<SalerOutputDto>> GetAllAsync(CancellationToken cancellationToken)
-            => _mapper.Map<List<SalerOutputDto>>(await _dbContext.Set<Saler>().AsNoTracking().ToListAsync(cancellationToken));
-
-
-
-        public async Task<SalerOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
-            => _mapper.Map<SalerOutputDto>(await _dbContext.Set<Saler>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
-
-
-        public async Task UpdateAsync(SalerInputDto input, int id, CancellationToken cancellationToken)
+        public Task<SellerOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var saler = await _dbContext.Set<Saler>().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
-            saler.SalerTypeId = input.SalerTypeId;
-           
+            throw new NotImplementedException();
         }
-        public int AllSalersCount() => _dbContext.Set<Saler>().Count();
 
-        public async Task<List<GeneralSalerDto>> GetGeneralSalers(CancellationToken cancellationToken)
+        public Task UpdateAsync(SellerInputDto input, int id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Set<Saler>().Select(c => new GeneralSalerDto
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<SellerOutputDto>> GetAllAsync(CancellationToken cancellationToken)
+            => _mapper.Map<List<SellerOutputDto>>(await _dbContext.Set<Seller>().ToListAsync());
+
+
+        public int AllSellersCount() => _dbContext.Set<Seller>().Count();
+
+        public async Task<List<GeneralSellerDto>> GetGeneralSalers(CancellationToken cancellationToken)
+        {
+            return await _dbContext.Set<Seller>().Select(c => new GeneralSellerDto
             {
                 Id = c.Id,
                 CityName = c.Booth.ShopAddress.City.Name,
                 ProvinsName = c.Booth.ShopAddress.City.Province.Name,
                 BoothName = c.Booth.Name,
-                SalerTypeName = c.SalerType.Title
-            }).AsNoTracking().ToListAsync(cancellationToken);
+                SellerTypeName = c.SellerType.Title
+            }).ToListAsync();
         }
+
+        public byte GetWagePercent(int sellerId)
+            =>  _dbContext.Set<Seller>().Where(s => s.Id == sellerId).Select(s => s.SellerType.WagePercent).FirstOrDefault();
+
+
     }
 }

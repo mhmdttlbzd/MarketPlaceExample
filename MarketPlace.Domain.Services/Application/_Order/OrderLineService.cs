@@ -29,5 +29,7 @@ namespace MarketPlace.Domain.Services.Application._Order
             =>await _orderLineRepo.UpdateAsync(input, id, cancellationToken);
         public async Task<List<SaleOrderLineDto>> GetSaledProducts(CancellationToken cancellationToken)
             => await _orderLineRepo.GetSaledProducts(cancellationToken);
+        public async Task<List<SaleOrderLineDto>> GetSaledProducts(int sellerId,CancellationToken cancellationToken)
+            => await _orderLineRepo.GetSaledProducts( sellerId, cancellationToken);
     }
 }

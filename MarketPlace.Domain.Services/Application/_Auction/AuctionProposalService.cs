@@ -37,5 +37,7 @@ namespace MarketPlace.Domain.Services.Application._Auction
         {
             await _auctionProposalRepo.UpdateAsync(input, id, cancellationToken);
         }
+        public List<AuctionProposalDto> GetProposalsByAuctionId(int auctionId)
+            => _auctionProposalRepo.GetProposalsByAuctionId(auctionId);
     }
 }

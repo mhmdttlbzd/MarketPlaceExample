@@ -14,5 +14,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Booth
         Task<BoothOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(BoothInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
+        Task<GeneralBoothDto> GetGeneralBoothById(int id, CancellationToken cancellationToken);
     }
 }

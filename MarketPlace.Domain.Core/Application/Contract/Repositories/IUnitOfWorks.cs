@@ -9,5 +9,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories
     public interface IUnitOfWorks
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+        int SaveChanges();
     }
 }

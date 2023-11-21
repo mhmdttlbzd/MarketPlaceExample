@@ -4,7 +4,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Saler
 {
     public interface ISalerTypeRepo
     {
-        Task<List<SalerTypeDto>> GetAllAsync(CancellationToken cancellationToken);
-        Task<SalerTypeDto> GetByIdAsync(int id, CancellationToken cancellationToken);
+        Task<List<SellerTypeDto>> GetAllAsync(CancellationToken cancellationToken);
+        Task<SellerTypeDto> GetByIdAsync(int id, CancellationToken cancellationToken);
+        List<SellerTypeDto> GetAll();
     }
 }
