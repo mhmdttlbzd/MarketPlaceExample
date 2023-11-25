@@ -42,7 +42,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
             var seller = await _dbContext.Set<Seller>().FirstOrDefaultAsync(s => s.Id == sellerId);
             seller.SellerTypeId = sellerTypeId;
         }
-
+         
 
         public Task<SellerOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
         {

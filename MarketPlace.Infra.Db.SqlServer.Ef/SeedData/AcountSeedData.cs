@@ -104,10 +104,24 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 SellerTypeId = 1
             };
+            var user6 = new Seller
+            {
+                Id = 6,
+                UserName = "kazem@gmail.com",
+                NormalizedUserName = "KAZEM@GMAIL.COM".ToUpper(),
+                Email = "kazem@gmail.com",
+                NormalizedEmail = "KAZEM@GMAIL.COM".ToUpper(),
+                Name = "کاظم",
+                Family = "کاظمی",
+                Status = UserStatus.Active,
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                SellerTypeId = 1
+            };
 
             user4.PasswordHash = hasher.HashPassword(user4, "1212");
             user5.PasswordHash = hasher.HashPassword(user5, "1212");
-            builder.HasData(user4, user5);
+            user6.PasswordHash = hasher.HashPassword(user6, "1212");
+            builder.HasData(user4, user5,user6);
 		}
 	}
 
@@ -116,8 +130,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 		public void Configure(EntityTypeBuilder<SellerType> builder)
 		{
 			builder.HasData(
-				new SellerType { Id = 1, Title = "normal", WagePercent = 5 },
-				new SellerType { Id = 2, Title = "golden", WagePercent = 3 }
+				new SellerType { Id = 1, Title = "normal", WagePercent = 5 , BaseSalesMoney = 0 },
+				new SellerType { Id = 2, Title = "golden", WagePercent = 3 ,BaseSalesMoney = 20000000}
 			);
 		}
 	}
@@ -147,7 +161,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 				new IdentityUserRole<int> { RoleId = 2, UserId = 2 },
 				new IdentityUserRole<int> { RoleId = 2, UserId = 3 },
 				new IdentityUserRole<int> { RoleId = 3, UserId = 4 },
-				new IdentityUserRole<int> { RoleId = 3, UserId = 5 }
+				new IdentityUserRole<int> { RoleId = 3, UserId = 5 },
+				new IdentityUserRole<int> { RoleId = 3, UserId = 6 }
 				);
 		}
 	}
@@ -163,7 +178,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 				new Wallet { Id = 2, Money = 10000 },
 				new Wallet { Id = 3, Money = 100000 },
 				new Wallet { Id = 4, Money = 50000000 },
-				new Wallet { Id = 5, Money = 21000000 }
+				new Wallet { Id = 5, Money = 21000000 },
+				new Wallet { Id = 6, Money = 21000000 }
 				);
 		}
 	}

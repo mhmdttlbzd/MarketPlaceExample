@@ -13,5 +13,7 @@ namespace MarketPlace.Domain.Core.Identity.Entities
         public string Name { get; set; } = null!;
         public string Family { get; set; } = null!;
         public UserStatus Status { get; set; } = UserStatus.Active;
+        
+        public Wallet Wallet { get; set; }
     }
 }

@@ -28,11 +28,14 @@ html {
     margin-left: 0 !important;
 }
 .single-product {
+  border-radius: 10px;
 background-color: #fff;
 padding: 10px;
 }
-.settings-section{
-background-color: rgba(255, 255, 255, 0.356);
+.settings-section, .shop-single-blog ,.single-list{
+/* background-color: rgba(156, 156, 156, 0.568); */
+background-color: #fff;
+overflow: hidden;
 border-radius: 10px;
 padding-bottom: 1.5rem;
 }
@@ -42,7 +45,9 @@ padding-bottom: 1.5rem;
     justify-content: center;
     display: flex;
 }
-
+.section-title{
+    text-align :center;
+}
 
 
     /*--------------------------------*/

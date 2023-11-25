@@ -1,4 +1,5 @@
-﻿using MarketPlace.Domain.Core.Application.Contract.AppServices._Product;
+﻿using MarketPlace.Domain.AppServices.AppLication._Product;
+using MarketPlace.Domain.Core.Application.Contract.AppServices._Product;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Endpoint.Mvc.Areas.Seller.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBoothProduct(ICollection<IFormFile> images,AuctionModel model,CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateBoothProduct(ICollection<IFormFile> images,BoothProductModel model,CancellationToken cancellationToken)
         {
             var folder = Path.Combine(_environment.WebRootPath, "images/product");
             List<string> paths = new List<string>();
@@ -51,7 +52,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
                 }
                 paths.Add("product/"+ fileName);
             }
-            await _auctionAppService.Create(paths, model, cancellationToken, User.Identity.Name);
+            await _boothProductAppService.Create(paths, model, cancellationToken, User.Identity.Name);
             return RedirectToAction("AllProducts");
         }
 
@@ -61,7 +62,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAuction(ICollection<IFormFile> images, BoothProductModel model, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateAuction(ICollection<IFormFile> images, AuctionModel model, CancellationToken cancellationToken)
         {
             var folder = Path.Combine(_environment.WebRootPath, "images/product");
             List<string> paths = new List<string>();
@@ -77,7 +78,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
                 }
                 paths.Add("product/" + fileName);
             }
-            await _boothProductAppService.Create(paths, model, cancellationToken, User.Identity.Name);
+            await _auctionAppService.Create(paths, model, cancellationToken, User.Identity.Name);
             return RedirectToAction("AllProducts");
         }
     }

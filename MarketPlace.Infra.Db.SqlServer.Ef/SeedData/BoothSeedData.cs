@@ -16,7 +16,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
         {
             builder.HasData(
                 new Booth { Id = 4, Name = "رضا لباس", CreatedAt = DateTime.Now, ShopAddressId = 3,SalesMoney = 2700000 },
-                new Booth { Id = 5, Name = "برادران افشار", CreatedAt = DateTime.Now, ShopAddressId = 4 , SalesMoney = 1600000 }
+                new Booth { Id = 5, Name = "برادران افشار", CreatedAt = DateTime.Now, ShopAddressId = 4 , SalesMoney = 1600000 },
+                new Booth { Id = 6, Name = "کاظم لباس", CreatedAt = DateTime.Now, ShopAddressId = 5 , SalesMoney = 0 }
                 );
         }
     }

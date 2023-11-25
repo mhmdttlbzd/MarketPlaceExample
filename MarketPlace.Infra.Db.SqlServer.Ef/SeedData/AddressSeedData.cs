@@ -49,7 +49,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
                 new MainAddress { Id = 1,CityId=1, PostalCode= 1626627277,CreatedAt = DateTime.Now,Address = "خیابان رحمت جنب کوچه 2"},
                 new MainAddress { Id = 2,CityId=1, PostalCode= 1234567890,CreatedAt = DateTime.Now,Address = "خیابان ملاصدرا جنب کوچه 2"},
                 new MainAddress { Id = 3,CityId=1, PostalCode= 1634567611,CreatedAt = DateTime.Now,Address = "خیابان شهناز جنب کوچه 2"},
-                new MainAddress { Id = 4,CityId=1, PostalCode= 1213435657,CreatedAt = DateTime.Now,Address = "خیابان داریوش جنب کوچه 2"}
+                new MainAddress { Id = 4,CityId=1, PostalCode= 1634567611,CreatedAt = DateTime.Now,Address = "خیابان شهناز جنب کوچه 2"},
+                new MainAddress { Id = 5,CityId=2, PostalCode= 1713435657,CreatedAt = DateTime.Now,Address = "خیابان داریوش جنب کوچه 2"}
                 );
         }
     }

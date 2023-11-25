@@ -2817,7 +2817,7 @@ Version:1.0
 	height: 2px;
 	width: 50px;
 	background: #15a362;
-	left: 0;
+	right: 0;
 	bottom: -1px;
 }
 .shop-home-list .single-list {
@@ -3742,7 +3742,6 @@ Version:1.0
 }
 .shop-services .single-service {
 	position: relative;
-	padding-left: 65px;
 }
 .shop-services .single-service i {
 	height: 50px;

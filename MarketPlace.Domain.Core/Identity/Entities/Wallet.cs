@@ -12,5 +12,7 @@ namespace MarketPlace.Domain.Core.Identity.Entities
     {
         public int Id { get; set; }
         public long Money { get; set; } 
+
+        public ApplicationUser User { get; set; }
     }
 }

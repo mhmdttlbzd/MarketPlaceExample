@@ -133,7 +133,7 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
                     WagePercent = table.Column<byte>(type: "tinyint", nullable: false),
-                    BaseSalesMony = table.Column<long>(type: "bigint", nullable: false)
+                    BaseSalesMoney = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,19 +157,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Wallets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Money = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Wallets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -249,6 +236,23 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Wallets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Money = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wallet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Wallets_Accounts_Id",
+                        column: x => x.Id,
+                        principalTable: "Accounts",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -779,11 +783,12 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Family", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "4c7ab45f-ad83-4579-94d8-aa66fb19676c", "mhmdttlbzd@gmail.com", false, "طالب زاده", false, null, "محمد", "MHMDTTLBZD@GMAIL.COM", "MHMDTTLBZD@GMAIL.COM", "AQAAAAIAAYagAAAAEH1ztFGxg3E44xJASGMqCaQ48tLKlb3Ig9IpWE4DNCjLoZU1jKaViXZMXb0/ltnfRg==", null, false, "8a07a823-f95f-4f46-84fb-ebbe657357e0", 1, false, "mhmdttlbzd@gmail.com" },
-                    { 2, 0, "f0ca5610-5542-41b0-87f3-883864da25bc", "example@gmail.com", false, "علی زاده", false, null, "محمد", null, "EXAMPLE@GMAIL.COM", "AQAAAAIAAYagAAAAEEZTrckY8/mtY11UL1yV282uNUQ0DIPweUro3CaIxQEcyvUYvv5DWLpm9ttfsf/obg==", null, false, "bd4a2ebf-9f2b-4fb8-a0e7-cb619c0b6514", 1, false, "example@gmail.com" },
-                    { 3, 0, "1c109870-41df-464c-8efb-e0a178758960", "ali@gmail.com", false, "سعیدی", false, null, "علی", "ALI@GMAIL.COM", "ALI@GMAIL.COM", "AQAAAAIAAYagAAAAEFiTzJuN6vXS4aBxpjm1VxkhOM/dzF7IezXd10Kwp2FJtn3AhnJ7BG4S6SUIs+zDpQ==", null, false, "c0d649fc-781c-47f0-952b-f46b733978e6", 1, false, "ali@gmail.com" },
-                    { 4, 0, "2ce35c12-b3a4-43d4-b23f-635e5be4a5da", "reza@gmail.com", false, "شریفی", false, null, "رضا", "REZA@GMAIL.COM", "REZA@GMAIL.COM", "AQAAAAIAAYagAAAAELUOrHnpD7dacxiCE94iUvP2ANjyXvt1iOd/0Am7DQZS/cOtnUSK57nbS4Gf3vA6Dg==", null, false, "99042149-f997-4a17-984c-9949f6f17221", 1, false, "reza@gmail.com" },
-                    { 5, 0, "3759f2ca-f9c7-4b19-8b8f-8a6a12d02900", "saeed@gmail.com", false, "افشار", false, null, "سعید", "SAEED@GMAIL.COM", "SAEED@GMAIL.COM", "AQAAAAIAAYagAAAAEGCQON1tJ/Vja0IpcHYFNyHZW1d+YDyG+AehzFCe6Z31OsR3Slp8lp+maH+gv3urYw==", null, false, "f134a1e3-04b8-4bf1-bebc-1db0e8dbeb89", 1, false, "saeed@gmail.com" }
+                    { 1, 0, "bddc9650-108e-4701-88ee-8f5df5647259", "mhmdttlbzd@gmail.com", false, "طالب زاده", false, null, "محمد", "MHMDTTLBZD@GMAIL.COM", "MHMDTTLBZD@GMAIL.COM", "AQAAAAIAAYagAAAAEBw8FKDmNNXHGYJ9jjhq2nJI/tAzSYeZjRnFga8ZhM/nZaWywOfirU0e1t5YPwm8Hw==", null, false, "b8cdbd99-3296-4b91-8a28-83623aca9c4b", 1, false, "mhmdttlbzd@gmail.com" },
+                    { 2, 0, "a880cdb8-2c1b-4932-a59d-7940fa8a7438", "example@gmail.com", false, "علی زاده", false, null, "محمد", null, "EXAMPLE@GMAIL.COM", "AQAAAAIAAYagAAAAEJJvzuG9VnHi5YWvUgUsf3O3eGBZhf9HfJiPHQYUSSxs/wJZi9Haotncufo/7yxtpA==", null, false, "d41ee329-104a-4e27-9679-a3162723473e", 1, false, "example@gmail.com" },
+                    { 3, 0, "48231d7a-67ef-4462-8196-7ab365b6feef", "ali@gmail.com", false, "سعیدی", false, null, "علی", "ALI@GMAIL.COM", "ALI@GMAIL.COM", "AQAAAAIAAYagAAAAEM1D4y+mPp1eljZlON3IhQSAVHadBm//d2JbU1Nh5JOeQFfeTZcsx+E+qgWJ+DZeTg==", null, false, "6c73aad5-1807-486f-a0a6-8719eadf38cf", 1, false, "ali@gmail.com" },
+                    { 4, 0, "9d966bbb-45dd-4a7b-ad8f-c91a9904751a", "reza@gmail.com", false, "شریفی", false, null, "رضا", "REZA@GMAIL.COM", "REZA@GMAIL.COM", "AQAAAAIAAYagAAAAEA9a2mpJ/UGpeBUu2cZpGlPz/1IA/1swNCTH8TPSuzgVOONJX62GH1mJk7GHnrL/KA==", null, false, "2089a68e-702e-4005-abd8-db098ca17815", 1, false, "reza@gmail.com" },
+                    { 5, 0, "9e687e4f-f31a-4970-a3c0-29ce2da51f13", "saeed@gmail.com", false, "افشار", false, null, "سعید", "SAEED@GMAIL.COM", "SAEED@GMAIL.COM", "AQAAAAIAAYagAAAAEKTTZfR1goa3Rki3OHFIRYQUZ0GEo+p9xoMQJbPoF1OOSYw3e5gHJI3n4HhfBEMDkg==", null, false, "826dd641-f1f2-4ea9-a4a7-899801c4d554", 1, false, "saeed@gmail.com" },
+                    { 6, 0, "fc32cd0b-9dc8-4b0d-9907-9b2259769e04", "kazem@gmail.com", false, "کاظمی", false, null, "کاظم", "KAZEM@GMAIL.COM", "KAZEM@GMAIL.COM", "AQAAAAIAAYagAAAAEFIM40RKhVmHuEfgjSg2oeVpMojzzbDXRtwwt0DjaFLcWlsU2J9Fct62fQitucmp6g==", null, false, "770e618e-c091-472a-8578-5f517ad37f95", 1, false, "kazem@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -876,7 +881,59 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     { 6, null, "product/6.jpg" },
                     { 7, null, "product/7.jpg" },
                     { 8, null, "product/8.jpg" },
-                    { 9, null, "product/9.jpg" }
+                    { 9, null, "product/9.jpg" },
+                    { 10, null, "product/Auction_american_1.jpeg" },
+                    { 11, null, "product/Auction_american_2.jpeg" },
+                    { 12, null, "product/Auction_monster_1.jpeg" },
+                    { 13, null, "product/Auction_monster_2.jpeg" },
+                    { 14, null, "product/Auction_police_1.jpeg" },
+                    { 15, null, "product/Auction_police_2.jpeg" },
+                    { 16, null, "product/Auction_pilot_1.jpeg" },
+                    { 17, null, "product/Auction_randolph_1.jpeg" },
+                    { 18, null, "product/Auction_randolph_2.jpeg" },
+                    { 19, null, "product/Sbooth_american_1.jpeg" },
+                    { 20, null, "product/Sbooth_american_2.jpeg" },
+                    { 21, null, "product/Sbooth_monster_1.jpeg" },
+                    { 22, null, "product/Sbooth_monster_2.jpeg" },
+                    { 23, null, "product/Sbooth_police_1.jpeg" },
+                    { 24, null, "product/Sbooth_police_2.jpeg" },
+                    { 25, null, "product/Sbooth_pilot_1.jpeg" },
+                    { 26, null, "product/Sbooth_vest_1.jpeg" },
+                    { 27, null, "product/Sbooth_vest_2.jpeg" },
+                    { 28, null, "product/Sbooth_vest_3.jpeg" },
+                    { 29, null, "product/Sbooth_vest_4.jpeg" },
+                    { 30, null, "product/Sbooth_suit_1.jpeg" },
+                    { 31, null, "product/Sbooth_suit_2.jpeg" },
+                    { 32, null, "product/Sbooth_suit_3.jpeg" },
+                    { 33, null, "product/Sbooth_suit_4.jpeg" },
+                    { 34, null, "product/Sbooth_bengalShirt_1.jpeg" },
+                    { 35, null, "product/Sbooth_bengalShirt_2.jpeg" },
+                    { 36, null, "product/Sbooth_bengalShirt_3.jpeg" },
+                    { 37, null, "product/Sbooth_bengalShirt_4.jpeg" },
+                    { 38, null, "product/Sbooth_arka_1.jpg" },
+                    { 39, null, "product/Sbooth_arka_2.webp" },
+                    { 40, null, "product/Sbooth_arka_3.webp" },
+                    { 41, null, "product/Sbooth_kiubi_1.webp" },
+                    { 42, null, "product/Sbooth_kiubi_2.webp" },
+                    { 43, null, "product/Sbooth_kiubi_3.webp" },
+                    { 44, null, "product/Sbooth_kiubi_4.webp" },
+                    { 45, null, "product/Sbooth_kiubi_5.webp" },
+                    { 46, null, "product/Sbooth_kiubi_6.webp" },
+                    { 47, null, "product/Sbooth_kiubi_7.webp" },
+                    { 48, null, "product/Sbooth_coffeepot_1.webp" },
+                    { 49, null, "product/Sbooth_coffeepot_2.webp" },
+                    { 50, null, "product/Sbooth_coffeepot_3.jpg" },
+                    { 51, null, "product/Sbooth_pot_1.webp" },
+                    { 52, null, "product/Sbooth_pot_2.webp" },
+                    { 53, null, "product/Sbooth_pot_3.webp" },
+                    { 54, null, "product/Sbooth_pot_4.webp" },
+                    { 55, null, "product/Sbooth_pot_5.webp" },
+                    { 56, null, "product/Sbooth_shirt_1.webp" },
+                    { 57, null, "product/Sbooth_shirt_2.webp" },
+                    { 58, null, "product/Sbooth_shirt_3.webp" },
+                    { 59, null, "product/Sbooth_shirt_4.webp" },
+                    { 60, null, "product/Sbooth_shirt_5.webp" },
+                    { 61, null, "product/Sbooth_shirt_6.webp" }
                 });
 
             migrationBuilder.InsertData(
@@ -893,11 +950,11 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
 
             migrationBuilder.InsertData(
                 table: "SellerTypes",
-                columns: new[] { "Id", "BaseSalesMony", "Title", "WagePercent" },
+                columns: new[] { "Id", "BaseSalesMoney", "Title", "WagePercent" },
                 values: new object[,]
                 {
                     { 1, 0L, "normal", (byte)5 },
-                    { 2, 0L, "golden", (byte)3 }
+                    { 2, 20000000L, "golden", (byte)3 }
                 });
 
             migrationBuilder.InsertData(
@@ -905,23 +962,11 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "FromWalletId", "PaidPrice", "SaleType", "Time", "ToWalletId", "Wage" },
                 values: new object[,]
                 {
-                    { 1, 2, 1000000L, 2, new DateTime(2023, 11, 17, 14, 46, 20, 868, DateTimeKind.Local).AddTicks(4288), 5, 50000 },
-                    { 2, 2, 500000L, 2, new DateTime(2023, 11, 17, 14, 46, 20, 868, DateTimeKind.Local).AddTicks(4304), 5, 25000 },
-                    { 3, 2, 100000L, 2, new DateTime(2023, 11, 17, 14, 46, 20, 868, DateTimeKind.Local).AddTicks(4305), 5, 5000 },
-                    { 4, 2, 1400000L, 2, new DateTime(2023, 11, 17, 14, 46, 20, 868, DateTimeKind.Local).AddTicks(4307), 4, 75000 },
-                    { 5, 3, 1300000L, 2, new DateTime(2023, 11, 17, 14, 46, 20, 868, DateTimeKind.Local).AddTicks(4308), 4, 65000 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Wallets",
-                columns: new[] { "Id", "Money" },
-                values: new object[,]
-                {
-                    { 1, 1000000L },
-                    { 2, 10000L },
-                    { 3, 100000L },
-                    { 4, 50000000L },
-                    { 5, 21000000L }
+                    { 1, 2, 1000000L, 2, new DateTime(2023, 11, 25, 18, 37, 27, 465, DateTimeKind.Local).AddTicks(9544), 5, 50000 },
+                    { 2, 2, 500000L, 2, new DateTime(2023, 11, 25, 18, 37, 27, 465, DateTimeKind.Local).AddTicks(9554), 5, 25000 },
+                    { 3, 2, 100000L, 2, new DateTime(2023, 11, 25, 18, 37, 27, 465, DateTimeKind.Local).AddTicks(9556), 5, 5000 },
+                    { 4, 2, 1400000L, 2, new DateTime(2023, 11, 25, 18, 37, 27, 465, DateTimeKind.Local).AddTicks(9557), 4, 75000 },
+                    { 5, 3, 1300000L, 2, new DateTime(2023, 11, 25, 18, 37, 27, 465, DateTimeKind.Local).AddTicks(9559), 4, 65000 }
                 });
 
             migrationBuilder.InsertData(
@@ -933,7 +978,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                     { 2, 2 },
                     { 2, 3 },
                     { 3, 4 },
-                    { 3, 5 }
+                    { 3, 5 },
+                    { 3, 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -975,32 +1021,32 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "Name", "Status" },
                 values: new object[,]
                 {
-                    { 1, 13, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2108), null, false, null, "سرویس قابلمه 8 پارچه گرانیت", 2 },
-                    { 2, 13, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2204), null, false, null, "کباب زن آرکا", 2 },
-                    { 3, 13, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2207), null, false, null, "کباب روگازی کیوبی", 2 },
-                    { 4, 16, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2209), null, false, null, "ظرف پلاستیکی یکبار مصرف", 2 },
-                    { 5, 16, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2211), null, false, null, "لیوان کاغذی 50 عددی cc220", 1 },
-                    { 6, 18, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2213), null, false, null, "دستگیره درب یخچال پارس", 1 },
-                    { 7, 19, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2216), null, false, null, "فانل گتر قهوه سایز 51 مگنتیفانل گتر قهوه سایز 51 مگنتی", 1 },
-                    { 8, 19, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2218), null, false, null, "قهوه جوش مسی دسته چوبی سیمین مس سایز یک", 2 },
-                    { 9, 20, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2220), null, false, null, "جاروبرقی سطلی بوش", 1 },
-                    { 10, 20, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2223), null, false, null, "جارو شارژی ماشین مدل HQ-01", 2 },
-                    { 11, 21, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2225), null, false, null, "کاور مبل هفت نفره ماشال", 1 },
-                    { 12, 21, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2227), null, false, null, "مبل راحتی اسکارلت 7 نفره پایه فلزی", 2 },
-                    { 13, 22, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2229), null, false, null, "میز تحریر تاشو پنل دار وایت بردی (سایز 70)", 2 },
-                    { 14, 23, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2231), null, false, null, "صندلی نماز حرمی قهوه ای کد 10(پایه استیل)", 2 },
-                    { 15, 23, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2234), null, false, null, "صندلی گیمینگ ،صندلی گیم اریا ", 2 },
-                    { 16, 29, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2236), null, false, null, "پیراهن مردانه پشمی تک جیب", 2 },
-                    { 17, 29, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2238), null, false, null, "پیراهن مردانه بنگال کشی", 2 },
-                    { 18, 29, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2240), null, false, null, "پیراهن مردانه تترون درجه یک", 2 },
-                    { 19, 31, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2242), null, false, null, "جلیقه مردانه", 2 },
-                    { 20, 31, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2244), null, false, null, "کت و شلوار فاستونی", 2 },
-                    { 21, 31, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2247), null, false, null, "کت وشلوار سوپر کش", 1 },
-                    { 22, 32, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2249), null, false, null, "عینک آفتابی مردانه شیشه سنگ امریکن اپتیک AO", 2 },
-                    { 23, 32, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2251), null, false, null, "عینک آفتابی مارک جنتل مانستر دارای یووی 400", 2 },
-                    { 24, 32, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2253), null, false, null, "عینک آفتابی مارک پلیس و دیتیا دارای یووی 400 ", 2 },
-                    { 25, 32, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2255), null, false, null, "عینک ریبن خلبانی شیشه سنگ با پک کامل اورجینال", 2 },
-                    { 26, 32, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(2257), null, false, null, "عینک آفتابی رندلف AO صاایران", 2 }
+                    { 1, 13, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3366), null, false, null, "سرویس قابلمه 8 پارچه گرانیت", 2 },
+                    { 2, 13, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3370), null, false, null, "کباب زن آرکا", 2 },
+                    { 3, 13, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3372), null, false, null, "کباب روگازی کیوبی", 2 },
+                    { 4, 16, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3375), null, false, null, "ظرف پلاستیکی یکبار مصرف", 2 },
+                    { 5, 16, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3377), null, false, null, "لیوان کاغذی 50 عددی cc220", 1 },
+                    { 6, 18, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3379), null, false, null, "دستگیره درب یخچال پارس", 1 },
+                    { 7, 19, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3381), null, false, null, "فانل گتر قهوه سایز 51 مگنتیفانل گتر قهوه سایز 51 مگنتی", 1 },
+                    { 8, 19, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3383), null, false, null, "قهوه جوش مسی دسته چوبی سیمین مس سایز یک", 2 },
+                    { 9, 20, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3386), null, false, null, "جاروبرقی سطلی بوش", 1 },
+                    { 10, 20, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3439), null, false, null, "جارو شارژی ماشین مدل HQ-01", 2 },
+                    { 11, 21, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3442), null, false, null, "کاور مبل هفت نفره ماشال", 1 },
+                    { 12, 21, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3445), null, false, null, "مبل راحتی اسکارلت 7 نفره پایه فلزی", 2 },
+                    { 13, 22, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3447), null, false, null, "میز تحریر تاشو پنل دار وایت بردی (سایز 70)", 2 },
+                    { 14, 23, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3449), null, false, null, "صندلی نماز حرمی قهوه ای کد 10(پایه استیل)", 2 },
+                    { 15, 23, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3451), null, false, null, "صندلی گیمینگ ،صندلی گیم اریا ", 2 },
+                    { 16, 29, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3453), null, false, null, "پیراهن مردانه پشمی تک جیب", 2 },
+                    { 17, 29, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3455), null, false, null, "پیراهن مردانه بنگال کشی", 2 },
+                    { 18, 29, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3457), null, false, null, "پیراهن مردانه تترون درجه یک", 2 },
+                    { 19, 31, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3460), null, false, null, "جلیقه مردانه", 2 },
+                    { 20, 31, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3462), null, false, null, "کت و شلوار فاستونی", 2 },
+                    { 21, 31, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3464), null, false, null, "کت وشلوار سوپر کش", 1 },
+                    { 22, 32, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3466), null, false, null, "عینک آفتابی مردانه شیشه سنگ امریکن اپتیک AO", 2 },
+                    { 23, 32, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3468), null, false, null, "عینک آفتابی مارک جنتل مانستر دارای یووی 400", 2 },
+                    { 24, 32, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3471), null, false, null, "عینک آفتابی مارک پلیس و دیتیا دارای یووی 400 ", 2 },
+                    { 25, 32, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3473), null, false, null, "عینک ریبن خلبانی شیشه سنگ با پک کامل اورجینال", 2 },
+                    { 26, 32, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(3475), null, false, null, "عینک آفتابی رندلف AO صاایران", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -1009,7 +1055,21 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 values: new object[,]
                 {
                     { 4, 1 },
-                    { 5, 1 }
+                    { 5, 1 },
+                    { 6, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Wallets",
+                columns: new[] { "Id", "Money" },
+                values: new object[,]
+                {
+                    { 1, 1000000L },
+                    { 2, 10000L },
+                    { 3, 100000L },
+                    { 4, 50000000L },
+                    { 5, 21000000L },
+                    { 6, 21000000L }
                 });
 
             migrationBuilder.InsertData(
@@ -1017,32 +1077,32 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "AttributeId", "AttributeValue", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "ProductId" },
                 values: new object[,]
                 {
-                    { 1, 1, "2kg", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(988), null, false, null, 1 },
-                    { 2, 1, "300g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(992), null, false, null, 2 },
-                    { 3, 1, "500g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(994), null, false, null, 3 },
-                    { 4, 1, "100g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(995), null, false, null, 4 },
-                    { 5, 1, "50g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(997), null, false, null, 5 },
-                    { 6, 1, "150g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(999), null, false, null, 6 },
-                    { 7, 1, "500g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1000), null, false, null, 7 },
-                    { 8, 1, "300g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1002), null, false, null, 8 },
-                    { 9, 1, "3kg", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1003), null, false, null, 9 },
-                    { 10, 1, "400g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1004), null, false, null, 10 },
-                    { 11, 1, "200g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1006), null, false, null, 11 },
-                    { 12, 1, "5kg", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1007), null, false, null, 12 },
-                    { 13, 1, "500g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1009), null, false, null, 13 },
-                    { 14, 1, "500g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1010), null, false, null, 14 },
-                    { 15, 1, "900g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1012), null, false, null, 15 },
-                    { 16, 1, "100g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1013), null, false, null, 17 },
-                    { 17, 1, "100g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1015), null, false, null, 18 },
-                    { 18, 1, "100g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1016), null, false, null, 19 },
-                    { 19, 1, "50g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1018), null, false, null, 20 },
-                    { 20, 1, "400g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1019), null, false, null, 21 },
-                    { 21, 1, "300g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1021), null, false, null, 22 },
-                    { 22, 1, "50g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1022), null, false, null, 23 },
-                    { 23, 1, "50g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1024), null, false, null, 24 },
-                    { 24, 1, "50g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1025), null, false, null, 25 },
-                    { 25, 1, "50g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1027), null, false, null, 16 },
-                    { 26, 1, "50g", new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1028), null, false, null, 26 }
+                    { 1, 1, "2kg", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2059), null, false, null, 1 },
+                    { 2, 1, "300g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2062), null, false, null, 2 },
+                    { 3, 1, "500g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2064), null, false, null, 3 },
+                    { 4, 1, "100g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2065), null, false, null, 4 },
+                    { 5, 1, "50g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2067), null, false, null, 5 },
+                    { 6, 1, "150g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2068), null, false, null, 6 },
+                    { 7, 1, "500g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2070), null, false, null, 7 },
+                    { 8, 1, "300g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2071), null, false, null, 8 },
+                    { 9, 1, "3kg", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2073), null, false, null, 9 },
+                    { 10, 1, "400g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2074), null, false, null, 10 },
+                    { 11, 1, "200g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2076), null, false, null, 11 },
+                    { 12, 1, "5kg", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2077), null, false, null, 12 },
+                    { 13, 1, "500g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2078), null, false, null, 13 },
+                    { 14, 1, "500g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2080), null, false, null, 14 },
+                    { 15, 1, "900g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2081), null, false, null, 15 },
+                    { 16, 1, "100g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2083), null, false, null, 17 },
+                    { 17, 1, "100g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2084), null, false, null, 18 },
+                    { 18, 1, "100g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2086), null, false, null, 19 },
+                    { 19, 1, "50g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2087), null, false, null, 20 },
+                    { 20, 1, "400g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2089), null, false, null, 21 },
+                    { 21, 1, "300g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2090), null, false, null, 22 },
+                    { 22, 1, "50g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2092), null, false, null, 23 },
+                    { 23, 1, "50g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2093), null, false, null, 24 },
+                    { 24, 1, "50g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2094), null, false, null, 25 },
+                    { 25, 1, "50g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2096), null, false, null, 16 },
+                    { 26, 1, "50g", new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2098), null, false, null, 26 }
                 });
 
             migrationBuilder.InsertData(
@@ -1050,10 +1110,11 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "Address", "CityId", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "PostalCode" },
                 values: new object[,]
                 {
-                    { 1, "خیابان رحمت جنب کوچه 2", 1, new DateTime(2023, 11, 17, 14, 46, 20, 614, DateTimeKind.Local).AddTicks(9395), null, false, null, 1626627277 },
-                    { 2, "خیابان ملاصدرا جنب کوچه 2", 1, new DateTime(2023, 11, 17, 14, 46, 20, 614, DateTimeKind.Local).AddTicks(9405), null, false, null, 1234567890 },
-                    { 3, "خیابان شهناز جنب کوچه 2", 1, new DateTime(2023, 11, 17, 14, 46, 20, 614, DateTimeKind.Local).AddTicks(9407), null, false, null, 1634567611 },
-                    { 4, "خیابان داریوش جنب کوچه 2", 1, new DateTime(2023, 11, 17, 14, 46, 20, 614, DateTimeKind.Local).AddTicks(9408), null, false, null, 1213435657 }
+                    { 1, "خیابان رحمت جنب کوچه 2", 1, new DateTime(2023, 11, 25, 18, 37, 27, 46, DateTimeKind.Local).AddTicks(9533), null, false, null, 1626627277 },
+                    { 2, "خیابان ملاصدرا جنب کوچه 2", 1, new DateTime(2023, 11, 25, 18, 37, 27, 46, DateTimeKind.Local).AddTicks(9549), null, false, null, 1234567890 },
+                    { 3, "خیابان شهناز جنب کوچه 2", 1, new DateTime(2023, 11, 25, 18, 37, 27, 46, DateTimeKind.Local).AddTicks(9550), null, false, null, 1634567611 },
+                    { 4, "خیابان شهناز جنب کوچه 2", 1, new DateTime(2023, 11, 25, 18, 37, 27, 46, DateTimeKind.Local).AddTicks(9551), null, false, null, 1634567611 },
+                    { 5, "خیابان داریوش جنب کوچه 2", 2, new DateTime(2023, 11, 25, 18, 37, 27, 46, DateTimeKind.Local).AddTicks(9553), null, false, null, 1713435657 }
                 });
 
             migrationBuilder.InsertData(
@@ -1061,8 +1122,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "Name", "SalesMoney", "ShopAddressId" },
                 values: new object[,]
                 {
-                    { 4, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8930), null, false, null, "رضا لباس", 2700000L, 3 },
-                    { 5, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8935), null, false, null, "برادران افشار", 1600000L, 4 }
+                    { 4, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5975), null, false, null, "رضا لباس", 2700000L, 3 },
+                    { 5, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5979), null, false, null, "برادران افشار", 1600000L, 4 },
+                    { 6, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5981), null, false, null, "کاظم لباس", 0L, 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -1079,8 +1141,13 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "BasePrice", "BoothId", "CreatedAt", "DeletedAt", "Description", "ExpiredTime", "IsDeleted", "ModifiedAt", "ProductId" },
                 values: new object[,]
                 {
-                    { 1, 500000L, 4, new DateTime(2023, 11, 15, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(7582), null, "یک کار ترک عالی با قیمتی باور نکردنی همین کار رو داخل غرفه و جنس ایرانی داریم میفروشیم یک ملیون نخری ضرر کردی", new DateTime(2023, 11, 24, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(7586), false, null, 20 },
-                    { 2, 100000L, 4, new DateTime(2023, 11, 9, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(7593), null, "ازین پیرهن فقط یکی مونده", new DateTime(2023, 11, 16, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(7594), false, null, 21 }
+                    { 1, 500000L, 4, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4337), null, "یک کار ترک عالی با قیمتی باور نکردنی همین کار رو داخل غرفه و جنس ایرانی داریم میفروشیم یک ملیون نخری ضرر کردی", new DateTime(2023, 12, 2, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4341), false, null, 20 },
+                    { 2, 100000L, 4, new DateTime(2023, 11, 17, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4348), null, "یک پیشنهاد باور نکردنی برای افراد خوش سلیقه و لوکس پسند", new DateTime(2023, 11, 24, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4349), false, null, 20 },
+                    { 3, 100000L, 4, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4352), null, "یک پیشنهاد باور نکردنی برای افراد خوش سلیقه و لوکس پسند", new DateTime(2023, 12, 2, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4353), false, null, 22 },
+                    { 4, 100000L, 4, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4355), null, "یک پیشنهاد باور نکردنی برای افراد خوش سلیقه و لوکس پسند", new DateTime(2023, 12, 2, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4356), false, null, 23 },
+                    { 5, 100000L, 6, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4359), null, "یک پیشنهاد باور نکردنی برای افراد خوش سلیقه و لوکس پسند", new DateTime(2023, 12, 2, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4360), false, null, 24 },
+                    { 6, 100000L, 6, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4362), null, "یک پیشنهاد باور نکردنی برای افراد خوش سلیقه و لوکس پسند", new DateTime(2023, 12, 2, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4363), false, null, 25 },
+                    { 7, 100000L, 6, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4365), null, "یک پیشنهاد باور نکردنی برای افراد خوش سلیقه و لوکس پسند", new DateTime(2023, 12, 2, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(4366), false, null, 26 }
                 });
 
             migrationBuilder.InsertData(
@@ -1110,11 +1177,11 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "BuyedAt", "CustomerId", "Status" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(138), 2, 3 },
-                    { 2, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(141), 2, 3 },
-                    { 3, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(143), 2, 3 },
-                    { 4, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(144), 2, 3 },
-                    { 5, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(145), 3, 3 }
+                    { 1, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(891), 2, 3 },
+                    { 2, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(896), 2, 3 },
+                    { 3, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(897), 2, 3 },
+                    { 4, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(899), 2, 3 },
+                    { 5, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(900), 3, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -1122,10 +1189,19 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "AuctionId", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "PictureId", "Status" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(6453), null, false, null, 6, 1 },
-                    { 2, 1, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(6474), null, false, null, 7, 1 },
-                    { 3, 1, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(6475), null, false, null, 8, 1 },
-                    { 4, 1, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(6477), null, false, null, 9, 1 }
+                    { 1, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3029), null, false, null, 6, 2 },
+                    { 2, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3051), null, false, null, 7, 2 },
+                    { 3, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3053), null, false, null, 8, 2 },
+                    { 4, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3055), null, false, null, 9, 2 },
+                    { 5, 3, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3057), null, false, null, 10, 2 },
+                    { 6, 3, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3058), null, false, null, 11, 2 },
+                    { 7, 4, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3060), null, false, null, 12, 2 },
+                    { 8, 4, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3061), null, false, null, 13, 2 },
+                    { 9, 5, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3063), null, false, null, 14, 2 },
+                    { 10, 5, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3065), null, false, null, 15, 2 },
+                    { 11, 6, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3066), null, false, null, 16, 2 },
+                    { 12, 7, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3068), null, false, null, 17, 2 },
+                    { 13, 7, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3069), null, false, null, 18, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -1133,8 +1209,18 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "AuctionId", "CreatedAt", "CustomerId", "DeletedAt", "IsDeleted", "IsTopProposal", "ModifiedAt", "Price" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 11, 16, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(7171), 3, null, false, true, null, 550000L },
-                    { 2, 1, new DateTime(2023, 11, 15, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(7187), 3, null, false, false, null, 520000L }
+                    { 1, 1, new DateTime(2023, 11, 24, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3576), 3, null, false, true, null, 550000L },
+                    { 2, 1, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3595), 3, null, false, false, null, 520000L },
+                    { 3, 3, new DateTime(2023, 11, 24, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3597), 3, null, false, true, null, 120000L },
+                    { 4, 3, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3600), 3, null, false, false, null, 110000L },
+                    { 5, 4, new DateTime(2023, 11, 24, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3767), 3, null, false, true, null, 120000L },
+                    { 6, 4, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3770), 3, null, false, false, null, 110000L },
+                    { 7, 5, new DateTime(2023, 11, 24, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3772), 3, null, false, true, null, 120000L },
+                    { 8, 5, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3774), 3, null, false, false, null, 110000L },
+                    { 9, 6, new DateTime(2023, 11, 24, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3776), 3, null, false, true, null, 120000L },
+                    { 10, 6, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3777), 3, null, false, false, null, 110000L },
+                    { 11, 7, new DateTime(2023, 11, 24, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3779), 3, null, false, true, null, 120000L },
+                    { 12, 7, new DateTime(2023, 11, 23, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(3781), 3, null, false, false, null, 110000L }
                 });
 
             migrationBuilder.InsertData(
@@ -1142,21 +1228,21 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "BoothProductId", "FromDate", "Price", "ToDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8492), 400000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8495) },
-                    { 2, 2, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8501), 300000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8502) },
-                    { 3, 3, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8505), 300000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8506) },
-                    { 4, 4, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8508), 1000000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8508) },
-                    { 5, 5, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8510), 700000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8511) },
-                    { 6, 6, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8513), 700000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8513) },
-                    { 7, 7, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8515), 700000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8516) },
-                    { 8, 8, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8518), 700000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8519) },
-                    { 9, 9, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8520), 700000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8521) },
-                    { 10, 10, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8523), 500000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8524) },
-                    { 11, 11, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8525), 500000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8526) },
-                    { 12, 12, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8528), 500000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8529) },
-                    { 13, 13, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8530), 20000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8531) },
-                    { 14, 14, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8533), 100000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8534) },
-                    { 15, 15, new DateTime(2023, 11, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8536), 500000L, new DateTime(2023, 12, 17, 14, 46, 20, 322, DateTimeKind.Local).AddTicks(8537) }
+                    { 1, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5429), 400000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5432) },
+                    { 2, 2, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5441), 300000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5442) },
+                    { 3, 3, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5476), 300000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5477) },
+                    { 4, 4, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5479), 1000000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5479) },
+                    { 5, 5, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5493), 700000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5494) },
+                    { 6, 6, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5496), 700000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5497) },
+                    { 7, 7, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5498), 700000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5499) },
+                    { 8, 8, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5501), 700000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5502) },
+                    { 9, 9, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5504), 700000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5504) },
+                    { 10, 10, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5506), 500000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5507) },
+                    { 11, 11, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5509), 500000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5510) },
+                    { 12, 12, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5511), 500000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5512) },
+                    { 13, 13, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5514), 20000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5515) },
+                    { 14, 14, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5516), 100000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5517) },
+                    { 15, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5519), 500000L, new DateTime(2023, 12, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(5520) }
                 });
 
             migrationBuilder.InsertData(
@@ -1164,16 +1250,16 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "BoothProductId", "CreatedAt", "CustomerId", "DeletedAt", "Description", "IsDeleted", "ModifiedAt", "Satisfaction", "Status" },
                 values: new object[,]
                 {
-                    { 1, 15, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(589), 2, null, "عالی واقعا راضی بودم از همین برا دمکنی و دستگیره استفاده میکنم", false, null, (byte)2, 1 },
-                    { 2, 15, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(595), 2, null, "عالی", false, null, (byte)5, 1 },
-                    { 3, 15, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(597), 3, null, "بد بود", false, null, (byte)1, 1 },
-                    { 4, 15, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(599), 3, null, "راضی بودم ولی خاک تو سرشون با بسته بندیشون", false, null, (byte)4, 1 },
-                    { 5, 15, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(601), 2, null, "دوسش داشتم", false, null, (byte)5, 1 },
-                    { 6, 15, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(603), 2, null, "برا بابام کادو گرفتم هنوز ندیده که بگم خوبه یا بد", false, null, (byte)3, 1 },
-                    { 7, 15, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(605), 3, null, "بدک نبود", false, null, (byte)3, 1 },
-                    { 8, 1, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(606), 3, null, "خیلی خوب دمتون گرم", false, null, (byte)5, 1 },
-                    { 9, 1, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(608), 2, null, "مضخرف", false, null, (byte)2, 1 },
-                    { 10, 1, new DateTime(2023, 11, 17, 14, 46, 20, 323, DateTimeKind.Local).AddTicks(610), 2, null, "یه هفتس خریدم به دستم نرسیده", false, null, (byte)2, 1 }
+                    { 1, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7957), 2, null, "عالی واقعا راضی بودم از همین برا دمکنی و دستگیره استفاده میکنم", false, null, (byte)2, 1 },
+                    { 2, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7963), 2, null, "عالی", false, null, (byte)5, 1 },
+                    { 3, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7965), 3, null, "بد بود", false, null, (byte)1, 1 },
+                    { 4, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7967), 3, null, "راضی بودم ولی خاک تو سرشون با بسته بندیشون", false, null, (byte)4, 1 },
+                    { 5, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7969), 2, null, "دوسش داشتم", false, null, (byte)5, 1 },
+                    { 6, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7970), 2, null, "برا بابام کادو گرفتم هنوز ندیده که بگم خوبه یا بد", false, null, (byte)3, 1 },
+                    { 7, 15, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7972), 3, null, "بدک نبود", false, null, (byte)3, 1 },
+                    { 8, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7974), 3, null, "خیلی خوب دمتون گرم", false, null, (byte)5, 1 },
+                    { 9, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7976), 2, null, "مضخرف", false, null, (byte)2, 1 },
+                    { 10, 1, new DateTime(2023, 11, 25, 18, 37, 26, 779, DateTimeKind.Local).AddTicks(7977), 2, null, "یه هفتس خریدم به دستم نرسیده", false, null, (byte)2, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1195,9 +1281,9 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "BoothProductId", "CreatedAt", "CustomerId", "DeletedAt", "IsDeleted", "ModifiedAt", "PictureId", "Status" },
                 values: new object[,]
                 {
-                    { 1, 15, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1339), 2, null, false, null, 1, 1 },
-                    { 2, 15, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1343), 2, null, false, null, 2, 1 },
-                    { 3, 15, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1345), 2, null, false, null, 3, 1 }
+                    { 1, 15, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2412), 2, null, false, null, 1, 2 },
+                    { 2, 15, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2415), 2, null, false, null, 2, 2 },
+                    { 3, 15, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2416), 2, null, false, null, 3, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -1205,8 +1291,51 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Migrations
                 columns: new[] { "Id", "BoothProductId", "CreatedAt", "DeletedAt", "IsDeleted", "ModifiedAt", "PictureId", "Status" },
                 values: new object[,]
                 {
-                    { 1, 15, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1759), null, false, null, 4, 1 },
-                    { 2, 15, new DateTime(2023, 11, 17, 14, 46, 20, 615, DateTimeKind.Local).AddTicks(1764), null, false, null, 5, 1 }
+                    { 1, 15, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2757), null, false, null, 4, 2 },
+                    { 2, 15, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2762), null, false, null, 5, 2 },
+                    { 3, 5, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2763), null, false, null, 19, 2 },
+                    { 4, 5, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2765), null, false, null, 20, 2 },
+                    { 5, 6, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2766), null, false, null, 21, 2 },
+                    { 6, 6, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2824), null, false, null, 22, 2 },
+                    { 7, 7, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2826), null, false, null, 23, 2 },
+                    { 8, 7, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2827), null, false, null, 24, 2 },
+                    { 9, 8, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2829), null, false, null, 25, 2 },
+                    { 10, 3, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2830), null, false, null, 26, 2 },
+                    { 11, 3, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2832), null, false, null, 27, 2 },
+                    { 12, 3, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2833), null, false, null, 28, 2 },
+                    { 13, 3, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2834), null, false, null, 29, 2 },
+                    { 14, 4, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2836), null, false, null, 30, 2 },
+                    { 15, 4, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2837), null, false, null, 31, 2 },
+                    { 16, 4, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2839), null, false, null, 32, 2 },
+                    { 17, 4, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2840), null, false, null, 33, 2 },
+                    { 18, 1, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2842), null, false, null, 34, 2 },
+                    { 19, 1, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2843), null, false, null, 35, 2 },
+                    { 20, 1, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2845), null, false, null, 36, 2 },
+                    { 21, 1, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2846), null, false, null, 37, 2 },
+                    { 22, 11, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2847), null, false, null, 38, 2 },
+                    { 23, 11, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2850), null, false, null, 39, 2 },
+                    { 24, 11, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2851), null, false, null, 40, 2 },
+                    { 25, 12, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2853), null, false, null, 41, 2 },
+                    { 26, 12, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2854), null, false, null, 42, 2 },
+                    { 27, 12, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2856), null, false, null, 43, 2 },
+                    { 28, 12, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2857), null, false, null, 44, 2 },
+                    { 29, 12, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2859), null, false, null, 45, 2 },
+                    { 30, 12, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2860), null, false, null, 46, 2 },
+                    { 31, 12, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2862), null, false, null, 47, 2 },
+                    { 32, 14, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2863), null, false, null, 48, 2 },
+                    { 33, 14, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2864), null, false, null, 49, 2 },
+                    { 34, 14, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2866), null, false, null, 50, 2 },
+                    { 35, 10, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2867), null, false, null, 51, 2 },
+                    { 36, 10, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2869), null, false, null, 52, 2 },
+                    { 37, 10, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2870), null, false, null, 53, 2 },
+                    { 38, 10, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2872), null, false, null, 54, 2 },
+                    { 39, 10, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2873), null, false, null, 55, 2 },
+                    { 40, 2, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2875), null, false, null, 56, 2 },
+                    { 41, 2, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2876), null, false, null, 57, 2 },
+                    { 42, 2, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2877), null, false, null, 58, 2 },
+                    { 43, 2, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2879), null, false, null, 59, 2 },
+                    { 44, 2, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2880), null, false, null, 60, 2 },
+                    { 45, 2, new DateTime(2023, 11, 25, 18, 37, 27, 47, DateTimeKind.Local).AddTicks(2882), null, false, null, 61, 2 }
                 });
 
             migrationBuilder.CreateIndex(
