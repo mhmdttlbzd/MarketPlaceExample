@@ -61,5 +61,19 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address
                 address.Address = input.Address;
                 address.PostalCode = input.PostalCode;
         }
+
+        public async Task<AddressDto> GetAddress(int id,CancellationToken cancellationToken)
+        {
+            var address = await _dbContext.Set<MainAddress>().Where(a => a.Id == id)
+                .Select(a => new AddressDto
+                {
+                    CityName = a.City.Name,
+                    ProvinceName = a.City.Province.Name,
+                    Address = a.Address,
+                    PostalCode = a.PostalCode
+                }).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
+            return address;
+
+        }
     }
 }

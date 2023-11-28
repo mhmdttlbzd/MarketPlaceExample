@@ -26,7 +26,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
         {
             var entity = _mapper.Map<OrderLine>(InputDto);
             await _dbContext.Set<OrderLine>().AddAsync(entity, cancellationToken);
-           
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return entity.Id;
         }
 
@@ -84,6 +84,18 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
                     BoothName = o.BoothProduct.Booth.Name
                 }).AsNoTracking().ToListAsync(cancellationToken);
             return QuantitiesList;
+        }
+
+        public async Task<List<OrderLineDto>> GetBuyHistory(int customerId,CancellationToken cancellationToken)
+        {
+            var res = await _dbContext.Set<OrderLine>().Where(o => o.Order.Status == OrderStatus.Bought && o.Order.CustomerId == customerId)
+                .Select(o => new OrderLineDto
+                {
+                    Date = o.Order.BuyedAt,
+                    ProductName = o.BoothProduct.Product.Name,
+                    Quantity = o.Quantity
+                }).AsNoTracking().ToListAsync(cancellationToken);
+            return res;
         }
     }
 }

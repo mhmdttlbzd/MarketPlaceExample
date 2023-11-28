@@ -8,5 +8,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Booth
     {
         Task<GeneralBoothDto> GetGeneralBoothById(int id, CancellationToken cancellationToken);
         Task<long> GetSalesMoney(int sellerId);
+        List<GeneralBoothDto> GetByCategoryId(int id);
     }
 }

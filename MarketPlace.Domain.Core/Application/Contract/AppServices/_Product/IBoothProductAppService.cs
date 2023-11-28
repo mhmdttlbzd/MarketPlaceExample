@@ -10,5 +10,10 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
     public interface IBoothProductAppService
     {
         Task Create(List<string> paths, BoothProductModel model, CancellationToken cancellationToken, string username);
+        List<GeneralBoothProductDto> GetBestProducts(int Count);
+        Task<BoothProductOutputDto> GetById(int id, CancellationToken cancellationToken);
+        Task AddToCart(string userName, int boothProductId, CancellationToken cancellationToken);
+        List<GeneralBoothProductDto> GetByCategoryId(int id);
+        List<GeneralBoothProductDto> GetSellerProducts(int sellerId);
     }
 }

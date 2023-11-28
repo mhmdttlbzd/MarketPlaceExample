@@ -5,6 +5,7 @@ using MarketPlace.Domain.Core.Application.Contract.Services._Auction;
 using MarketPlace.Domain.Core.Application.Contract.Services._Picture;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities._Booth;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Domain.Services.Application._Picture;
@@ -21,12 +22,13 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
     {
         private readonly IPictureService _pictureService;
         private readonly UserManager<Seller> _sellerManager;
+        private readonly UserManager<Customer> _customerManager;
         private readonly IAuctionService _auctionService;
         private readonly IAuctionPictureService _auctionPictureService;
         private readonly IAuctionProposalService _auctionProposalService;
         private readonly IWalletService _walletService;
 
-        public AuctionAppService(IPictureService pictureService, UserManager<Seller> sellerManager, IAuctionService auctionService, IAuctionPictureService auctionPictureService, IAuctionProposalService auctionProposalService, IWalletService walletService)
+        public AuctionAppService(IPictureService pictureService, UserManager<Seller> sellerManager, IAuctionService auctionService, IAuctionPictureService auctionPictureService, IAuctionProposalService auctionProposalService, IWalletService walletService, UserManager<Customer> customerManager)
         {
             _pictureService = pictureService;
             _sellerManager = sellerManager;
@@ -34,6 +36,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             _auctionPictureService = auctionPictureService;
             _auctionProposalService = auctionProposalService;
             _walletService = walletService;
+            _customerManager = customerManager;
         }
 
         public async Task Create(List<string> paths, AuctionModel model, CancellationToken cancellationToken, string username)
@@ -76,6 +79,29 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             {
                 await _auctionService.DeleteAsync(auctionId, new CancellationToken());
             }
+        }
+
+        public List<GeneralAuctionDto> GetThreeBestAuctions(int? sellerId = null)
+        {
+            if (sellerId != null )
+            {
+                return  _auctionService.GetThreeBestAuctions((int)sellerId);
+            }
+            return  _auctionService.GetThreeBestAuctions();
+        }
+
+        public List<GeneralAuctionDto> GetTowNewAuctions()
+            =>  _auctionService.GetTowNewAuctions();
+
+
+        public async Task<AuctionOutputDto> GetById(int id, CancellationToken cancellationToken)
+            =>await _auctionService.GetByIdAsync(id, cancellationToken);
+
+
+        public async Task CreateProposal(string userName,int auctionId,long price,CancellationToken cancellationToken)
+        {
+            var user = await _customerManager.FindByNameAsync(userName);
+            await _auctionProposalService.CreateAsync(new AuctionProposalInputDto(auctionId, price, user.Id),cancellationToken);
         }
     }
 }

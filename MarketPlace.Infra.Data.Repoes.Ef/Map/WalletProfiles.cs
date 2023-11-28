@@ -14,6 +14,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
         public WalletProfiles()
         {
             CreateMap<WalletTransaction, WalletTransactionDto>();
+            CreateMap<WalletTransactionDto, WalletTransaction>();
         }
     }
 }

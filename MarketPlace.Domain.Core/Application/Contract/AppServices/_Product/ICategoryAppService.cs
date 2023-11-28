@@ -12,6 +12,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
         Task<List<CategoryDto>?> GetByParentId(int? id, CancellationToken cancellationToken);
         Task<CategoryDto?> GetById(int? id, CancellationToken cancellationToken);
         Task<List<AttributeTemplateDto>> GetAttrByCategoryId(int id, CancellationToken cancellationToken);
-
+        List<CategoryDto> GetAll();
     }
 }

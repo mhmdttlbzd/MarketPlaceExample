@@ -31,6 +31,8 @@ public class MarketPlaceDbContext : IdentityDbContext<ApplicationUser,Applicatio
     {
 
         base.OnModelCreating(builder);
+
+
         builder.Entity<ApplicationUser>(entity => { entity.ToTable("Accounts"); });
         builder.Entity<Customer>(entity => { entity.ToTable("Customers"); });
         builder.Entity<Seller>(entity => { entity.ToTable("Salers"); });
@@ -41,10 +43,10 @@ public class MarketPlaceDbContext : IdentityDbContext<ApplicationUser,Applicatio
         builder.Entity<IdentityUserLogin<int>>(entity => { entity.ToTable("AccountLogins"); });
         builder.Entity<IdentityUserToken<int>>(entity => { entity.ToTable("AccountTokens"); });
         builder.Entity<IdentityRoleClaim<int>>(entity => { entity.ToTable("RoleClaims"); });
+
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
     }
-
-
 
 }

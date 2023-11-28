@@ -9,11 +9,11 @@ public class SellerType
 {
     public int Id { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string Title { get; set; }
 
     public byte WagePercent { get; set; }
 
     public long BaseSalesMoney { get; set; }
 
-    public virtual ICollection<Seller> Salers { get; set; } = new List<Seller>();
+    public virtual ICollection<Seller> Salers { get; set; } 
 }

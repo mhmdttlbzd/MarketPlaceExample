@@ -1,0 +1,58 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model List<GeneralBoothProductDto>;
+
+
+
+<!-- Start Shop Home List  -->
+<section class="shop-home-list section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="shop-section-title">
+                            <h1>پیشنهاد شده</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row flex-row">
+                    @foreach (var product in Model)
+                    {
+                        string path = "/images/" + product.PicturePath;
+                        if (product.PicturePath == null)
+                        {
+                            path = "/images/notFound.png";
+                        }
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="row mx-2">
+                                
+                                <div class="single-list">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="list-image overlay">
+                                                <img style="min-height: 160px" src="@path" alt="@product.PictureAlt">
+                                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                            <div class="content">
+                                                <h5 class="title"><a href="#">@product.ProductName</a></h5>
+                                                <p class="price with-discount">$@product.Price</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End Shop Home List  -->

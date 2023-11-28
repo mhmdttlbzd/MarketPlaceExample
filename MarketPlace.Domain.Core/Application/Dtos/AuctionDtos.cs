@@ -4,10 +4,6 @@ using MarketPlace.Domain.Core.Application.Entities;
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
     #region Auction
-    public record AuctionOutputDto(
-        int Id, int BootId, DateTime ExpiredTime, int Quantity, int ProductId, ProductOutputDto Product,
-        ICollection<AuctionProposalOutputDto> ActionProposals,ICollection<AuctionPictureOutputDto> PicturesActions
-        );
     public record AuctionInputDto(
          int BoothId, DateTime ExpiredTime,  int ProductId,long BasePrice,string Description
         );
@@ -29,6 +25,17 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         public int ProductId { get; set; }
         public int ExpireDay { get; set; }
         public long BasePrice { get; set; }
+        public string Description { get; set; }
+
+    }
+
+    public record AuctionOutputDto
+    {
+        public int Id { get; set; }
+        public List<PictureDto> pictures { get; set; }
+        public string ProductName { get; set; }
+        public long LastPrice { get; set; }
+        public DateTime ExpiredTime { get; set; }
         public string Description { get; set; }
     }
     #endregion

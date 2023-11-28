@@ -37,5 +37,7 @@ namespace MarketPlace.Domain.Services.Application._Address
         {
             await _mainAddressRepo.UpdateAsync(input, id, cancellationToken);
         }
+        public async Task<AddressDto> GetAddress(int id, CancellationToken cancellationToken)
+            => await _mainAddressRepo.GetAddress(id, cancellationToken);
     }
 }

@@ -4,6 +4,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories._Order;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Booth;
+using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Order;
 using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Infra.Db.SqlServer.Ef;
@@ -32,7 +33,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
 		{
 			var entity = _mapper.Map<Order>(InputDto);
 			await _dbContext.Set<Order>().AddAsync(entity, cancellationToken);
-
+			await _dbContext.SaveChangesAsync();
 			return entity.Id;
 		}
 
@@ -42,6 +43,9 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
 			_dbContext.Set<Order>().Remove(entity);
 
 		}
+
+
+
 
 
 		public async Task<List<OrderOutputDto>> GetAllAsync(CancellationToken cancellationToken)
@@ -76,6 +80,36 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
             }
             return res;
         }
+        public async Task<int?> GetActiveOrderId(int customerId)
+        {
+            var order = await _dbContext.Set<Order>().Where(o => o.CustomerId == customerId && o.Status == OrderStatus.Active).AsNoTracking().FirstOrDefaultAsync();
+			if (order != null)
+			{
+				return order.Id;
+			}
+			return null;
+        }
+        public async Task<OrderDto> GetActiveOrder(int customerId)
+		{
+            var order = await _dbContext.Set<Order>().Where(o => o.CustomerId == customerId && o.Status == OrderStatus.Active).Select(o => new OrderDto
+			{
+				Id = o.Id,
+				OrderLines = o.OrderLines.Select(l => new OrderLineDto {
+					Date = DateTime.Now,
+					ProductName = l.BoothProduct.Product.Name,
+					Quantity = l.Quantity,
+					Price = l.Quantity * l.BoothProduct.BoothProductsPrices.OrderBy(p => p.FromDate).Select(p => p.Price).FirstOrDefault(),
+					SellerId = l.BoothProduct.BoothId
+				}).ToList()
+			}).AsNoTracking().FirstOrDefaultAsync();
+			return order;
+        }
 
+		public async Task BuyOrder(int orderId)
+		{
+			var order = await _dbContext.Set<Order>().FirstOrDefaultAsync(o => o.Id == orderId);
+			order.Status = OrderStatus.Bought;
+			order.BuyedAt = DateTime.Now;
+		}
     }
 }

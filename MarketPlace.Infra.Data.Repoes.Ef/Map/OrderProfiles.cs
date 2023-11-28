@@ -15,10 +15,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Map
         public OrderProfiles()
         {
             CreateMap<Order, OrderOutputDto>();
-            CreateMap<Order, OrderInputDto>();
+            CreateMap<OrderInputDto, Order>();
 
             CreateMap<OrderLine, OrderLineOutputDto>();
-            CreateMap<OrderLine, OrderLineInputDto>();
+            CreateMap<OrderLineInputDto, OrderLine>();
         }
     }
 }

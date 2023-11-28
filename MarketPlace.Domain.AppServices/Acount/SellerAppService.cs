@@ -87,5 +87,10 @@ namespace MarketPlace.Domain.AppServices.Acount
 
 			return saler;
 		}
+
+		public async Task<GeneralSellerDto> GetGeneral(int id)
+		{
+			return await _salerService.GetGeneralSeller(id);
+		}
 	}
 }

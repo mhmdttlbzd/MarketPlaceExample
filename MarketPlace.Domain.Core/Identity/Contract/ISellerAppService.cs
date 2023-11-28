@@ -12,6 +12,6 @@ namespace MarketPlace.Domain.Core.Identity.Contract
 		Task UpdateSeller(GeneralSellerInputDto inputDto, CancellationToken cancellationToken);
 		Task<GeneralSellerEditDto> GetById(int id, CancellationToken cancellationToken);
         Task<GeneralSellerEditDto> GetByName(string userName, CancellationToken cancellationToken);
-
+        Task<GeneralSellerDto> GetGeneral(int id);
     }
 }

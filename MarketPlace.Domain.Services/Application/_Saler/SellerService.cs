@@ -36,9 +36,10 @@ namespace MarketPlace.Domain.Services.Application._Saler
             =>await _sellerRepo.UpdateAsync(input, id, cancellationToken);
 
         public int AllSalersCount() => _sellerRepo.AllSellersCount();
-        public async Task<List<GeneralSellerDto>> GetGeneralSalers(CancellationToken cancellationToken)
-            => await _sellerRepo.GetGeneralSalers(cancellationToken);
+        public async Task<List<GeneralSellerDto>> GetGeneralSellers(CancellationToken cancellationToken)
+            => await _sellerRepo.GetGeneralSellers(cancellationToken);
 
         public byte GetWagePercent(int sellerId) => _sellerRepo.GetWagePercent(sellerId);
+        public async Task<GeneralSellerDto> GetGeneralSeller(int id) => await _sellerRepo.GetGeneralSeller(id);
     }
 }

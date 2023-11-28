@@ -22,6 +22,26 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Auction
         {
 
         }
+        public async override Task<AuctionOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
+        {
+            var res = _dbContext.Set<Auction>().Where(a => a.Id == Id).Select(a => new AuctionOutputDto
+            {
+                Id = a.Id,
+                pictures = a.PicturesActions.Where(p => p.Status == GeneralStatus.Confirmed && p.IsDeleted != true).Select(p => new PictureDto
+                {
+                    Id = p.Id,
+                    Path = p.Picture.Path,
+                    Alt = p.Picture.Alt
+                }).ToList(),
+                ProductName = a.Product.Name,
+                LastPrice = a.BasePrice,
+                Description = a.Description,
+                ExpiredTime = a.ExpiredTime
+            }).FirstOrDefault();
+            return res;
+        }
+
+
         public List<GeneralAuctionDto> GetGeneralAuctionBySellerId(int sellerId)
         {
             var res =  _dbContext.Set<Auction>()
@@ -35,6 +55,52 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Auction
                 ExpiredTime = a.ExpiredTime,
                 LastPrice = a.BasePrice
             }).AsNoTracking().ToList();
+            return res;
+        }
+        public List<GeneralAuctionDto> GetThreeBestAuctions()
+        {
+           var res =  _dbContext.Set<Auction>()
+                .Where(a => a.ExpiredTime > DateTime.Now && a.IsDeleted != true).Select(a => new GeneralAuctionDto
+            {
+                Id = a.Id,
+                PicturePath = a.PicturesActions.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Path,
+                PictureAlt = a.PicturesActions.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Alt,
+                ProductName = a.Product.Name,
+                Description = a.Description,
+                ExpiredTime = a.ExpiredTime,
+                LastPrice = a.BasePrice
+            }).AsNoTracking().Skip(1).Take(3).ToList();
+            return res;
+        }
+        public List<GeneralAuctionDto>  GetThreeBestAuctions(int sellerId)
+        {
+           var res =  _dbContext.Set<Auction>()
+                .Where(a => a.BoothId == sellerId && a.ExpiredTime > DateTime.Now && a.IsDeleted != true).Select(a => new GeneralAuctionDto
+            {
+                Id = a.Id,
+                PicturePath = a.PicturesActions.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Path,
+                PictureAlt = a.PicturesActions.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Alt,
+                ProductName = a.Product.Name,
+                Description = a.Description,
+                ExpiredTime = a.ExpiredTime,
+                LastPrice = a.BasePrice
+            }).AsNoTracking().Take(3).ToList();
+            return res;
+        }
+
+        public  List<GeneralAuctionDto> GetTowNewAuctions()
+        {
+            var res =  _dbContext.Set<Auction>()
+                .Where(a => a.ExpiredTime > DateTime.Now && a.IsDeleted != true).Select(a => new GeneralAuctionDto
+            {
+                Id = a.Id,
+                PicturePath = a.PicturesActions.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Path,
+                PictureAlt = a.PicturesActions.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Alt,
+                ProductName = a.Product.Name,
+                Description = a.Description,
+                ExpiredTime = a.ExpiredTime,
+                LastPrice = a.BasePrice
+            }).AsNoTracking().OrderBy(a => a.ExpiredTime).Take(2).ToList();
             return res;
         }
     }

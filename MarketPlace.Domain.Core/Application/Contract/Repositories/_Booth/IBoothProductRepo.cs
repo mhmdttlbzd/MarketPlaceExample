@@ -6,6 +6,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Booth
 {
     public interface IBoothProductRepo : IBaseCrudRepository<BoothProduct, BoothProductInputDto, BoothProductOutputDto>
     {
-
+        List<GeneralBoothProductDto> GetBestProducts(int Count);
+        List<GeneralBoothProductDto> GetByCategoryId(int id);
+        List<GeneralBoothProductDto> GetSellerProducts(int sellerId);
     }
 }

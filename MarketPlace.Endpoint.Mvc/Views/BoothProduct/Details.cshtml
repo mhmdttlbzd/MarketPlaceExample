@@ -1,0 +1,95 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model BoothProductOutputDto;
+
+
+
+@{
+    var pictures = Model.Pictures;
+}
+
+<div class="app-wrapper">
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+            <section class="blog-single section p-3">
+                <div class="container">
+                    <div class="row">
+                        <div class=" col-12">
+                            <div class="blog-single-main">
+                                @await Component.InvokeAsync("TopSliderVM",pictures)
+                                <div class="blog-detail w-100">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h2 class="blog-title">@Model.ProductName</h2>
+                                            <h5 class="mb-5">$@Model.Price  قیمت</h5>
+                                        </div>
+                                        <div class="col-6 ms-auto mt-5">
+                                            <div class="blog-meta">
+                                                <span class="author">
+                                                    <a href="#">تعدادکالا در انبار</a>
+                                                    <a href="#">@Model.Quantity</a>
+
+                                                </span>
+                                                <a asp-action="AddToCart" asp-route-boothProductId="@Model.Id" class="btn btn-outline-success">افزودن به سبد خرید</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 px-5 mb-1" style="border:1px solid #ccc; border-radius:5px">
+                                        <div class="comments">
+                                            <h3 class="comment-title">ویژگی های محصول</h3>
+                                            @foreach (var attr in Model.Attributes)
+                                            {
+                                                <div class="single-comment">
+                                                    <div class="content">
+                                                        <h4> @attr.AttributeName  :  @attr.AttributeValue</h4>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-12 px-5 mb-3" style="border:1px solid #ccc; border-radius:5px">
+                                        <div class="comments">
+                                            <h3 class="comment-title">کامنت ها (@Model.Comments.Count())</h3>
+
+                                            @foreach (var comment in Model.Comments)
+                                            {
+                                                <!-- Single Comment -->
+                                                <div class="single-comment">
+                                                    <div class="content">
+                                                        <h4>@comment.CustomerName <span>@comment.Satisfaction</span></h4>
+                                                        <p>@comment.Description</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    @if(User.Identity.IsAuthenticated && Model.Buyers.Contains(User.Identity.Name))
+                                    {
+                                        <form class="settings-form">
+                                            <div class="mb-3">
+                                                <label for="setting-input-2" class="form-label">نظر خود را بنویسید</label>
+                                                <input type="text" name="description" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label>کالا را ارزیابی کنید</label>
+                                                <select name="">
+                                                    <option value="10">عالی</option>
+                                                    <option value="8">خیلی خوب</option>
+                                                    <option value="6">خوب</option>
+                                                    <option value="4">بد</option>
+                                                    <option value="2">خیلی بد</option>
+                                                    <option value="0">افتضاح</option>
+                                                </select>
+
+                                            </div>
+                                            <button type="submit" class="btn app-btn-primary">ثبت</button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

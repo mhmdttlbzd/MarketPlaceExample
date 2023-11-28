@@ -45,5 +45,7 @@ namespace MarketPlace.Domain.Services.Application._Booth
         {
             await _boothRepo.UpdateAsync(input, id, cancellationToken);
         }
+
+        public List<GeneralBoothDto> GetByCategoryId(int id) => _boothRepo.GetByCategoryId(id);
     }
 }

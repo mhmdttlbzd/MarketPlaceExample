@@ -11,5 +11,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Product
     {
         Task<List<CategoryDto>> GetAllAsync(CancellationToken cancellationToken);
         Task<CategoryDto> GetByIdAsync(int id, CancellationToken cancellationToken);
+        List<CategoryDto> GetAll();
     }
 }

@@ -26,5 +26,10 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Product
             var res = await _categoryAppService.GetAttrByCategoryId(id, cancellationToken);
             return Json(res);
         }
+
+        public IActionResult Search(int categoryId)
+        {
+            return View(categoryId);
+        }
     }
 }

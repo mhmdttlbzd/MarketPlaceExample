@@ -54,6 +54,6 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 	#endregion
 
 	#region SellerType
-	public record SellerTypeDto(int Id, string Title, byte TaskPercent,long BaseSalesMoney);
+	public record SellerTypeDto(int Id, string Title, byte WagePercent, long BaseSalesMoney);
     #endregion
 }

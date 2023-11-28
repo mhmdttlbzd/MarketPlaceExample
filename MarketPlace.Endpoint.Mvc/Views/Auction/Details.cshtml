@@ -1,0 +1,82 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model AuctionOutputDto;
+@{
+    var pictures = Model.pictures;
+}
+
+<div class="app-wrapper">
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+            <section class="blog-single section">
+                <div class="container">
+                    <div class="row">
+                        <div class=" col-12">
+                            <div class="blog-single-main">
+                                @await Component.InvokeAsync("TopSliderVM",pictures)
+                                <div class="blog-detail w-100">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h2 class="blog-title">@Model.ProductName</h2>
+                                            <h5 class="mb-5">$@Model.LastPrice  آخرین پیشنهاد</h5>
+                                        </div>
+                                        <div class="col-6 ms-auto mt-5">
+                                            <div class="blog-meta">
+                                                <span class="author">
+                                                    <a href="#"><span id="days"></span> روز</a>
+                                                    <a href="#"><span id="hours"></span> ساعت</a>
+                                                    <a href="#"><span id="minutes"></span> دقیقه</a>
+                                                    <a href="#"><span id="seconds"></span> ثانیه</a>
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="content mb-3">
+                                        <p>@Model.Description</p>
+                                    </div>
+                                    <form asp-action="CreateProposal" class="mt-5 form">
+                                        <input hidden name="id" value="@Model.Id" />
+                                        <label class="form-label">پیشنهاد جدید وارد کنید</label>
+                                        <input type="number" name="price" />
+                                        <button class="btn btn-outline-success" type="submit">ارسال</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script>
+
+    var second = 1000;
+    var minute = second * 60;
+    var hour = minute * 60;
+    var day = hour * 24;
+
+    // اون تاریخی که قراره بهش برسیم
+    let countDown = new Date('@Model.ExpiredTime').getTime();
+
+    function MyRacing() {
+        let nowDate = new Date().getTime(),
+            distance = countDown - nowDate;
+        document.getElementById('days').innerText = Math.floor(distance / (day)),
+            document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+            document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+            document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+        // وقتی تاریخ و زمان گذشته بود
+        if (distance < 0) {
+            clearInterval(MyTimer);
+            alert("مزایده تمام شده است");
+        }
+
+    }
+
+    MyTimer = setInterval(MyRacing, 1000);
+
+</script>

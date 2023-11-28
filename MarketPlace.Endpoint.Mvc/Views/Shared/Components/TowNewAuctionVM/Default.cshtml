@@ -1,0 +1,33 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model List<GeneralAuctionDto>;
+
+<!-- Start Midium Banner  -->
+<section class="midium-banner mb-5 pb-5">
+    <div class="container mb-5">
+        <div class="row">
+            @foreach (var auction in Model)
+            {
+                string path = "/images/" + auction.PicturePath;
+                if (auction.PicturePath == null)
+                {
+                    path = "/images/notFound.png";
+                }
+                <!-- Single Banner  -->
+                <div class="col-lg-6 col-md-6 col-12 overflow-hidden" style="height:370px">
+                    <div class="single-banner">
+                        <img src="@path" alt="@auction.PictureAlt">
+                        <div class="z-1 w-100 h-100 position-absolute top-0" style="background-color:rgb(255 254 254 / 80%)"></div>
+                        <div class="content z-2" style="right:20px; top: 250px">
+                            <p>@auction.Description</p>
+                            <h3>@auction.ProductName</h3>
+                            <a href="#">مشاهده</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /End Single Banner  -->
+            }
+
+        </div>
+    </div>
+</section>
+<!-- End Midium Banner -->

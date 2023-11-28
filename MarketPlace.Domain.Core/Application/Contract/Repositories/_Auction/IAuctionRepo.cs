@@ -7,5 +7,8 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Auction
     public interface IAuctionRepo : IBaseCrudRepository<Auction, AuctionInputDto, AuctionOutputDto>
     {
         List<GeneralAuctionDto> GetGeneralAuctionBySellerId(int sellerId);
+        List<GeneralAuctionDto> GetThreeBestAuctions();
+        List<GeneralAuctionDto> GetThreeBestAuctions(int sellerId);
+        List<GeneralAuctionDto> GetTowNewAuctions();
     }
 }

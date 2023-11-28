@@ -39,7 +39,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
         }
         public async Task UpdateType(int sellerId,int sellerTypeId)
         {
-            var seller = await _dbContext.Set<Seller>().FirstOrDefaultAsync(s => s.Id == sellerId);
+            var seller = _dbContext.Set<Seller>().FirstOrDefault(s => s.Id == sellerId);
             seller.SellerTypeId = sellerTypeId;
         }
          
@@ -60,7 +60,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
 
         public int AllSellersCount() => _dbContext.Set<Seller>().Count();
 
-        public async Task<List<GeneralSellerDto>> GetGeneralSalers(CancellationToken cancellationToken)
+        public async Task<List<GeneralSellerDto>> GetGeneralSellers(CancellationToken cancellationToken)
         {
             return await _dbContext.Set<Seller>().Select(c => new GeneralSellerDto
             {
@@ -70,6 +70,23 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
                 BoothName = c.Booth.Name,
                 SellerTypeName = c.SellerType.Title
             }).ToListAsync();
+        }
+
+        public async Task<GeneralSellerDto> GetGeneralSeller(int id)
+        {
+            return _dbContext.Set<Seller>().Where(s=>s.Id == id).Select(c => new GeneralSellerDto
+            {
+                Id = c.Id,
+                CityName = c.Booth.ShopAddress.City.Name,
+                ProvinsName = c.Booth.ShopAddress.City.Province.Name,
+                BoothName = c.Booth.Name,
+                SellerTypeName = c.SellerType.Title,
+                Email = c.Email,
+                Name = c.Name,
+                Family = c.Family,
+                Status = c.Status
+
+            }).FirstOrDefault();
         }
 
         public byte GetWagePercent(int sellerId)

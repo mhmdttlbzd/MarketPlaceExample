@@ -35,5 +35,20 @@ namespace MarketPlace.Domain.Services.Application._Order
 
         public async Task<int> GetSaledProductCount(CancellationToken cancellationToken) 
             =>await _orderRepo.GetSaledProductCount(cancellationToken);
+
+        public async Task<int> GetActiveOrderId(int customerId,CancellationToken cancellationToken)
+        {
+            var id =await _orderRepo.GetActiveOrderId(customerId);
+            if (id == null)
+            {
+                id =await _orderRepo.CreateAsync(new OrderInputDto(customerId), cancellationToken);
+            }
+            return (int)id;
+        }
+
+        public async Task<OrderDto> GetActiveOrder(int customerId)
+            => await _orderRepo.GetActiveOrder(customerId);
+
+        public async Task BuyOrder(int orderId) =>await _orderRepo.BuyOrder(orderId);
     }
 }

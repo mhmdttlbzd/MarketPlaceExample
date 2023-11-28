@@ -1,0 +1,38 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model List<GeneralBoothDto>;
+
+
+<div class="tab-content" id="orders-table-tab-content">
+    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+        <div class="app-card app-card-orders-table shadow-sm mb-5  p-2">
+            <div class="app-card-body">
+                <div class="table-responsive">
+                    <table class="table app-table-hover mb-0 text-left">
+                        <thead>
+                            <tr>
+                                <th class="cell">نام</th>
+                                <th class="cell">ادرس</th>
+                                <th class="cell">تعداد کالا ها</th>
+                                <th class="cell"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var saler in Model)
+                            {
+                                <tr id="@saler.Id">
+                                    <td class="cell">@saler.Name</td>
+                                    <td class="cell">@saler.CityName - @saler.Address - @saler.PostalCode</td>
+                                    <td class="cell">@saler.BoothProductsCount</td>
+                                    <td class="cell"><a class="btn-sm app-btn-secondary" asp-controller="Booth" asp-action="Details" asp-route-id="@saler.Id">مشاهده</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!--//table-responsive-->
+
+            </div><!--//app-card-body-->
+        </div><!--//app-card-->
+
+    </div><!--//tab-pane-->
+
+</div><!--//tab-content-->

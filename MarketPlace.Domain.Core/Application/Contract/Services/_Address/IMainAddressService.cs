@@ -9,5 +9,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Address
         Task<MainAddressOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(MainAddressInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
+        Task<AddressDto> GetAddress(int id, CancellationToken cancellationToken);
     }
 }

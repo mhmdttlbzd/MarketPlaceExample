@@ -22,7 +22,7 @@ namespace MarketPlace.Domain.Services.Application._Product
         {
             return await _categoryRepo.GetAllAsync(cancellationToken);
         }
-
+        public List<CategoryDto> GetAll() => _categoryRepo.GetAll();
         public async Task<CategoryDto> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
             return await _categoryRepo.GetByIdAsync(id, cancellationToken);

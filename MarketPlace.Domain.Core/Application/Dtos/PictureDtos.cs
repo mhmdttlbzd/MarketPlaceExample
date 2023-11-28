@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
     #region Picture
-    public record PictureDto(
-        int Id, string Path, string? Alt, ICollection<ProductCustomerPic> CustomersProductPices,
-        ICollection<AuctionPicture> PicturesActions, ICollection<ProductSalerPic> SalersProductPics
-        );
+    public record PictureDto
+    {
+        public int Id { get; set; }
+        public string Path { get; set; }
+        public string? Alt { get; set; }
+    }
     #endregion
 
 

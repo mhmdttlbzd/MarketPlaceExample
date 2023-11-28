@@ -11,5 +11,9 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
     {
         Task Create(List<string> paths, AuctionModel model, CancellationToken cancellationToken, string username);
         Task PickWinner(int auctionId, int sellerId);
+        List<GeneralAuctionDto> GetThreeBestAuctions(int? sellerId = null);
+        List<GeneralAuctionDto> GetTowNewAuctions();
+        Task<AuctionOutputDto> GetById(int id, CancellationToken cancellationToken);
+        Task CreateProposal(string userName, int auctionId, long price, CancellationToken cancellationToken);
     }
 }

@@ -1,8 +1,11 @@
 ﻿using MarketPlace.Domain.Core.Application.Contract.Repositories;
+using MarketPlace.Domain.Core.Application.Contract.Services;
 using MarketPlace.Domain.Core.Application.Contract.Services._Address;
 using MarketPlace.Domain.Core.Application.Contract.Services._Customer;
+using MarketPlace.Domain.Core.Application.Contract.Services._Order;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities._Customer;
+using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Domain.Core.Identity.Contract;
 using MarketPlace.Domain.Core.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -21,15 +24,20 @@ namespace MarketPlace.Domain.AppServices.Acount
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly UserManager<Customer> _customerManager;
+        private readonly IOrderService _orderService;
+        private readonly IOrderLineService _orderLineService;
+        private readonly IWalletService _walletService;
 
-
-        public CustomerAppService(ICustomerService customerService, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, UserManager<ApplicationUser> userManager, UserManager<Customer> customerManager)
+        public CustomerAppService(ICustomerService customerService, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, UserManager<ApplicationUser> userManager, UserManager<Customer> customerManager, IOrderService orderService, IOrderLineService orderLineService, IWalletService walletService)
         {
             _customerService = customerService;
             _mainAddressService = mainAddressService;
             _unitOfWorks = unitOfWorks;
             _userManager = userManager;
             _customerManager = customerManager;
+            _orderService = orderService;
+            _orderLineService = orderLineService;
+            _walletService = walletService;
         }
 
         public async Task UpdateCustomer(GeneralCustomerInputDto inputDto, CancellationToken cancellationToken)
@@ -46,6 +54,9 @@ namespace MarketPlace.Domain.AppServices.Acount
             }
             await _customerManager.UpdateAsync(customer);
         }
+
+
+
 		public async Task<GeneralCustomerEditDto> GetById(int id , CancellationToken cancellationToken)
 		{
 			var customer = await _customerManager.FindByIdAsync(id.ToString());
@@ -61,5 +72,66 @@ namespace MarketPlace.Domain.AppServices.Acount
 
 			return res;
 		}
-	}
+
+        public async Task<GeneralCustomerEditDto> GetByName(string userName, CancellationToken cancellationToken)
+        {
+            var user = await _customerManager.FindByNameAsync(userName);
+            return await GetById(user.Id, cancellationToken);
+        }
+
+        public async Task<CustomerDto> GetDetails(string username , CancellationToken cancellationToken)
+        {
+            var customer = await _customerManager.FindByNameAsync(username);
+            var address = await _mainAddressService.GetAddress(customer.AddressId, cancellationToken);
+            var activeOrder = await _orderService.GetActiveOrder(customer.Id);
+            var buyHistory = await _orderLineService.GetBuyHistory(customer.Id, cancellationToken);
+            var balance =  _walletService.GetMoneyByUserId(customer.Id);
+            var res = new CustomerDto
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Family = customer.Family,
+                Address = address.Address,
+                CityName = address.CityName,
+                ProvinsName = address.ProvinceName,
+                PostalCode = address.PostalCode,
+                ActiveOrder = activeOrder,
+                BuyHistory = buyHistory,
+                Email = customer.Email,
+                Balance = balance
+            };
+            return res;
+        }
+
+
+        public async Task Deposit(string userName , long money)
+        {
+            var user = await _customerManager.FindByNameAsync(userName);
+            await _walletService.Deposit(user.Id, money);
+            _unitOfWorks.SaveChanges();
+        }
+
+        public async Task<bool> BuyCart(string userName)
+        {
+            var user = await _customerManager.FindByNameAsync(userName);
+            var balance =  _walletService.GetMoneyByUserId(user.Id);
+            var order =await _orderService.GetActiveOrder(user.Id);
+            long price = 0;
+            foreach (var line in order.OrderLines)
+            {
+                price += line.Price;
+            }
+            if (balance >= price)
+            {
+                foreach (var line in order.OrderLines)
+                {
+                    await _walletService.AddTransaction(user.Id, line.SellerId, line.Price, SaleType.Order);
+                }
+                await _orderService.BuyOrder(order.Id);
+                _unitOfWorks.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+    }
 }

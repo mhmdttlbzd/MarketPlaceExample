@@ -25,6 +25,21 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         public string? Family { get; set; }
         public UserStatus? Status { get; set; }
     }
+    public record CustomerDto
+    {
+        public int Id { get; set; }
+        public string ProvinsName { get; set; }
+        public string CityName { get; set; }
+        public string Address { get; set; }
+        public int PostalCode { get; set; }
+        public string? Email { get; set; }
+        public string? Name { get; set; }
+        public string? Family { get; set; }
+        public OrderDto ActiveOrder { get; set; }
+        public List<OrderLineDto> BuyHistory { get; set; }
+        public long Balance { get; set; }
+    }
+
 
     public record GeneralCustomerInputDto
     {

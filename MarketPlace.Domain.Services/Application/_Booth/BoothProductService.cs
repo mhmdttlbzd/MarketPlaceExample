@@ -37,5 +37,10 @@ namespace MarketPlace.Domain.Services.Application._Booth
         {
             await _boothProductRepo.UpdateAsync(input, id, cancellationToken);
         }
+
+        public List<GeneralBoothProductDto> GetBestProducts(int Count) => _boothProductRepo.GetBestProducts(Count);
+
+        public List<GeneralBoothProductDto> GetByCategoryId(int id) => _boothProductRepo.GetByCategoryId(id);
+        public List<GeneralBoothProductDto> GetSellerProducts(int sellerId) => _boothProductRepo.GetSellerProducts(sellerId);
     }
 }

@@ -97,7 +97,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
         }
         public async Task<List<GeneralSellerDto>> GetAllSalers(CancellationToken cancellationToken)
         {
-            var salers = await _salerService.GetGeneralSalers(cancellationToken);
+            var salers = await _salerService.GetGeneralSellers(cancellationToken);
             foreach (var saler in salers)
             {
                 var user = await _userManager.FindByIdAsync(saler.Id.ToString());

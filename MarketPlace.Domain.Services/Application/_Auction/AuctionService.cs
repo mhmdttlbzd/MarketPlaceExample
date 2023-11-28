@@ -2,6 +2,7 @@
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Auctions;
 using MarketPlace.Domain.Core.Application.Contract.Services._Auction;
 using MarketPlace.Domain.Core.Application.Dtos;
+using MarketPlace.Domain.Core.Application.Entities._Saler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,16 +39,21 @@ namespace MarketPlace.Domain.Services.Application._Auction
 
         public async Task<AuctionOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await _auctionRepo.GetByIdAsync(id, cancellationToken);
+            var auction = await _auctionRepo.GetByIdAsync(id, cancellationToken);
+            if (_auctionProposalRepo.GetProposalCountByActionId(auction.Id) != 0)
+            {
+                auction.LastPrice = _auctionProposalRepo.GetLastProposalPrice(auction.Id);
+            }
+            return auction;
         }
 
         public async Task UpdateAsync(AuctionInputDto input, int id, CancellationToken cancellationToken)
         {
             await _auctionRepo.UpdateAsync(input, id, cancellationToken);
         }
-        public List<GeneralAuctionDto> GetGeneralAuctionBySellerId(int sellerId)
+
+        private void UpdateLastPrice(ref List<GeneralAuctionDto> auctions)
         {
-            var auctions =  _auctionRepo.GetGeneralAuctionBySellerId(sellerId);
             foreach (var auction in auctions)
             {
                 if (_auctionProposalRepo.GetProposalCountByActionId(auction.Id) != 0)
@@ -55,6 +61,32 @@ namespace MarketPlace.Domain.Services.Application._Auction
                     auction.LastPrice = _auctionProposalRepo.GetLastProposalPrice(auction.Id);
                 }
             }
+        }
+
+        public List<GeneralAuctionDto> GetGeneralAuctionBySellerId(int sellerId)
+        {
+            var auctions =  _auctionRepo.GetGeneralAuctionBySellerId(sellerId);
+            UpdateLastPrice(ref auctions);
+            return auctions;
+        }
+
+        public List<GeneralAuctionDto> GetThreeBestAuctions()
+        {
+            var auctions = _auctionRepo.GetThreeBestAuctions();
+            UpdateLastPrice(ref auctions);
+            return auctions;
+        }
+        public List<GeneralAuctionDto> GetThreeBestAuctions(int sellerId)
+        {
+            var auctions = _auctionRepo.GetThreeBestAuctions( sellerId);
+            UpdateLastPrice(ref auctions);
+            return auctions;
+        }
+
+        public List<GeneralAuctionDto> GetTowNewAuctions()
+        {
+            var auctions = _auctionRepo.GetTowNewAuctions();
+            UpdateLastPrice(ref auctions);
             return auctions;
         }
     }

@@ -6,5 +6,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Address
 {
     public interface IMainAddressRepo : IBaseCrudRepository<MainAddress, MainAddressInputDto,MainAddressOutputDto>
     {
+        Task<AddressDto> GetAddress(int id, CancellationToken cancellationToken);
     }
 }

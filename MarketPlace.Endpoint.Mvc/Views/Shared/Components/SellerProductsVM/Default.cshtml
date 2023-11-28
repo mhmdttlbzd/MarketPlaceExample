@@ -1,0 +1,56 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model List<GeneralBoothProductDto>;
+
+
+<!-- Start Product Area -->
+<div class="product-area section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="product-info">
+                    <div class="tab-content" id="myTabContent">
+                        <!-- Start Single Tab -->
+                        <div class="tab-pane fade show active" id="man" role="tabpanel">
+                            <div class="tab-single">
+                                <div class="row">
+                                    @foreach (var product in Model)
+                                    {
+                                        string path = "/images/" + product.PicturePath;
+                                        if (product.PicturePath == null)
+                                        {
+                                            path = "/images/notFound.png";
+                                        }
+                                        <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                            <div class="single-product" style="height : 350px">
+                                                <div class="product-img">
+                                                    <a href="product-details.html">
+                                                        <img class="default-img" style="min-height : 230px" src="@path" alt="@product.PictureAlt">
+                                                        <div class="w-100 h-100 hover-img" style="background-color:rgb(255 254 254 / 80%)"></div>
+                                                    </a>
+                                                    <div class="button-head">
+                                                        <div class="product-action-2">
+                                                            <a title="Add to cart" href="#">اضافه کردن به سبد خرید</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content">
+                                                    <h3><a asp-controller="BoothProduct" asp-action="Details" asp-route-id="@product.Id">@product.ProductName</a></h3>
+                                                    <div class="product-price">
+                                                        <span>$@product.Price</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ End Single Tab -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Product Area -->

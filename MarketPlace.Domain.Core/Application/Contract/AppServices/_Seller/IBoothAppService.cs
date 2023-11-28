@@ -12,5 +12,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Seller
         Task<BoothModel> GetBoothPanelInformation(string userName, CancellationToken cancellationToken);
         Task<List<SaleOrderLineDto>> GetSaledProducts(string userName, CancellationToken cancellationToken);
         Task DeleteAuction(int id, CancellationToken cancellationToken);
+        List<GeneralBoothDto> GetByCategoryId(int id);
     }
 }

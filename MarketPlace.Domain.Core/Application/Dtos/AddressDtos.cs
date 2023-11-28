@@ -22,6 +22,14 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         public int ProvinceId { get; set; }
     }
 
+    public record AddressDto
+    {
+        public string CityName { get; set; }
+        public string ProvinceName { get; set; }
+        public string Address { get; set; }
+        public int PostalCode { get; set; }
+    }
+
     #endregion
 
 

@@ -63,5 +63,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Seller
             await _auctionService.DeleteAsync(id, cancellationToken);
             await _unitOfWorks.SaveChangesAsync(cancellationToken);
         }
+
+        public List<GeneralBoothDto> GetByCategoryId(int id) => _boothService.GetByCategoryId(id);
     }
 }

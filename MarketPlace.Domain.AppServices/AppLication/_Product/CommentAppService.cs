@@ -43,5 +43,18 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             }
             return null;
         }
+
+        public async Task Create(string userName,byte satisfaction,int boothProductId,string description,CancellationToken cancellationToken)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            await _commentService.CreateAsync(new CommentInputDto
+            {
+                BoothProductId = boothProductId,
+                CustomerId = user.Id,
+                Description = description,
+                Satisfaction = satisfaction
+            }, cancellationToken);
+            await _unitOfWorks.SaveChangesAsync(cancellationToken);
+        }
     }
 }

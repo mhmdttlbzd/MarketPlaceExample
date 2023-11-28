@@ -13,6 +13,13 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         );
     public record OrderInputDto(int CustomerId, OrderStatus Status = OrderStatus.Active);
 
+    public record OrderDto
+    {
+        public int Id { get; set; }
+        public List<OrderLineDto> OrderLines { get; set; }
+    }
+
+
     public record SaleOrderLineDto
     {
         public string CustomerName { get; set; }
@@ -29,5 +36,14 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         OrderOutputDto Order
         );
     public record OrderLineInputDto(int OrderId, int BoothProductId, int Quantity);
+
+    public record OrderLineDto
+    {
+        public long Price { get; set; }
+        public string ProductName { get; set; }
+        public DateTime Date { get; set; }
+        public int Quantity { get; set; }
+        public int SellerId { get; set; }
+    }
     #endregion
 }

@@ -72,6 +72,37 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
             }).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
             return res;
         }
+
+        public List<GeneralBoothDto> GetByCategoryId(int id)
+        {
+            var ids = _dbContext.Set<BoothProduct>().Where(b => b.Product.CategoryId == id).Select(b => b.BoothId).ToList();
+            var ids2 = new List<int>();
+            foreach (var i in ids)
+            {
+                if (!ids2.Contains(i))
+                {
+                    ids2.Add(i);
+                }
+            }
+            var res = new List<GeneralBoothDto>();
+            foreach (var i in ids2)
+            {
+                var r = _dbContext.Set<Booth>().Where(b => b.Id == i).Select(b => new GeneralBoothDto
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    CityName = b.ShopAddress.City.Name,
+                    Address = b.ShopAddress.Address,
+                    PostalCode = b.ShopAddress.PostalCode,
+                    TotalSales = b.SalesMoney,
+                    BoothProductsCount = b.BoothsProducts.Count()
+                }).FirstOrDefault();
+                
+                res.Add(r);
+            }
+            return res;
+
+        }
         public async Task UpdateAsync(BoothInputDto input, int id, CancellationToken cancellationToken)
         {
             var booth = await _dbContext.Set<Booth>().FirstOrDefaultAsync(b => b.Id == id, cancellationToken);

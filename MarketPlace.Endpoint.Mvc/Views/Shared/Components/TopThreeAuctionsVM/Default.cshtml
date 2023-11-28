@@ -1,0 +1,79 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model List<GeneralAuctionDto>;
+
+@if (Model != null && Model.Count() != 0)
+{
+
+    var auction1 = Model.First();
+    var auction2 = Model.Skip(1).First();
+    var auction3 = Model.Skip(2).First();
+    string path1 = "/images/" + auction1.PicturePath;
+    string path2 = "/images/" + auction2.PicturePath;
+    string path3 = "/images/" + auction3.PicturePath;
+
+    <!-- Slider Area -->
+    <section class="hero-slider">
+        <!-- Single Slider -->
+        <div class="single-slider overflow-hidden" style="background-image: url(@path1)">
+            <div class="w-100 h-100" style="background-color:rgb(255 254 254 / 80%)">
+                <div class="container ">
+                    <div class="row no-gutters">
+                        <div class="col-lg-9 offset-lg-3 col-12">
+
+                            <div class="text-inner">
+                                <div class="row">
+                                    <div class="col-lg-7 col-12">
+                                        <div class="hero-text">
+                                            <h1><span>پر بازدید ترین مزایده </span>@auction1.ProductName</h1>
+                                            <p>@auction1.Description</p>
+                                            <div class="button">
+                                                <a asp-controller="Auction" asp-action="Details" asp-route-id="@auction1.Id" class="btn">مشاهده</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Single Slider -->
+    </section>
+    <!--/ End Slider Area -->
+    <!-- Start Small Banner  -->
+    <section class="small-banner section">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Single Banner  -->
+                <div class="col-md-6 col-12 overflow-hidden" style="height:370px">
+                    <div class="single-banner">
+                        <img src="@path2" alt="#">
+                        <div class="z-1 w-100 h-100 position-absolute top-0" style="background-color:rgb(255 254 254 / 80%)"></div>
+                        <div class="content z-2">
+                            <p>@auction2.Description</p>
+                            <h3>@auction2.ProductName</h3>
+                            <a href="#">مشاهده</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /End Single Banner  -->
+                <!-- Single Banner  -->
+                <div class="col-md-6 col-12 overflow-hidden" style="height:370px">
+                    <div class="single-banner">
+                        <img src="@path3" alt="#">
+                        <div class="z-1 w-100 h-100 position-absolute top-0" style="background-color:rgb(255 254 254 / 80%)"></div>
+                        <div class="content z-2">
+                            <p>@auction3.Description</p>
+                            <h3>@auction3.ProductName</h3>
+
+                            <a href="#">مشاهده</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /End Single Banner  -->
+            </div>
+        </div>
+    </section>
+    <!-- End Small Banner -->
+}

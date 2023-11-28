@@ -1,0 +1,41 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model List<CategoryDto>;
+
+
+<li class="nav-item has-submenu">
+    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-1" aria-expanded="false" aria-controls="submenu-1">
+        <span class="nav-icon">
+            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z" />
+                <path d="M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z" />
+            </svg>
+        </span>
+        <span class="nav-link-text">دسته بندی ها</span>
+    </a><!--//nav-link-->
+    <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
+        <ul class="main-category submenu-list list-unstyled">
+            @foreach (var category1 in Model.Where(c => c.ParentId == null))
+            {
+                <li class="main-mega submenu-item">
+                    <a href="#">@category1.Title <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    <ul class="mega-menu">
+                        @foreach(var category2 in Model.Where(c => c.ParentId == category1.Id))
+                        {
+                            <li class="single-menu">
+                                <h4 class="">@category2.Title</h4>
+                                <div class="inner-link">
+                                    @foreach (var category3 in Model.Where(c => c.ParentId == category2.Id))
+                                    {
+                                        <a asp-controller="Category" asp-action="Search" asp-route-categoryId="@category3.Id">@category3.Title</a>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</li><!--//nav-item-->

@@ -44,12 +44,19 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     #endregion
 
     #region BoothProduct
-    public record BoothProductOutputDto(
-        int Id, int Quantity, int BoothId, BoothOutputDto Booth, ICollection<BoothProductsPriceOutputDto> BoothProductsPrices,
-        ICollection<CommentOutputDto> Comments, ICollection<ProductCustomerPicOutputDto> CustomersProductPices,
-        ICollection<OrderLineOutputDto> OrderLines, int ProductId, ProductOutputDto Product, 
-        ICollection<ProductSalerPicOutputDto> SellersProductPics
-        );
+    public record BoothProductOutputDto
+    {
+        public int Id { get; set; }
+        public int Quantity { get; set; }
+        public int BoothId { get; set; }
+        public List<PictureDto> Pictures { get; set; }
+        public string ProductName { get; set; }
+        public long Price { get; set; }
+        public List<string> Buyers { get; set; }
+        public List<CommentDto> Comments { get; set; }
+        public List<ProductAttrOutModel> Attributes {get;set;}
+    }
+        
     public record BoothProductInputDto(
         int Quantity, int BoothId, int ProductId
         );
@@ -58,6 +65,15 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     {
         public int ProductId { get; set; }
         public int Quantity { get; set; }
+        public long Price { get; set; }
+    }
+
+    public record GeneralBoothProductDto
+    {
+        public int Id { get; set; }
+        public string PicturePath { get; set; }
+        public string PictureAlt { get; set; }
+        public string ProductName { get; set; }
         public long Price { get; set; }
     }
     #endregion
@@ -81,6 +97,13 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         int Id, byte Satisfaction, string Description, GeneralStatus Status, int BoothProductId,
         BoothProductOutputDto BoothProduct, int CustomerId, CustomerOutputDto Customer
         );
+
+    public record CommentDto
+    {
+        public string CustomerName { get; set; }
+        public string Description { get; set; }
+        public byte Satisfaction { get; set; }
+    }
 
     public record CommentRequestDto
     {

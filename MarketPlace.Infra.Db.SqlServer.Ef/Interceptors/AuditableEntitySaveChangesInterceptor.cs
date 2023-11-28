@@ -46,7 +46,6 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.Interceptors
                     entry.Entity.DeletedAt = DateTime.Now;
                     entry.State = EntityState.Modified;
                     entry.Entity.IsDeleted = true;
-
                 }
 
             }

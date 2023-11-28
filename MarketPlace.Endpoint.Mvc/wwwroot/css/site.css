@@ -17,27 +17,31 @@ html {
   min-height: 100%;
 }*/
 .app {
-    background-color:rgba(143, 188, 143, 0.836) !important ;
+    background-color: rgba(143, 188, 143, 0.836) !important;
 }
+
 .app-header-inner {
     margin-right: 250px !important;
-    margin-left:0 !important;
+    margin-left: 0 !important;
 }
+
 .app-wrapper {
     margin-right: 250px !important;
     margin-left: 0 !important;
 }
+
 .single-product {
-  border-radius: 10px;
-background-color: #fff;
-padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px;
 }
-.settings-section, .shop-single-blog ,.single-list{
-/* background-color: rgba(156, 156, 156, 0.568); */
-background-color: #fff;
-overflow: hidden;
-border-radius: 10px;
-padding-bottom: 1.5rem;
+
+.settings-section, .shop-single-blog, .single-list {
+    /* background-color: rgba(156, 156, 156, 0.568); */
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 10px;
+    padding-bottom: 1.5rem;
 }
 
 .td-flex {
@@ -45,9 +49,25 @@ padding-bottom: 1.5rem;
     justify-content: center;
     display: flex;
 }
-.section-title{
-    text-align :center;
+
+.section-title {
+    text-align: center;
+}
+
+.slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%;
+}
+
+.slide {
+    float: left;
+    width : 550px;
 }
 
 
-    /*--------------------------------*/
+
+/*--------------------------------*/

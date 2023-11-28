@@ -8,8 +8,9 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Saler
     public interface ISalerRepo : IBaseCrudRepository<Seller,SellerInputDto, SellerOutputDto>
     {
 		int AllSellersCount();
-        Task<List<GeneralSellerDto>> GetGeneralSalers(CancellationToken cancellationToken);
+        Task<List<GeneralSellerDto>> GetGeneralSellers(CancellationToken cancellationToken);
         byte GetWagePercent(int sellerId);
         Task UpdateType(int sellerId, int sellerTypeId);
+        Task<GeneralSellerDto> GetGeneralSeller(int id);
     }
 }
