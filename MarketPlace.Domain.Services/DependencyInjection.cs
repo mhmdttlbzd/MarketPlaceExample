@@ -21,7 +21,6 @@ using MarketPlace.Domain.Services.Application._Picture;
 using MarketPlace.Domain.Services.Application._Product;
 using MarketPlace.Domain.Services.Application._Saler;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
 namespace MarketPlace.Domain.Services
@@ -32,17 +31,6 @@ namespace MarketPlace.Domain.Services
         {
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddStackExchangeRedisCache(options =>
-            {
-                 options.Configuration = "localhost:6379";
-                options.ConfigurationOptions = new ConfigurationOptions
-                {
-                    Password = string.Empty,
-                    DefaultDatabase = 0,
-                    ConnectTimeout = 30000
-                };
-                options.ConfigurationOptions.EndPoints.Add("localhost:6379");
-            });
             #region Address
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IMainAddressService, MainAddressService>();

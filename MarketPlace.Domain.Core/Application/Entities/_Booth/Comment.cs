@@ -11,7 +11,7 @@ public partial class Comment : BaseEntity
 
     public string Description { get; set; } = null!;
 
-    public GeneralStatus Status { get; set; }
+    public GeneralStatus Status { get; set; } = GeneralStatus.AwaitConfirmation;
 
 }
 

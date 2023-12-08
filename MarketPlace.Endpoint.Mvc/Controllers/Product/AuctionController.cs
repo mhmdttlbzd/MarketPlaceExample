@@ -28,10 +28,7 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Product
         public async Task<IActionResult> CreateProposal(int id, long price, CancellationToken cancellationToken)
         {
             await _auctionAppService.CreateProposal(User.Identity.Name, id, price, cancellationToken);
-            return RedirectToAction("Details");
+            return LocalRedirect("~/Home");
         }
-
-
-
     }
 }

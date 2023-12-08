@@ -120,41 +120,5 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
             user.Status = UserStatus.Active;
             await _userManager.UpdateAsync(user);
         }
-
-        public async Task CreateCustomer(GeneralCustomerInputDto inputDto, CancellationToken cancellationToken)
-        {
-            int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
-            var customer = new Customer
-            {
-                Name = inputDto.Name,
-                Family = inputDto.Family,
-                Email = inputDto.Email,
-                UserName = inputDto.Email,
-                AddressId = addressId
-            };
-            await _customerManager.CreateAsync(customer);
-            await _customerManager.AddPasswordAsync(customer, inputDto.Password);
-            await _customerManager.AddToRoleAsync(customer, "Customer");
-        }
-
-        public async Task CreateSaler(GeneralSellerInputDto inputDto, CancellationToken cancellationToken)
-        {
-            int addressId = await _mainAddressService.CreateAsync(new MainAddressInputDto(inputDto.CityId, inputDto.AddressDescription, inputDto.PostalCode), cancellationToken);
-
-            var saler = new Seller
-            {
-                Name = inputDto.Name,
-                Family = inputDto.Family,
-                Email = inputDto.Email,
-                UserName = inputDto.Email,
-                SellerTypeId = inputDto.SellerTypeId
-            };
-            await _sellerManager.CreateAsync(saler);
-            await _sellerManager.AddPasswordAsync(saler, inputDto.Password);
-            await _sellerManager.AddToRoleAsync(saler, "Seller");
-
-			await _boothService.CreateAsync(new BoothInputDto(saler.Id, inputDto.BoothName, addressId), cancellationToken);
-			await _unitOfWorks.SaveChangesAsync(cancellationToken);
-		}
     }
 }

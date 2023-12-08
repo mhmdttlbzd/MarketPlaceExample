@@ -53,6 +53,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
                 CustomerId = user.Id,
                 Description = description,
                 Satisfaction = satisfaction
+                
             }, cancellationToken);
             await _unitOfWorks.SaveChangesAsync(cancellationToken);
         }

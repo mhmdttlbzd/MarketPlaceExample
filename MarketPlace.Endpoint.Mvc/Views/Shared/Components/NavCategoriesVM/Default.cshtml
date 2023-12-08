@@ -28,7 +28,7 @@
                                 <div class="inner-link">
                                     @foreach (var category3 in Model.Where(c => c.ParentId == category2.Id))
                                     {
-                                        <a asp-controller="Category" asp-action="Search" asp-route-categoryId="@category3.Id">@category3.Title</a>
+                                        <a href="/Category/Search?categoryId=@category3.Id">@category3.Title</a>
                                     }
                                 </div>
                             </li>

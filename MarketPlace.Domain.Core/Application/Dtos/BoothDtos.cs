@@ -119,6 +119,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         public string Description { get; set; }
         public int? CustomerId { get; set; }
         public int? BoothProductId { get; set; }
+        public GeneralStatus Status { get; set; } = GeneralStatus.AwaitConfirmation;
     };
     #endregion
 }

@@ -22,6 +22,7 @@ namespace MarketPlace.Domain.AppServices.Identity
 
         public async Task<SignInResult> Login(string username, string password)
         {
+            
             var user = _userManager.FindByNameAsync(username).Result;
             if (user != null && user.Status == UserStatus.Active)
             {

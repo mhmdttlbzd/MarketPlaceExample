@@ -15,5 +15,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories
         Task Deposit(int userId, long money);
         Task Withdraw(int userId, long money);
         Task CreateTransaction(WalletTransactionDto Input);
+        Task CreateAsync(int userId);
     }
 }

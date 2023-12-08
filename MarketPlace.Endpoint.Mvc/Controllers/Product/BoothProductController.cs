@@ -30,13 +30,13 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Product
         public async Task<IActionResult> AddToCart(int boothProductId,CancellationToken cancellationToken)
         {
             await _boothProductAppService.AddToCart(User.Identity.Name, boothProductId, cancellationToken);
-            return LocalRedirect("Index");
+            return LocalRedirect("~/Home");
         }
 
         public async Task<IActionResult> AddComment(byte satisfaction,int boothProductId,string description,CancellationToken cancellationToken)
         {
             await _commentAppService.Create(User.Identity.Name,satisfaction,boothProductId,description,cancellationToken);
-            return LocalRedirect("Index");
+            return LocalRedirect("~/Home");
         }
     }
 }

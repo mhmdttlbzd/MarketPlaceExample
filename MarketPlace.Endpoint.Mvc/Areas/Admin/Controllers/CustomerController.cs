@@ -32,7 +32,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePost(GeneralCustomerInputDto input, CancellationToken cancellationToken)
         {
-            await _adminPanelAppService.CreateCustomer(input, cancellationToken);
+            await _customerAppService.Create(input, cancellationToken);
             return LocalRedirect("/Admin");
         }
 

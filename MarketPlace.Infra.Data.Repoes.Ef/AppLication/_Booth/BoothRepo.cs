@@ -30,7 +30,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
         {
             var entity = _mapper.Map<Booth>(InputDto);
             await _dbContext.Set<Booth>().AddAsync(entity, cancellationToken);
-            
+
             return entity.Id;
         }
 
@@ -52,13 +52,13 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
             var booth = await _dbContext.Set<Booth>().FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
             return new BoothOutputDto(booth.Id, booth.Name, (int)booth.ShopAddressId, null, null, null);
         }
-        
+
         public async Task<long> GetSalesMoney(int sellerId)
         {
             return await _dbContext.Set<Booth>().Where(b => b.Id == sellerId).Select(b => b.SalesMoney).FirstOrDefaultAsync();
         }
 
-        public async Task<GeneralBoothDto> GetGeneralBoothById(int id,CancellationToken cancellationToken)
+        public async Task<GeneralBoothDto> GetGeneralBoothById(int id, CancellationToken cancellationToken)
         {
             var res = await _dbContext.Set<Booth>().Where(b => b.Id == id).Select(b => new GeneralBoothDto
             {
@@ -76,16 +76,13 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
         public List<GeneralBoothDto> GetByCategoryId(int id)
         {
             var ids = _dbContext.Set<BoothProduct>().Where(b => b.Product.CategoryId == id).Select(b => b.BoothId).ToList();
-            var ids2 = new List<int>();
+            var setInts = new HashSet<int>();
             foreach (var i in ids)
             {
-                if (!ids2.Contains(i))
-                {
-                    ids2.Add(i);
-                }
+                setInts.Add(i);
             }
             var res = new List<GeneralBoothDto>();
-            foreach (var i in ids2)
+            foreach (var i in setInts)
             {
                 var r = _dbContext.Set<Booth>().Where(b => b.Id == i).Select(b => new GeneralBoothDto
                 {
@@ -97,11 +94,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
                     TotalSales = b.SalesMoney,
                     BoothProductsCount = b.BoothsProducts.Count()
                 }).FirstOrDefault();
-                
+
                 res.Add(r);
             }
             return res;
-
         }
         public async Task UpdateAsync(BoothInputDto input, int id, CancellationToken cancellationToken)
         {

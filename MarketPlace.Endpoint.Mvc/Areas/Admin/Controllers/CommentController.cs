@@ -25,7 +25,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> EditPost(string description, byte satisfaction, int id, CancellationToken cancellationToken)
         {
             await _commentAppService.UpdateAsync(new CommentInputDto { Description = description, Satisfaction = satisfaction }, id, User.Identity.Name, cancellationToken);
-            return LocalRedirect("~/Comment/Edit/" + id);
+            return LocalRedirect("~/Admin/Comment/Edit?id=" + id);
         }
 
 

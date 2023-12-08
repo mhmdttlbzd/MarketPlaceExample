@@ -31,12 +31,12 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="list-image overlay">
                                                 <img style="min-height: 160px" src="@path" alt="@product.PictureAlt">
-                                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                                <a asp-controller="BoothProduct" asp-action="AddToCart" asp-route-boothProductId="@product.Id" class="buy"><i class="fa fa-shopping-bag"></i></a>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12 no-padding">
                                             <div class="content">
-                                                <h5 class="title"><a href="#">@product.ProductName</a></h5>
+                                                <h5 class="title"><a asp-controller="BoothProduct" asp-action="Details" asp-route-id="@product.Id">@product.ProductName</a></h5>
                                                 <p class="price with-discount">$@product.Price</p>
                                             </div>
                                         </div>

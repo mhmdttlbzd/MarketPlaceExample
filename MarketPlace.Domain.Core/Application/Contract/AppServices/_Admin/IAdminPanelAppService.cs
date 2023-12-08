@@ -17,7 +17,5 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Admin
 
         Task ActiveUser(int id, CancellationToken cancellationToken);
 		Task DeActiveUser(int id, CancellationToken cancellationToken);
-		Task CreateCustomer(GeneralCustomerInputDto inputDto, CancellationToken cancellationToken);
-		Task CreateSaler(GeneralSellerInputDto inputDto, CancellationToken cancellationToken);
     }
 }

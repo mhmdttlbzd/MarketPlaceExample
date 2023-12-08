@@ -25,6 +25,17 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.Acount
 			_mapper = mapper;
 		}
 
+		public async Task CreateAsync(int userId)
+		{
+			await _dbContext.Set<Wallet>().AddAsync(new Wallet
+			{
+				Id = userId,
+				Money = 0
+			});
+			await _dbContext.SaveChangesAsync();
+		}
+
+
 		public async Task<long> GetAllWage(CancellationToken cancellationToken)
 		{
 			int res = 0;

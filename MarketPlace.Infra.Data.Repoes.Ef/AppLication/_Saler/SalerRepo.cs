@@ -7,7 +7,6 @@ using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
 {

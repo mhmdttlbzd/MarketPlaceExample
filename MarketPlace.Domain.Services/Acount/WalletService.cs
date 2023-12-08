@@ -64,5 +64,6 @@ namespace MarketPlace.Domain.Services.Acount
 			}
 			_unitOfWorks.SaveChanges();
         }
+		public async Task CreateAsync(int userId) => await _walletRepo.CreateAsync(userId);
     }
 }

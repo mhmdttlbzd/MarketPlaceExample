@@ -11,11 +11,13 @@ namespace MarketPlace.Endpoint.Mvc.Controllers
     {
         private readonly IAuthenticationAppService _authenticationAppService;
         private readonly ICustomerAppService _customerAppService;
+        private readonly ISellerAppService _sellerAppService;
 
-        public Account(IAuthenticationAppService authenticationAppService, ICustomerAppService customerAppService)
+        public Account(IAuthenticationAppService authenticationAppService, ICustomerAppService customerAppService, ISellerAppService sellerAppService)
         {
             _authenticationAppService = authenticationAppService;
             _customerAppService = customerAppService;
+            _sellerAppService = sellerAppService;
         }
 
         public IActionResult Login()
@@ -52,6 +54,28 @@ namespace MarketPlace.Endpoint.Mvc.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> RegisterAsSeller(GeneralSellerInputDto input,CancellationToken cancellationToken)
+        {
+            await _sellerAppService.Register(input, cancellationToken);
+            return LocalRedirect("~/Home");
+        }
+
+
+
+        public IActionResult RegisterAsCustomer()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> RegisterAsCustomer(GeneralCustomerInputDto input,CancellationToken cancellationToken)
+        {
+            await _customerAppService.Register(input, cancellationToken);
+            return LocalRedirect("~/Home");
+        }
+
+
+
 
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Profile(CancellationToken cancellationToken)

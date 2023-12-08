@@ -68,6 +68,23 @@ html {
     width : 550px;
 }
 
+@font-face {
+    font-family: 'vazir';
+    src: url('../plugins/vazir-font/Vazir-Regular.eot');
+    src: url('../plugins/vazir-font/Vazir-Regular.eot?#iefix') format('embedded-opentype'), url('../plugins/vazir-font/Vazir-Regular.woff2') format('woff2'), url('../plugins/vazir-font/Vazir-Regular.woff') format('woff'), url('../plugins/vazir-font/Vazir-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: 'Yekan';
+    src : url('../plugins/yekan-font/Yekan-regular.eot?#iefix') format('embedded-opentype'),
+        url('../plugins/yekan-font/Yekan-regular.woff') format('woff'),
+        url('../plugins/yekan-font/Yekan-regular.ttf') format('truetype');  
+    font-style : normal;
+}
+* {
+    font-family: vazir;
+}
 
 /*--------------------------------*/

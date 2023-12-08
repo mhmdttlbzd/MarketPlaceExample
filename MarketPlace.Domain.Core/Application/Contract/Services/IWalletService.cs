@@ -16,5 +16,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services
         Task Deposit(int userId, long money);
         long GetMoneyByUserId(int userId);
         Task AddTransaction(int customerId, int sellerId, long price, SaleType type);
+        Task CreateAsync(int userId);
     }
 }

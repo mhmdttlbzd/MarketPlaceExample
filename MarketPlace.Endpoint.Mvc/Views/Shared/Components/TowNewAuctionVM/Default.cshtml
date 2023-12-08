@@ -20,7 +20,7 @@
                         <div class="content z-2" style="right:20px; top: 250px">
                             <p>@auction.Description</p>
                             <h3>@auction.ProductName</h3>
-                            <a href="#">مشاهده</a>
+                            <a asp-controller="Auction" asp-action="Details" asp-route-id="@auction.Id">مشاهده</a>
                         </div>
                     </div>
                 </div>

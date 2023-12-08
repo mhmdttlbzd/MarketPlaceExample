@@ -64,19 +64,20 @@
                                     </div>
                                     @if(User.Identity.IsAuthenticated && Model.Buyers.Contains(User.Identity.Name))
                                     {
-                                        <form class="settings-form">
+                                        <form asp-action="AddComment" class="settings-form">
+                                            <input hidden name="boothProductId" value="@Model.Id" />
                                             <div class="mb-3">
                                                 <label for="setting-input-2" class="form-label">نظر خود را بنویسید</label>
                                                 <input type="text" name="description" class="form-control" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label>کالا را ارزیابی کنید</label>
-                                                <select name="">
-                                                    <option value="10">عالی</option>
-                                                    <option value="8">خیلی خوب</option>
-                                                    <option value="6">خوب</option>
-                                                    <option value="4">بد</option>
-                                                    <option value="2">خیلی بد</option>
+                                                <select name="satisfaction">
+                                                    <option value="5">عالی</option>
+                                                    <option value="4">خیلی خوب</option>
+                                                    <option value="3">خوب</option>
+                                                    <option value="2">بد</option>
+                                                    <option value="1">خیلی بد</option>
                                                     <option value="0">افتضاح</option>
                                                 </select>
 

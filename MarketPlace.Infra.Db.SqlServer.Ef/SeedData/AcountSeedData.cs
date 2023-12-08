@@ -147,9 +147,8 @@ namespace MarketPlace.Infra.Db.SqlServer.Ef.SeedData
 			builder.HasData(
 				new ApplicationRole { Id = 1, Name = "Admin", NormalizedName = "ADMIN".ToUpper() },
 				new ApplicationRole { Id = 2, Name = "Customer", NormalizedName = "CUSTOMER".ToUpper() },
-				new ApplicationRole { Id = 3, Name = "Seller", NormalizedName = "SALER".ToUpper() }
+				new ApplicationRole { Id = 3, Name = "Seller", NormalizedName = "SELLER".ToUpper() }
 				);
-
 		}
 	}
 	public class UserRoleSeedData : IEntityTypeConfiguration<IdentityUserRole<int>>

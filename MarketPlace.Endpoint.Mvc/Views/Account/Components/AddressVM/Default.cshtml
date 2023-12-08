@@ -7,7 +7,7 @@
 
 <div>
     <label for='provinceId' class='form-label'>استان </label>
-    <select name="provinceId" onchange="ChangeCities(this.value)" class="form-select w-50 py-2 px-5 mb-2">
+    <select name="provinceId" onchange="ChangeCities(this.value)" class="form-select w-100 py-2 px-5 mb-2">
         @foreach (var province in Model.Provinces.OrderBy(p => p.Id))
         {
             if (Model.Address != null && province.Id == Model.Address.ProvinceId)
@@ -22,7 +22,7 @@
 
     </select>
     <label for='cityId' class='form-label'>شهر </label>
-    <select name="CityId" class="form-select w-50 py-2 px-5 mb-2">
+    <select name="CityId" class="form-select w-100 py-2 px-5 mb-2">
 
         @if (Model.Address != null)
         {

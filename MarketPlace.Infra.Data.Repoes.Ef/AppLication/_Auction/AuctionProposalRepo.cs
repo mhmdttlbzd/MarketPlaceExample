@@ -4,7 +4,7 @@ using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Auction;
 using MarketPlace.Infra.Db.SqlServer.Ef;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Auction
 {
