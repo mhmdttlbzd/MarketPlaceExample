@@ -23,6 +23,7 @@
     <ProjectReference Include="..\ApplicationFrameWorke\ApplicationFrameWorke.csproj" />
     <ProjectReference Include="..\MarketPlace.Domain.AppServices\MarketPlace.Domain.AppServices.csproj" />
     <ProjectReference Include="..\MarketPlace.Infra.Data.Repoes.Ef\MarketPlace.Infra.Data.Repoes.Ef.csproj" />
+    <ProjectReference Include="..\Redis\MarketPlace.Infra.Cache.Redis.csproj" />
   </ItemGroup>
 
   <ItemGroup>

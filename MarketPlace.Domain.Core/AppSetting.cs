@@ -13,7 +13,11 @@ namespace MarketPlace.Domain.Core
         public AppSetting(IConfiguration configuration)
         {
             ConnectionString = configuration.GetConnectionString("DefaultConnection");
+            CategoriesCacheKey = configuration["CacheKeys:Categories"].ToString();
+            CategoriesCacheKey = configuration["CacheKeys:Cities"].ToString();
         }
         public string ConnectionString { get; private set; }
+        public string CategoriesCacheKey { get; private set; }
+        public string CitiesCacheKey { get; private set; }
     }
 }

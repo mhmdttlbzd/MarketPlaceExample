@@ -1,6 +1,8 @@
 ﻿
+using MarketPlace.Domain.Core.Application.Contract;
+
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
+
 
 
 
@@ -14,7 +16,9 @@ namespace MarketPlace.Infra.Cache.Redis
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";
-                options.ConfigurationOptions = new ConfigurationOptions
+                
+
+                options.ConfigurationOptions = new ()
                 {
                     Password = string.Empty,
                     DefaultDatabase = 0,
@@ -22,7 +26,7 @@ namespace MarketPlace.Infra.Cache.Redis
                 };
                 options.ConfigurationOptions.EndPoints.Add("localhost:6379");
             });
-
+            services.AddScoped<IApplicationDistributedCache, RedisDistributedCache>();
             
         }
     }

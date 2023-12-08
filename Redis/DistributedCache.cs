@@ -1,4 +1,5 @@
 ﻿
+using MarketPlace.Domain.Core.Application.Contract;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
@@ -9,47 +10,92 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Infra.Cache.Redis
 {
-    public class RedisDistributedCache
+    public class RedisDistributedCache : IApplicationDistributedCache
     {
         private readonly IDistributedCache _distributedCache;
         public RedisDistributedCache(IDistributedCache distributedCache)
         {
             _distributedCache = distributedCache;
         }
-        public void Set<T>(T value,int expiratonDay,TimeSpan slidingExpiration)
+
+        // General Set
+        public async Task SetAsync<T>(string key, List<T> value,int expiratonDay,TimeSpan slidingExpiration)
         {
             var cacheOption = new DistributedCacheEntryOptions
             {
                 AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiratonDay),
                 SlidingExpiration = slidingExpiration
             };
-            _distributedCache.SetStringAsync(nameof(T),JsonSerializer.Serialize(value),cacheOption);
+            await _distributedCache.SetStringAsync(key,JsonSerializer.Serialize(value),cacheOption);
         }
 
-        public void Set<T>(T value,int expiratonDay)
+        public void Set<T>(string key, List<T> value, int expiratonDay, TimeSpan slidingExpiration)
+        {
+            var cacheOption = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiratonDay),
+                SlidingExpiration = slidingExpiration
+            };
+            _distributedCache.SetString(key, JsonSerializer.Serialize(value), cacheOption);
+        }
+
+
+        // ExpireTime Set
+        public async Task SetAsync<T>(string key, List<T> value,int expiratonDay)
         {
             var cacheOption = new DistributedCacheEntryOptions
             {
                 AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiratonDay)
             };
-            _distributedCache.SetStringAsync(nameof(T),JsonSerializer.Serialize(value),cacheOption);
+            await _distributedCache.SetStringAsync(key,JsonSerializer.Serialize(value),cacheOption);
+        }
+        public  void Set<T>(string key, List<T> value,int expiratonDay)
+        {
+            var cacheOption = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiratonDay)
+            };
+            _distributedCache.SetString(key,JsonSerializer.Serialize(value),cacheOption);
         }
         
-        public void Set<T>(T value,TimeSpan slidingExpiration)
+
+
+
+        // Sliding Set
+        public async Task SetAsync<T>(string key, List<T> value,TimeSpan slidingExpiration)
         {
             var cacheOption = new DistributedCacheEntryOptions
             {
                 SlidingExpiration = slidingExpiration
             };
-            _distributedCache.SetStringAsync(nameof(T),JsonSerializer.Serialize(value),cacheOption);
+            await _distributedCache.SetStringAsync(key,JsonSerializer.Serialize(value),cacheOption);
+        }
+        public void Set<T>(string key, List<T> value,TimeSpan slidingExpiration)
+        {
+            var cacheOption = new DistributedCacheEntryOptions
+            {
+                SlidingExpiration = slidingExpiration
+            };
+            _distributedCache.SetString(key, JsonSerializer.Serialize(value), cacheOption);
         }
 
-        public async Task<T?> Get<T>()
+
+        // Get
+        public async Task<List<T>?> GetAsync<T>(string key)
         {
-            var value = await _distributedCache.GetStringAsync(nameof(T));
+            var value = await _distributedCache.GetStringAsync(key);
             if (value != null)
             {
-                return JsonSerializer.Deserialize<T>(value);
+                return JsonSerializer.Deserialize<List<T>>(value);
+            }
+            return default;
+        } 
+        public List<T>? Get<T>(string key)
+        {
+            var value = _distributedCache.GetString(key);
+            if (value != null)
+            {
+                return JsonSerializer.Deserialize<List<T>>(value);
             }
             return default;
         }

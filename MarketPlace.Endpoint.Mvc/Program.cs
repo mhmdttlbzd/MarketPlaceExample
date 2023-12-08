@@ -11,6 +11,8 @@ using MarketPlace.Domain.Core.Application.Entities._Customer;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Domain.Core.Application.Entities._Admin;
 using MarketPlace.Domain.Core;
+using Microsoft.Extensions.DependencyInjection;
+using MarketPlace.Infra.Cache.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +24,10 @@ builder.Services.AddMvc(opt => opt.EnableEndpointRouting = false);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddAppServices(builder.Configuration);
+builder.Services.AddCachingRedis();
 
 builder.Services.AddSingleton(new AppSetting(builder.Configuration));
+
 
 
 builder.Services.AddIdentity<ApplicationUser , ApplicationRole>(options =>
