@@ -28,11 +28,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Saler.Controllers
         {
             return View(await _boothAppService.GetSaledProducts(User.Identity.Name,cancellationToken));
         }
-        public async Task<IActionResult> DeleteAuction(int id,CancellationToken cancellationToken)
-        {
-            await _boothAppService.DeleteAuction(id, cancellationToken);
-            return RedirectToAction("Index");
-        }
+
 
         public async Task<IActionResult> EditProfile( CancellationToken cancellationToken)
         {
@@ -44,6 +40,13 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Saler.Controllers
         {
             await _sellerAppService.UpdateSeller(input, cancellationToken);
             return LocalRedirect("/");
+        }
+
+      
+        public async Task<IActionResult> SellerProducts()
+        {
+            var res = await _boothAppService.GetSellerProducts(User.Identity.Name);
+            return View(res);
         }
     }
 }

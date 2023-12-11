@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using MarketPlace.Domain.Core.Application.Contract.Repositories._Auction;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Booth;
 using MarketPlace.Domain.Core.Application.Dtos;
-using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Booth;
 using MarketPlace.Infra.Db.SqlServer.Ef;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 {
@@ -75,7 +69,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 
         public List<GeneralBoothDto> GetByCategoryId(int id)
         {
-            var ids = _dbContext.Set<BoothProduct>().Where(b => b.Product.CategoryId == id).Select(b => b.BoothId).ToList();
+            var ids = _dbContext.Set<BoothProduct>().Where(b => b.Product.CategoryId == id && b.IsDeleted!=true).Select(b => b.BoothId).ToList();
             var setInts = new HashSet<int>();
             foreach (var i in ids)
             {

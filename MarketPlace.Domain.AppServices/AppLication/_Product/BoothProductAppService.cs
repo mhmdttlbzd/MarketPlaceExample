@@ -43,13 +43,31 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
                 picsId.Add(id);
             }
             var user = _userManager.FindByNameAsync(username).Result;
-            var boothProductId = await _boothProductService.CreateAsync(new (model.Quantity, user.Id, model.ProductId), cancellationToken);
+            model.Id = await _boothProductService.CreateAsync(new (model.Quantity, user.Id, model.ProductId), cancellationToken);
             
             
-            await _boothProductsPriceService.CreateAsync(new (boothProductId, DateTime.Now, null, model.Price), cancellationToken);
+            await _boothProductsPriceService.CreateAsync(new (model.Id, DateTime.Now, null, model.Price), cancellationToken);
             foreach (int picId in picsId)
             {
-                await _productSalerPicService.CreateAsync(new (picId, boothProductId), cancellationToken);
+                await _productSalerPicService.CreateAsync(new (picId, model.Id), cancellationToken);
+            }
+        }
+        public async Task Update(List<string> paths,BoothProductModel model,CancellationToken cancellationToken,string username)
+        {
+            List<int> picsId = new List<int>();
+            foreach (string path in paths)
+            {
+                int id = await _pictureService.CreateAsync(path, cancellationToken, "کالای قیمت مقطوع");
+                picsId.Add(id);
+            }
+            var user = _userManager.FindByNameAsync(username).Result;
+            await _boothProductService.UpdateAsync(new (model.Quantity, user.Id, model.ProductId),model.Id, cancellationToken);
+            
+            
+            await _boothProductsPriceService.CreateAsync(new (model.Id, DateTime.Now, null, model.Price), cancellationToken);
+            foreach (int picId in picsId)
+            {
+                await _productSalerPicService.CreateAsync(new (picId, model.Id), cancellationToken);
             }
         }
 
@@ -69,6 +87,12 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
         public List<GeneralBoothProductDto> GetByCategoryId(int id) => _boothProductService.GetByCategoryId(id);
 
         public List<GeneralBoothProductDto> GetSellerProducts(int sellerId) => _boothProductService.GetSellerProducts(sellerId);
+
+        public async Task Delete(int id,CancellationToken cancellationToken)
+        {
+            await _boothProductService.DeleteAsync(id,cancellationToken);
+            await _unitOfWorks.SaveChangesAsync(cancellationToken);
+        }
     }
 }
 

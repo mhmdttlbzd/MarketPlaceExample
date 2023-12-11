@@ -1,0 +1,46 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
+@model List<GeneralBoothProductDto>;
+
+
+
+<div class="row">
+    <div class="col-12">
+        <!-- Shopping Summery -->
+        <table class="table shopping-summery">
+            <tbody>
+                @foreach (var Product in Model)
+                {
+                    string path = "/images/" + Product.PicturePath;
+                    string nPath = "/images/notFound.png";
+                    <tr class="d-flex px-4 mb-3">
+                        <td class="image td-flex" data-title="No">
+                            <a href="~/BoothProduct/Details/@Product.Id">
+                            @if (Product.PicturePath != null)
+                            {
+                                <div class="app-card-thumb">
+                                    <img class="thumb-image " src="@path" alt="@Product.PictureAlt">
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="app-card-thumb">
+                                    <img class="thumb-image" src="@nPath" alt="">
+                                </div>
+                            }
+                            </a>
+                        </td>
+                        <td class="product-des w-75 td-flex" data-title="Description">
+                            <p class="product-name"><a href="#">@Product.ProductName</a></p>
+                        </td>
+                        <td class="price  td-flex" data-title="Price"><span>$@Product.Price </span></td>
+
+                        <td class="action td-flex" data-title="Remove"><a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@Product.Id"><i class="fas fa-trash-alt"></i></a></td>
+                        <td class="action td-flex" data-title="Remove"><a href="#"><i class="fas fa-pen"></i></a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <!--/ End Shopping Summery -->
+    </div>
+</div>

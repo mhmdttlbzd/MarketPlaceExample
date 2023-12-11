@@ -123,7 +123,7 @@
                     نمایش
                 </div>
             </div><!--//app-card-body-->
-            <a class="app-card-link-mask" href="#"></a>
+            <a class="app-card-link-mask" asp-action="SellerProducts"></a>
         </div><!--//app-card-->
     </div><!--//col-->
 </div>
@@ -183,7 +183,7 @@
                         <td class="price  td-flex" data-title="Price"><span>$@auction.LastPrice </span></td>
 
                         <td class="total-amount td-flex" data-title="Total"><span>@auction.ExpiredTime.ToPersianString()</span></td>
-                        <td class="action td-flex" data-title="Remove"><a asp-controller="Seller" asp-action="DeleteAuction" asp-route-id="@auction.Id"><i class="fas fa-trash-alt"></i></a></td>
+                        <td class="action td-flex" data-title="Remove"><a asp-controller="Product" asp-action="DeleteAuction" asp-route-id="@auction.Id"><i class="fas fa-trash-alt"></i></a></td>
                         <td class="action td-flex" data-title="Remove"><a href="#"><i class="fas fa-pen"></i></a></td>
                     </tr>
                 }

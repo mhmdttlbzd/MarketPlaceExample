@@ -66,5 +66,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
             await _requestsAppService.FaleProduct(id, cancellationToken);
             return RedirectToAction("AllProducts");
         }
+
+
     }
 }

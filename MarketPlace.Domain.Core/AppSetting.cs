@@ -14,7 +14,7 @@ namespace MarketPlace.Domain.Core
         {
             ConnectionString = configuration.GetConnectionString("DefaultConnection");
             CategoriesCacheKey = configuration["CacheKeys:Categories"].ToString();
-            CategoriesCacheKey = configuration["CacheKeys:Cities"].ToString();
+            CitiesCacheKey = configuration["CacheKeys:Cities"].ToString();
         }
         public string ConnectionString { get; private set; }
         public string CategoriesCacheKey { get; private set; }

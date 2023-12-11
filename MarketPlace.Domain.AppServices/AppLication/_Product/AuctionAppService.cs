@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using MarketPlace.Domain.Core.Application.Contract.AppServices._Product;
+using MarketPlace.Domain.Core.Application.Contract.Repositories;
 using MarketPlace.Domain.Core.Application.Contract.Services;
 using MarketPlace.Domain.Core.Application.Contract.Services._Auction;
 using MarketPlace.Domain.Core.Application.Contract.Services._Picture;
@@ -27,8 +28,9 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
         private readonly IAuctionPictureService _auctionPictureService;
         private readonly IAuctionProposalService _auctionProposalService;
         private readonly IWalletService _walletService;
+        private readonly IUnitOfWorks _unitOfWorks;
 
-        public AuctionAppService(IPictureService pictureService, UserManager<Seller> sellerManager, IAuctionService auctionService, IAuctionPictureService auctionPictureService, IAuctionProposalService auctionProposalService, IWalletService walletService, UserManager<Customer> customerManager)
+        public AuctionAppService(IPictureService pictureService, UserManager<Seller> sellerManager, IAuctionService auctionService, IAuctionPictureService auctionPictureService, IAuctionProposalService auctionProposalService, IWalletService walletService, UserManager<Customer> customerManager, IUnitOfWorks unitOfWorks)
         {
             _pictureService = pictureService;
             _sellerManager = sellerManager;
@@ -37,6 +39,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             _auctionProposalService = auctionProposalService;
             _walletService = walletService;
             _customerManager = customerManager;
+            _unitOfWorks = unitOfWorks;
         }
 
         public async Task Create(List<string> paths, AuctionModel model, CancellationToken cancellationToken, string username)
@@ -103,5 +106,12 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             var user = await _customerManager.FindByNameAsync(userName);
             await _auctionProposalService.CreateAsync(new AuctionProposalInputDto(auctionId, price, user.Id),cancellationToken);
         }
+
+        public async Task DeleteAuction(int id, CancellationToken cancellationToken)
+        {
+            await _auctionService.DeleteAsync(id, cancellationToken);
+            await _unitOfWorks.SaveChangesAsync(cancellationToken);
+        }
+
     }
 }

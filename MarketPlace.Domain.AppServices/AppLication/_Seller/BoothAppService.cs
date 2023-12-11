@@ -22,14 +22,16 @@ namespace MarketPlace.Domain.AppServices.AppLication._Seller
         private readonly IAuctionService _auctionService;
         private readonly IOrderLineService _orderLineService;
         private readonly IUnitOfWorks _unitOfWorks;
+        private readonly IBoothProductService _boothProductService;
 
-        public BoothAppService(UserManager<Seller> userManager, IBoothService boothService, IAuctionService auctionService, IOrderLineService orderLineService, IUnitOfWorks unitOfWorks)
+        public BoothAppService(UserManager<Seller> userManager, IBoothService boothService, IAuctionService auctionService, IOrderLineService orderLineService, IUnitOfWorks unitOfWorks, IBoothProductService boothProductService)
         {
             _sellerManager = userManager;
             _boothService = boothService;
             _auctionService = auctionService;
             _orderLineService = orderLineService;
             _unitOfWorks = unitOfWorks;
+            _boothProductService = boothProductService;
         }
 
         public async Task<BoothModel> GetBoothPanelInformation(string userName,CancellationToken cancellationToken)
@@ -58,12 +60,14 @@ namespace MarketPlace.Domain.AppServices.AppLication._Seller
             var seller =await _sellerManager.FindByNameAsync(userName);
             return await _orderLineService.GetSaledProducts(seller.Id, cancellationToken);
         }
-        public async Task DeleteAuction(int id,CancellationToken cancellationToken)
-        {
-            await _auctionService.DeleteAsync(id, cancellationToken);
-            await _unitOfWorks.SaveChangesAsync(cancellationToken);
-        }
 
         public List<GeneralBoothDto> GetByCategoryId(int id) => _boothService.GetByCategoryId(id);
+
+        public async Task<List<GeneralBoothProductDto>> GetSellerProducts(string userName)
+        {
+            var user =await _sellerManager.FindByNameAsync(userName);
+           var res = _boothProductService.GetSellerProducts(user.Id);
+            return res;
+        }
     }
 }

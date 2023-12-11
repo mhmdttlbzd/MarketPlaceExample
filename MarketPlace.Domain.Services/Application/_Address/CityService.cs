@@ -3,13 +3,6 @@ using MarketPlace.Domain.Core.Application.Contract;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Address;
 using MarketPlace.Domain.Core.Application.Contract.Services._Address;
 using MarketPlace.Domain.Core.Application.Dtos;
-using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.Services.Application._Address
 {
@@ -28,7 +21,7 @@ namespace MarketPlace.Domain.Services.Application._Address
 
         public async Task<List<CityDto>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var res = await _distributedCache.GetAsync<CityDto>(_appSetting.CategoriesCacheKey);
+            var res = await _distributedCache.GetAsync<CityDto>(_appSetting.CitiesCacheKey);
             if (res == null)
             {
                 var categories = await _cityRepo.GetAllAsync(cancellationToken);
@@ -40,7 +33,7 @@ namespace MarketPlace.Domain.Services.Application._Address
         }
         public List<CityDto> GetAll()
         {
-            var res =  _distributedCache.Get<CityDto>(_appSetting.CategoriesCacheKey);
+            var res =  _distributedCache.Get<CityDto>(_appSetting.CitiesCacheKey);
             if (res == null)
             {
                 var categories =  _cityRepo.GetAll();

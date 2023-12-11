@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Booth;
 using MarketPlace.Domain.Core.Application.Dtos;
-using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Booth;
 using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Infra.Db.SqlServer.Ef;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 {
@@ -15,6 +15,16 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
         {
 
         }
+        public override async Task UpdateAsync(BoothProductInputDto input, int id, CancellationToken cancellationToken)
+        {
+            var product =await _dbContext.Set<BoothProduct>().FirstOrDefaultAsync(b => b.Id == id,cancellationToken);
+            if (product != null)
+            {
+                product.Quantity = input.Quantity;
+            }
+        }
+
+
         public async override Task<BoothProductOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
         {
             var res = _dbContext.Set<BoothProduct>().Where(b => b.Id == Id).Select(b => new BoothProductOutputDto
@@ -61,7 +71,7 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
         }
         public List<GeneralBoothProductDto> GetSellerProducts(int sellerId)
         {
-            var res = _dbContext.Set<BoothProduct>().Where(b => b.BoothId == sellerId).OrderBy(b => b.OrderLines.Count()).Select(b => new GeneralBoothProductDto
+            var res = _dbContext.Set<BoothProduct>().Where(b => b.BoothId == sellerId && b.IsDeleted!= true).OrderBy(b => b.OrderLines.Count()).Select(b => new GeneralBoothProductDto
             {
                 Id = b.Id,
                 PictureAlt = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Alt,

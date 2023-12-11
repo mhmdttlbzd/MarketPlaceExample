@@ -4,7 +4,6 @@ using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Endpoint.Mvc.Areas.Seller.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
 {
@@ -80,6 +79,17 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
             }
             await _auctionAppService.Create(paths, model, cancellationToken, User.Identity.Name);
             return RedirectToAction("AllProducts");
+        }
+
+        public async Task<IActionResult> DeleteAuction(int id, CancellationToken cancellationToken)
+        {
+            await _auctionAppService.DeleteAuction(id, cancellationToken);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> DeleteProduct(int id, CancellationToken cancellationToken)
+        {
+            await _boothProductAppService.Delete(id, cancellationToken);
+            return LocalRedirect("~/Seller/Seller/SellerProducts");
         }
     }
 }

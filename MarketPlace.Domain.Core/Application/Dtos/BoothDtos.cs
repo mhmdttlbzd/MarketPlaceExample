@@ -63,6 +63,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
 
     public record BoothProductModel
     {
+        public int Id { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public long Price { get; set; }

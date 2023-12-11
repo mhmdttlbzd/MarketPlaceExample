@@ -15,5 +15,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
         Task AddToCart(string userName, int boothProductId, CancellationToken cancellationToken);
         List<GeneralBoothProductDto> GetByCategoryId(int id);
         List<GeneralBoothProductDto> GetSellerProducts(int sellerId);
+        Task Delete(int id, CancellationToken cancellationToken);
     }
 }

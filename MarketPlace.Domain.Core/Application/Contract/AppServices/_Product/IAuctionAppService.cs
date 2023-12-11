@@ -15,5 +15,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
         List<GeneralAuctionDto> GetTowNewAuctions();
         Task<AuctionOutputDto> GetById(int id, CancellationToken cancellationToken);
         Task CreateProposal(string userName, int auctionId, long price, CancellationToken cancellationToken);
+        Task DeleteAuction(int id, CancellationToken cancellationToken);
     }
 }
