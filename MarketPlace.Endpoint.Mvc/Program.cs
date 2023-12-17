@@ -13,6 +13,8 @@ using MarketPlace.Domain.Core.Application.Entities._Admin;
 using MarketPlace.Domain.Core;
 using Microsoft.Extensions.DependencyInjection;
 using MarketPlace.Infra.Cache.Redis;
+using MarketPlace.Domain.AppServices.Midllewares;
+using MarketPlace.Infra.Data.Log.Dapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddAppServices(builder.Configuration);
 builder.Services.AddCachingRedis();
+builder.Services.AddApplicationLogging();
 
 builder.Services.AddSingleton(new AppSetting(builder.Configuration));
 
@@ -85,6 +88,8 @@ builder.Services.ConfigureApplicationCookie(option =>
 });
 
 var app = builder.Build();
+
+app.UseCustomMidllewares();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

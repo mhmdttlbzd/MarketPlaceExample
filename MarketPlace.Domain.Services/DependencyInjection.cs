@@ -9,6 +9,7 @@ using MarketPlace.Domain.Core.Application.Contract.Services._Order;
 using MarketPlace.Domain.Core.Application.Contract.Services._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Services._Product;
 using MarketPlace.Domain.Core.Application.Contract.Services._Saler;
+using MarketPlace.Domain.Core.Application.Contract.Services.Log;
 using MarketPlace.Domain.Services.Acount;
 using MarketPlace.Domain.Services.Application._Address;
 using MarketPlace.Domain.Services.Application._Admin;
@@ -20,6 +21,7 @@ using MarketPlace.Domain.Services.Application._Order;
 using MarketPlace.Domain.Services.Application._Picture;
 using MarketPlace.Domain.Services.Application._Product;
 using MarketPlace.Domain.Services.Application._Saler;
+using MarketPlace.Domain.Services.Log;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
@@ -29,6 +31,8 @@ namespace MarketPlace.Domain.Services
     {
         public static void AddServices(this IServiceCollection services)
         {
+            services.AddSingleton<IViewLogService, ViewLogService>();
+
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IUserService, UserService>();
             #region Address

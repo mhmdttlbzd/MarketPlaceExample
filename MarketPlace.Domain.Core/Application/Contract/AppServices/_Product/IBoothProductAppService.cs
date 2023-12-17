@@ -16,5 +16,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
         List<GeneralBoothProductDto> GetByCategoryId(int id);
         List<GeneralBoothProductDto> GetSellerProducts(int sellerId);
         Task Delete(int id, CancellationToken cancellationToken);
+        Task UpdateAsync(List<string> paths, BoothProductModel model, CancellationToken cancellationToken, string username);
     }
 }

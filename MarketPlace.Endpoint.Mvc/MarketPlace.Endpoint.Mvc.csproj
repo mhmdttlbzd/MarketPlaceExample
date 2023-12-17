@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -22,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ApplicationFrameWorke\ApplicationFrameWorke.csproj" />
     <ProjectReference Include="..\MarketPlace.Domain.AppServices\MarketPlace.Domain.AppServices.csproj" />
+    <ProjectReference Include="..\MarketPlace.Infra.Data.Log.Dapper\MarketPlace.Infra.Data.Log.Dapper.csproj" />
     <ProjectReference Include="..\MarketPlace.Infra.Data.Repoes.Ef\MarketPlace.Infra.Data.Repoes.Ef.csproj" />
     <ProjectReference Include="..\Redis\MarketPlace.Infra.Cache.Redis.csproj" />
   </ItemGroup>
@@ -37,11 +49,6 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Customer\Edit.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
 </Project>

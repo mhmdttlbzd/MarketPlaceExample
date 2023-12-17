@@ -5,6 +5,7 @@ using MarketPlace.Domain.Core.Application.Entities;
 using MarketPlace.Domain.Core.Application.Entities._Booth;
 using MarketPlace.Domain.Core.Application.Entities._Picture;
 using MarketPlace.Infra.Db.SqlServer.Ef;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
@@ -28,6 +29,20 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
             await _dbContext.SaveChangesAsync(cancellationToken);
             return res.Entity.Id;
         }
+
+        public async Task Teminate(int id)
+        {
+            var price = await _dbContext.Set<BoothProductsPrice>().Where(p => p.Id == id).FirstOrDefaultAsync();
+            price.ToDate = DateTime.Now;
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public int GetLastPriceIdByProductId(int productId)
+        {
+            var res = _dbContext.Set<BoothProductsPrice>().Where(p => p.BoothProductId == productId && (p.ToDate == null || p.ToDate > DateTime.Now)).OrderBy(p => p.FromDate).Last().Id;
+            return res;
+        }
+
 
         public Task DeleteAsync(int id, CancellationToken cancellationToken)
         {

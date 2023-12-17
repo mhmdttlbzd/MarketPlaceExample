@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{8A901400
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.Infra.Cache.Redis", "Redis\MarketPlace.Infra.Cache.Redis.csproj", "{EF5ACB7A-8259-41A0-8659-B816ABEBC787}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.Infra.Data.Log.Dapper", "MarketPlace.Infra.Data.Log.Dapper\MarketPlace.Infra.Data.Log.Dapper.csproj", "{8E2D33D1-C1CB-4A4D-A8FF-9B18C5544441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{EF5ACB7A-8259-41A0-8659-B816ABEBC787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF5ACB7A-8259-41A0-8659-B816ABEBC787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF5ACB7A-8259-41A0-8659-B816ABEBC787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2D33D1-C1CB-4A4D-A8FF-9B18C5544441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2D33D1-C1CB-4A4D-A8FF-9B18C5544441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2D33D1-C1CB-4A4D-A8FF-9B18C5544441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2D33D1-C1CB-4A4D-A8FF-9B18C5544441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{C351A254-C28B-40B2-9F0A-0A22EB904CD7} = {8D9C8F8A-1055-4102-8386-369C697511A4}
 		{8A901400-5125-4443-BC6B-8315467D274C} = {EE229AE6-F633-46C2-ADC3-F7706731614C}
 		{EF5ACB7A-8259-41A0-8659-B816ABEBC787} = {8A901400-5125-4443-BC6B-8315467D274C}
+		{8E2D33D1-C1CB-4A4D-A8FF-9B18C5544441} = {15E5BED1-B8E2-47F7-88AD-A0A00A09830F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB9D26AD-8960-448D-8108-B0AE22309B02}

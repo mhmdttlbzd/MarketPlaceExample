@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.Core.Application.Dtos
 {
-	public record AdminPanelInformationDto(
-		int CommentRequestCount,
-		int SalerPicturesRequestsCount,
-		int CustomerPicturesRequestsCount,
-		int ProductsRequestCount,
-		int SaledProductCount,
-		long SumWages,
-		int ProductsCount,
-		int SalersCount,
-		int CustomersCount,
-		int saledProductPesent,
-		int sumWagesPersent
+    public record AdminPanelInformationDto(
+        int CommentRequestCount,
+        int SalerPicturesRequestsCount,
+        int CustomerPicturesRequestsCount,
+        int ProductsRequestCount,
+        int SaledProductCount,
+        long SumWages,
+        int ProductsCount,
+        int SalersCount,
+        int CustomersCount,
+        int saledProductPesent,
+        int sumWagesPersent,
+        int Views
         );
 }

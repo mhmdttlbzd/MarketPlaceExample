@@ -34,7 +34,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             _orderLineService = orderLineService;
         }
 
-        public async Task Create(List<string> paths,BoothProductModel model,CancellationToken cancellationToken,string username)
+        public async Task Create(List<string> paths, BoothProductModel model, CancellationToken cancellationToken, string username)
         {
             List<int> picsId = new List<int>();
             foreach (string path in paths)
@@ -43,16 +43,16 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
                 picsId.Add(id);
             }
             var user = _userManager.FindByNameAsync(username).Result;
-            model.Id = await _boothProductService.CreateAsync(new (model.Quantity, user.Id, model.ProductId), cancellationToken);
-            
-            
-            await _boothProductsPriceService.CreateAsync(new (model.Id, DateTime.Now, null, model.Price), cancellationToken);
+            model.Id = await _boothProductService.CreateAsync(new(model.Quantity, user.Id, model.ProductId), cancellationToken);
+
+
+            await _boothProductsPriceService.CreateAsync(new(model.Id, DateTime.Now, null, model.Price), cancellationToken);
             foreach (int picId in picsId)
             {
-                await _productSalerPicService.CreateAsync(new (picId, model.Id), cancellationToken);
+                await _productSalerPicService.CreateAsync(new(picId, model.Id), cancellationToken);
             }
         }
-        public async Task Update(List<string> paths,BoothProductModel model,CancellationToken cancellationToken,string username)
+        public async Task UpdateAsync(List<string> paths, BoothProductModel model, CancellationToken cancellationToken, string username)
         {
             List<int> picsId = new List<int>();
             foreach (string path in paths)
@@ -61,13 +61,13 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
                 picsId.Add(id);
             }
             var user = _userManager.FindByNameAsync(username).Result;
-            await _boothProductService.UpdateAsync(new (model.Quantity, user.Id, model.ProductId),model.Id, cancellationToken);
-            
-            
-            await _boothProductsPriceService.CreateAsync(new (model.Id, DateTime.Now, null, model.Price), cancellationToken);
+            await _boothProductService.UpdateAsync(new(model.Quantity, user.Id, model.ProductId), model.Id, cancellationToken);
+
+
+            await _boothProductsPriceService.UpdateAsync(new(model.Id, DateTime.Now, null, model.Price), cancellationToken);
             foreach (int picId in picsId)
             {
-                await _productSalerPicService.CreateAsync(new (picId, model.Id), cancellationToken);
+                await _productSalerPicService.CreateAsync(new(picId, model.Id), cancellationToken);
             }
         }
 
@@ -77,9 +77,9 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             => await _boothProductService.GetByIdAsync(id, cancellationToken);
 
 
-        public async Task AddToCart(string userName,int boothProductId, CancellationToken cancellationToken)
+        public async Task AddToCart(string userName, int boothProductId, CancellationToken cancellationToken)
         {
-            var user =await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByNameAsync(userName);
             int orderId = await _orderService.GetActiveOrderId(user.Id, cancellationToken);
             await _orderLineService.CreateAsync(new OrderLineInputDto(orderId, boothProductId, 1), cancellationToken);
         }
@@ -88,9 +88,9 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
 
         public List<GeneralBoothProductDto> GetSellerProducts(int sellerId) => _boothProductService.GetSellerProducts(sellerId);
 
-        public async Task Delete(int id,CancellationToken cancellationToken)
+        public async Task Delete(int id, CancellationToken cancellationToken)
         {
-            await _boothProductService.DeleteAsync(id,cancellationToken);
+            await _boothProductService.DeleteAsync(id, cancellationToken);
             await _unitOfWorks.SaveChangesAsync(cancellationToken);
         }
     }

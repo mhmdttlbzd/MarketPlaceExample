@@ -8,6 +8,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Booth
 {
     public interface IBoothProductsPriceRepo : IBaseCrudRepository<BoothProductsPrice, BoothProductsPriceInputDto, BoothProductsPriceOutputDto>
     {
-
+        Task Teminate(int id);
+        int GetLastPriceIdByProductId(int productId);
     }
 }

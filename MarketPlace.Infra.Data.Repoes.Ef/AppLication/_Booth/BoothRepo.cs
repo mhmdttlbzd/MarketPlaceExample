@@ -69,7 +69,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
 
         public List<GeneralBoothDto> GetByCategoryId(int id)
         {
-            var ids = _dbContext.Set<BoothProduct>().Where(b => b.Product.CategoryId == id && b.IsDeleted!=true).Select(b => b.BoothId).ToList();
+            var ids = _dbContext.Set<BoothProduct>().Where(b => b.Product.CategoryId == id && b.IsDeleted != true).Select(b => b.BoothId).ToList();
             var setInts = new HashSet<int>();
             foreach (var i in ids)
             {

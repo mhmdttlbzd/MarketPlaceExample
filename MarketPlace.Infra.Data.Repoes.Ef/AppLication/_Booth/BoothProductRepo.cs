@@ -17,7 +17,7 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
         }
         public override async Task UpdateAsync(BoothProductInputDto input, int id, CancellationToken cancellationToken)
         {
-            var product =await _dbContext.Set<BoothProduct>().FirstOrDefaultAsync(b => b.Id == id,cancellationToken);
+            var product = await _dbContext.Set<BoothProduct>().FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
             if (product != null)
             {
                 product.Quantity = input.Quantity;
@@ -36,7 +36,7 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
                     Id = p.Id,
                     Alt = p.Picture.Alt
                 }).ToList(),
-                Price = b.BoothProductsPrices.FirstOrDefault(p => p.ToDate == null || p.ToDate > DateTime.Now).Price,
+                Price = b.BoothProductsPrices.Where(p => p.ToDate == null || p.ToDate > DateTime.Now).OrderBy(p => p.FromDate).LastOrDefault().Price,
                 ProductName = b.Product.Name,
                 BoothId = b.BoothId,
                 Quantity = b.Quantity,
@@ -64,19 +64,19 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
                 Id = b.Id,
                 PictureAlt = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Alt,
                 PicturePath = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Path,
-                Price = b.BoothProductsPrices.FirstOrDefault(p => p.ToDate == null || p.ToDate > DateTime.Now).Price,
+                Price = b.BoothProductsPrices.Where(p => p.ToDate == null || p.ToDate > DateTime.Now).OrderBy(p => p.FromDate).LastOrDefault().Price,
                 ProductName = b.Product.Name
             }).Take(Count).ToList();
             return res;
         }
         public List<GeneralBoothProductDto> GetSellerProducts(int sellerId)
         {
-            var res = _dbContext.Set<BoothProduct>().Where(b => b.BoothId == sellerId && b.IsDeleted!= true).OrderBy(b => b.OrderLines.Count()).Select(b => new GeneralBoothProductDto
+            var res = _dbContext.Set<BoothProduct>().Where(b => b.BoothId == sellerId && b.IsDeleted != true).OrderBy(b => b.OrderLines.Count()).Select(b => new GeneralBoothProductDto
             {
                 Id = b.Id,
                 PictureAlt = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Alt,
                 PicturePath = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Path,
-                Price = b.BoothProductsPrices.FirstOrDefault(p => p.ToDate == null || p.ToDate > DateTime.Now).Price,
+                Price = b.BoothProductsPrices.Where(p => p.ToDate == null || p.ToDate > DateTime.Now).OrderBy(p => p.FromDate).LastOrDefault().Price,
                 ProductName = b.Product.Name
             }).ToList();
             return res;
@@ -89,7 +89,7 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
                 Id = b.Id,
                 PictureAlt = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Alt,
                 PicturePath = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).FirstOrDefault().Picture.Path,
-                Price = b.BoothProductsPrices.FirstOrDefault(p => p.ToDate == null || p.ToDate > DateTime.Now).Price,
+                Price = b.BoothProductsPrices.Where(p => p.ToDate == null || p.ToDate > DateTime.Now).OrderBy(p => p.FromDate).LastOrDefault().Price,
                 ProductName = b.Product.Name
             }).ToList();
             return res;

@@ -1,5 +1,4 @@
-﻿
-@using MarketPlace.Domain.Core.Application.Dtos;
+﻿@using MarketPlace.Domain.Core.Application.Dtos;
 @using ApplicationFrameWorke;
 @model List<SaleOrderLineDto>;
 
@@ -15,7 +14,7 @@
                             <tr>
                                 <th class="cell">نام کاربری خریدار</th>
                                 <th class="cell">نام</th>
-                                <th class="cell">نام غرفه</th>
+
                                 <th class="cell">زمان</th>
                                 <th class="cell">تعداد</th>
                             </tr>
@@ -26,7 +25,7 @@
                                 <tr>
                                     <td class="cell">@product.CustomerName</td>
                                     <td class="cell">@product.ProductName</td>
-                                    <td class="cell">@product.BoothName</td>
+
                                     <td class="cell">@product.dateTime.ToPersianString()</td>
                                     <td class="cell">@product.Quantity</td>
                                 </tr>

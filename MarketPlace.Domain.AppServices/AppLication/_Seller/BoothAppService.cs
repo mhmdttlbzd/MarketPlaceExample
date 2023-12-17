@@ -34,7 +34,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Seller
             _boothProductService = boothProductService;
         }
 
-        public async Task<BoothModel> GetBoothPanelInformation(string userName,CancellationToken cancellationToken)
+        public async Task<BoothModel> GetBoothPanelInformation(string userName, CancellationToken cancellationToken)
         {
             var seller = await _sellerManager.FindByNameAsync(userName);
             var booth = await _boothService.GetGeneralBoothById(seller.Id, cancellationToken);
@@ -55,9 +55,9 @@ namespace MarketPlace.Domain.AppServices.AppLication._Seller
             };
             return res;
         }
-        public async Task<List<SaleOrderLineDto>> GetSaledProducts(string userName,CancellationToken cancellationToken)
+        public async Task<List<SaleOrderLineDto>> GetSaledProducts(string userName, CancellationToken cancellationToken)
         {
-            var seller =await _sellerManager.FindByNameAsync(userName);
+            var seller = await _sellerManager.FindByNameAsync(userName);
             return await _orderLineService.GetSaledProducts(seller.Id, cancellationToken);
         }
 
@@ -65,8 +65,8 @@ namespace MarketPlace.Domain.AppServices.AppLication._Seller
 
         public async Task<List<GeneralBoothProductDto>> GetSellerProducts(string userName)
         {
-            var user =await _sellerManager.FindByNameAsync(userName);
-           var res = _boothProductService.GetSellerProducts(user.Id);
+            var user = await _sellerManager.FindByNameAsync(userName);
+            var res = _boothProductService.GetSellerProducts(user.Id);
             return res;
         }
     }

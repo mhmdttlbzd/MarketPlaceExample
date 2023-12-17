@@ -17,7 +17,12 @@ namespace MarketPlace.Domain.Services.Application._Booth
         {
             return await _boothProductsPriceRepo.CreateAsync(input, cancellationToken);
         }
-
+        public async Task UpdateAsync(BoothProductsPriceInputDto input, CancellationToken cancellationToken)
+        {
+            int lastPriceId = _boothProductsPriceRepo.GetLastPriceIdByProductId(input.BoothProductId);
+            await _boothProductsPriceRepo.Teminate(lastPriceId);
+            await _boothProductsPriceRepo.CreateAsync(input, cancellationToken);
+        }
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
             await _boothProductsPriceRepo.DeleteAsync(id, cancellationToken);
@@ -33,9 +38,6 @@ namespace MarketPlace.Domain.Services.Application._Booth
             return await _boothProductsPriceRepo.GetByIdAsync(id, cancellationToken);
         }
 
-        public async Task UpdateAsync(BoothProductsPriceInputDto input, int id, CancellationToken cancellationToken)
-        {
-            await _boothProductsPriceRepo.UpdateAsync(input, id, cancellationToken);
-        }
+
     }
 }

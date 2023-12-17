@@ -1,0 +1,37 @@
+﻿@using MarketPlace.Domain.Core.Application.Dtos
+@using MarketPlace.Endpoint.Mvc.Areas.Seller.Models;
+@model BoothProductOutputDto;
+
+<h1 class="app-page-title">Settings</h1>
+<hr class="mb-4">
+<div class="row g-4 settings-section">
+    <div class="col-12 col-md-4">
+        <h3 class="section-title">اضافه کردن کالای @Model.ProductName با قیمت مقطوع</h3>
+    </div>
+    <div class="col-12 col-md-8">
+        <div class="app-card app-card-settings shadow-sm p-4">
+
+            <div class="app-card-body">
+                <form class="settings-form" asp-controller="Product" asp-action="UpdateBoothProduct" enctype="multipart/form-data">
+                    <input hidden name="Id" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label class="form-label">تعداد جدید را وارد کنید؟</label>
+                        <input type="number" value="@Model.Quantity" name="Quantity" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="setting-input-2" class="form-label">قیمت جدید را وارد کنید</label>
+                        <input type="number" value="@Model.Price" name="Price" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="images" class="form-label">عکسهای خود را آپلود کنید</label>
+                        <input type="file" name="images" class="form-control" multiple>
+                    </div>
+                    <p class="mb-3">عکس های شما بعد از تایید به کالا اضافه میشود</p>
+
+                    <button type="submit" class="btn app-btn-primary">ثبت</button>
+                </form>
+            </div><!--//app-card-body-->
+
+        </div><!--//app-card-->
+    </div>
+</div><!--//row-->

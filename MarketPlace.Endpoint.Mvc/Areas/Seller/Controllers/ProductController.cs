@@ -35,7 +35,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBoothProduct(ICollection<IFormFile> images,BoothProductModel model,CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateBoothProduct(ICollection<IFormFile> images, BoothProductModel model, CancellationToken cancellationToken)
         {
             var folder = Path.Combine(_environment.WebRootPath, "images/product");
             List<string> paths = new List<string>();
@@ -49,7 +49,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
                         await image.CopyToAsync(fileStream);
                     }
                 }
-                paths.Add("product/"+ fileName);
+                paths.Add("product/" + fileName);
             }
             await _boothProductAppService.Create(paths, model, cancellationToken, User.Identity.Name);
             return RedirectToAction("AllProducts");
@@ -89,6 +89,33 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Seller.Controllers
         public async Task<IActionResult> DeleteProduct(int id, CancellationToken cancellationToken)
         {
             await _boothProductAppService.Delete(id, cancellationToken);
+            return LocalRedirect("~/Seller/Seller/SellerProducts");
+        }
+
+        public async Task<IActionResult> UpdateBoothProduct(int id, CancellationToken cancellationToken)
+        {
+            var res = await _boothProductAppService.GetById(id, cancellationToken);
+            return View(res);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateBoothProduct(ICollection<IFormFile> images, BoothProductModel model, CancellationToken cancellationToken)
+        {
+            var folder = Path.Combine(_environment.WebRootPath, "images/product");
+            List<string> paths = new List<string>();
+            foreach (var image in images)
+            {
+                string fileName = new Guid() + image.FileName;
+                if (image.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(folder, fileName), FileMode.Create))
+                    {
+                        await image.CopyToAsync(fileStream);
+                    }
+                }
+                paths.Add("product/" + fileName);
+            }
+            await _boothProductAppService.UpdateAsync(paths, model, cancellationToken, User.Identity.Name);
             return LocalRedirect("~/Seller/Seller/SellerProducts");
         }
     }

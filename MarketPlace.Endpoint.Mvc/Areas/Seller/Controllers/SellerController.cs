@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MarketPlace.Endpoint.Mvc.Areas.Saler.Controllers
 {
     [Area("Seller")]
-    [Authorize(Roles ="Seller")]
+    [Authorize(Roles = "Seller")]
     public class SellerController : Controller
     {
         private readonly IBoothAppService _boothAppService;
@@ -26,11 +26,11 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Saler.Controllers
         }
         public async Task<IActionResult> SaledProducts(CancellationToken cancellationToken)
         {
-            return View(await _boothAppService.GetSaledProducts(User.Identity.Name,cancellationToken));
+            return View(await _boothAppService.GetSaledProducts(User.Identity.Name, cancellationToken));
         }
 
 
-        public async Task<IActionResult> EditProfile( CancellationToken cancellationToken)
+        public async Task<IActionResult> EditProfile(CancellationToken cancellationToken)
         {
             var res = await _sellerAppService.GetByName(User.Identity.Name, cancellationToken);
             return View(res);
@@ -42,7 +42,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Saler.Controllers
             return LocalRedirect("/");
         }
 
-      
+
         public async Task<IActionResult> SellerProducts()
         {
             var res = await _boothAppService.GetSellerProducts(User.Identity.Name);

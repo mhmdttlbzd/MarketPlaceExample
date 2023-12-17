@@ -36,7 +36,7 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> EditPost(int id, string name, int categoryId, List<ProductAttrModel> attributes, CancellationToken cancellationToken)
         {
             await _productAppService.UpdateProduct(id, name, attributes, categoryId, cancellationToken);
-            return RedirectToAction("AllProducts"); 
+            return RedirectToAction("AllProducts");
         }
 
 
@@ -47,9 +47,9 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
             return View("CreateProduct");
         }
         [HttpPost]
-        public async Task<IActionResult> CreatePost(string name, int categoryId,List<ProductAttrModel> attributes, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreatePost(string name, int categoryId, List<ProductAttrModel> attributes, CancellationToken cancellationToken)
         {
-            await _productAppService.CreateProduct(User.Identity.Name, name,attributes, categoryId, cancellationToken);
+            await _productAppService.CreateProduct(User.Identity.Name, name, attributes, categoryId, cancellationToken);
             return RedirectToAction("AllProducts");
         }
 

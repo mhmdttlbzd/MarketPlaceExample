@@ -51,19 +51,19 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
                 picsId.Add(id);
             }
             var user = _sellerManager.FindByNameAsync(username).Result;
-            var auctionId = await _auctionService.CreateAsync(new (user.Id, DateTime.Now + TimeSpan.FromDays(model.ExpireDay), model.ProductId,model.BasePrice,model.Description), cancellationToken);
+            var auctionId = await _auctionService.CreateAsync(new(user.Id, DateTime.Now + TimeSpan.FromDays(model.ExpireDay), model.ProductId, model.BasePrice, model.Description), cancellationToken);
             BackgroundJob.Schedule(
-                () => PickWinner(auctionId,user.Id),
+                () => PickWinner(auctionId, user.Id),
                 TimeSpan.FromDays(model.ExpireDay));
             foreach (int picId in picsId)
             {
-                await _auctionPictureService.CreateAsync(new (picId, auctionId), cancellationToken);
+                await _auctionPictureService.CreateAsync(new(picId, auctionId), cancellationToken);
             }
         }
 
-        public async Task PickWinner(int auctionId , int sellerId )
+        public async Task PickWinner(int auctionId, int sellerId)
         {
-            var proposals = _auctionProposalService.GetProposalsByAuctionId(auctionId).OrderBy(p=> p.Price).Reverse();
+            var proposals = _auctionProposalService.GetProposalsByAuctionId(auctionId).OrderBy(p => p.Price).Reverse();
             bool win = false;
             if (proposals.Count() != 0)
             {
@@ -73,7 +73,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
                     if (walletMoney >= p.Price)
                     {
                         var type = SaleType.Auction;
-                        await _walletService.AddTransaction(p.CustomerId, sellerId, p.Price,type);
+                        await _walletService.AddTransaction(p.CustomerId, sellerId, p.Price, type);
                         win = true; break;
                     }
                 }
@@ -86,25 +86,25 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
 
         public List<GeneralAuctionDto> GetThreeBestAuctions(int? sellerId = null)
         {
-            if (sellerId != null )
+            if (sellerId != null)
             {
-                return  _auctionService.GetThreeBestAuctions((int)sellerId);
+                return _auctionService.GetThreeBestAuctions((int)sellerId);
             }
-            return  _auctionService.GetThreeBestAuctions();
+            return _auctionService.GetThreeBestAuctions();
         }
 
         public List<GeneralAuctionDto> GetTowNewAuctions()
-            =>  _auctionService.GetTowNewAuctions();
+            => _auctionService.GetTowNewAuctions();
 
 
         public async Task<AuctionOutputDto> GetById(int id, CancellationToken cancellationToken)
-            =>await _auctionService.GetByIdAsync(id, cancellationToken);
+            => await _auctionService.GetByIdAsync(id, cancellationToken);
 
 
-        public async Task CreateProposal(string userName,int auctionId,long price,CancellationToken cancellationToken)
+        public async Task CreateProposal(string userName, int auctionId, long price, CancellationToken cancellationToken)
         {
             var user = await _customerManager.FindByNameAsync(userName);
-            await _auctionProposalService.CreateAsync(new AuctionProposalInputDto(auctionId, price, user.Id),cancellationToken);
+            await _auctionProposalService.CreateAsync(new AuctionProposalInputDto(auctionId, price, user.Id), cancellationToken);
         }
 
         public async Task DeleteAuction(int id, CancellationToken cancellationToken)

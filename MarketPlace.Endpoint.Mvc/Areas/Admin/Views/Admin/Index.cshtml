@@ -2,6 +2,7 @@
 @model AdminPanelInformationDto;
 @{
     string saledStyle = $"width: {Model.saledProductPesent.ToString()}%";
+    string viewsStyle = $"width: {(Model.Views) * 100 / 1000}%";
     string wagesStyle = "width: " + Model.sumWagesPersent.ToString() + "%";
 }
 @{
@@ -113,9 +114,9 @@
                 <div class="item p-3">
                     <div class="row align-items-center">
                         <div class="col">
-                            <div class="title mb-1 ">بازدید ها</div>
+                            <div class="title mb-1 ">بازدید ها @Model.Views در مبنای 1000</div>
                             <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 68%;" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success" role="progressbar" style="@viewsStyle" aria-valuenow="@Model.Views" aria-valuemin="0" aria-valuemax="1000"></div>
                             </div>
                         </div><!--//col-->
                         <div class="col-auto">
@@ -124,7 +125,7 @@
                             </svg>
                         </div><!--//col-->
                     </div><!--//row-->
-                    <a class="item-link-mask" href="#"></a>
+                    <a class="item-link-mask"></a>
                 </div><!--//item-->
 
             </div><!--//app-card-body-->

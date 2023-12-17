@@ -35,7 +35,9 @@
                         <td class="price  td-flex" data-title="Price"><span>$@Product.Price </span></td>
 
                         <td class="action td-flex" data-title="Remove"><a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@Product.Id"><i class="fas fa-trash-alt"></i></a></td>
-                        <td class="action td-flex" data-title="Remove"><a href="#"><i class="fas fa-pen"></i></a></td>
+                        <td class="action td-flex" data-title="Remove"><a asp-controller ="Product" asp-action="UpdateBoothProduct" asp-route-id="@Product.Id"><i class="fas fa-pen"></i></a>
+
+                    </td>
                     </tr>
                 }
 
