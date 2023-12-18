@@ -1,4 +1,5 @@
-﻿using MarketPlace.Domain.Core.Application.Contract.Services;
+﻿using MarketPlace.Domain.Core.Application.Contract.Repositories._Log;
+using MarketPlace.Domain.Core.Application.Contract.Services;
 using MarketPlace.Domain.Core.Application.Contract.Services._Address;
 using MarketPlace.Domain.Core.Application.Contract.Services._Admin;
 using MarketPlace.Domain.Core.Application.Contract.Services._Auction;
@@ -10,6 +11,7 @@ using MarketPlace.Domain.Core.Application.Contract.Services._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Services._Product;
 using MarketPlace.Domain.Core.Application.Contract.Services._Saler;
 using MarketPlace.Domain.Core.Application.Contract.Services.Log;
+using MarketPlace.Domain.Services._Log;
 using MarketPlace.Domain.Services.Acount;
 using MarketPlace.Domain.Services.Application._Address;
 using MarketPlace.Domain.Services.Application._Admin;
@@ -32,6 +34,7 @@ namespace MarketPlace.Domain.Services
         public static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IViewLogService, ViewLogService>();
+            services.AddSingleton<IErrorLogService, ErrorLogService>();
 
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IUserService, UserService>();

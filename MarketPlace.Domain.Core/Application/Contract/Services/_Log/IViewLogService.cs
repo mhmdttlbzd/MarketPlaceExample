@@ -9,6 +9,5 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services.Log
     public interface IViewLogService
     {
         Task<int> GetViewsCountInThisWeek();
-        Task AddView();
-    }
-}
+        Task LogView();
+    }    }

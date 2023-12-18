@@ -16,8 +16,7 @@ namespace MarketPlace.Domain.AppServices.Midllewares
         public async Task InvokeAsync(HttpContext context)
         {
             // Call the next delegate/middleware in the pipeline.
-            _viewLogService.AddView();
+            _viewLogService.LogView();
             await _next(context);
         }
-    }
-}
+    }    }

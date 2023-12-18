@@ -13,6 +13,7 @@ namespace MarketPlace.Infra.Data.Log.Dapper
         public static void AddApplicationLogging(this IServiceCollection services)
         {
             services.AddSingleton<IViewLogRepository,ViewLogRepository>();
+            services.AddSingleton<IErrorLogRepository,ErrorLogRepository>();
         }
     }
 }

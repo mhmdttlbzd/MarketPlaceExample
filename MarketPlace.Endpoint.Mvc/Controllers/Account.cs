@@ -22,7 +22,7 @@ namespace MarketPlace.Endpoint.Mvc.Controllers
 
         public IActionResult Login()
         {
-            
+            throw new Exception();
             return View("Login");
         }
 

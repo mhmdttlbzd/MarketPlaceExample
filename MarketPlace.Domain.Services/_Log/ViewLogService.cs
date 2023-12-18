@@ -25,7 +25,7 @@ namespace MarketPlace.Domain.Services.Log
             => await _viewLogRepository.GetCountByDay(7);
         
 
-        public async Task AddView()
+        public async Task LogView()
         {
             Views[i] = DateTime.Now;
             if (i == Views.Length-1)

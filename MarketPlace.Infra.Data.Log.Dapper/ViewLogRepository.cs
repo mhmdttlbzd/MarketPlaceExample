@@ -1,28 +1,27 @@
 ﻿using Dapper;
-using LiteDB;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Log;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace MarketPlace.Infra.Data.Log.Dapper
 {
     public class ViewLogRepository : IViewLogRepository
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         private readonly string _connectionString;
-
+        private readonly GeneralOpration _opration;
         public ViewLogRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             _connectionString = configuration.GetConnectionString("Log");
+            _opration = new GeneralOpration(_connectionString);
         }
 
         public async Task<int> GetCountByDay(int day)
         {
-            await CheckTable("ViewLog");
+            await _opration.CheckTable("ViewLog","ViewTime Date");
 
             var date = DateTime.Now - TimeSpan.FromDays(day);
             var query = $"SELECT COUNT(*) FROM ViewLog WHERE ViewTime > @d";
@@ -39,7 +38,7 @@ namespace MarketPlace.Infra.Data.Log.Dapper
         public async Task AddRange(DateTime[] input)
         {
 
-            await CheckTable("ViewLog");
+            await _opration.CheckTable("ViewLog", "ViewTime Date");
 
             string query = "INSERT INTO ViewLog (ViewTime) VALUES";
             var parameters = new DynamicParameters();
@@ -59,49 +58,5 @@ namespace MarketPlace.Infra.Data.Log.Dapper
             }
         }
 
-
-
-        private async Task CheckTable(string tableName)
-        {
-            try
-            {
-                using (SqlConnection c = new(_connectionString))
-                {
-                    bool tableExist = await c.QueryFirstOrDefaultAsync<bool>(
-                        $"SELECT 1 FROM sys.tables WHERE NAME = '{tableName}'"
-                        );
-                    if (!tableExist)
-                    {
-                        string creatCommand = $"CREATE TABLE {tableName} (Id INT IDENTITY(1,1) PRIMARY KEY, ViewTime DATE)";
-                        await c.ExecuteAsync(creatCommand);
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                await CreateDatabase("MarketPlaceLogDb");
-                await CheckTable(tableName);
-            }
-        }
-
-        private async Task CreateDatabase(string databaseName)
-        {
-            using (SqlConnection c = new(_connectionString))
-            {
-                var builder = new SqlConnectionStringBuilder(_connectionString);
-
-                builder.InitialCatalog = "master";
-                using (var masterConnection = new SqlConnection(builder.ConnectionString))
-                {
-                    masterConnection.Open();
-                    var createDatabaseCommand = $"CREATE DATABASE {databaseName}";
-                    using (var command = new SqlCommand(createDatabaseCommand, masterConnection))
-                    {
-                        await command.ExecuteNonQueryAsync();
-                    }
-                }
-
-            }
-        }
     }
 }

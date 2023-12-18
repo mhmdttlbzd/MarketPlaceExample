@@ -4,9 +4,11 @@ namespace MarketPlace.Domain.AppServices.Midllewares
 {
     public static class CustomMidllewaresMiddlewareExtensions
     {
-        public static IApplicationBuilder UseCustomMidllewares(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseCustomMidllewares(this IApplicationBuilder app)
         {
-            return builder.UseMiddleware<ViewLogMiddleware>();
+            app.UseMiddleware<ErrorLogMiddleware>();
+            app.UseMiddleware<ViewLogMiddleware>();
+            return app;
         }
     }
 }
