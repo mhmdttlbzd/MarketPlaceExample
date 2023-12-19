@@ -23,20 +23,25 @@ namespace MarketPlace.Domain.Services._Log
 
 
         public async Task<int> GetViewsCountInThisWeek()
-            => await _errorLogRepository.GetCountByDay(7);
-
+        {
+            await Save();
+            return await _errorLogRepository.GetCountByDay(7);
+        }
 
         public async Task LogError(Dictionary<string,string> properties,int errorCode)
         {
             Errors[i] = new ErrorLog(errorCode,properties);
             if (i == Errors.Length - 1)
             {
-                await _errorLogRepository.AddRange(Errors);
-                i = 0;
+                await Save();
             }
             else { i++; }
         }
 
-
+        public async Task Save()
+        {
+			await _errorLogRepository.AddRange(Errors);
+			i = 0;
+		}
     }
 }

@@ -22,7 +22,11 @@ namespace MarketPlace.Domain.Services.Log
 
 
         public async Task<int> GetViewsCountInThisWeek()
-            => await _viewLogRepository.GetCountByDay(7);
+        {
+            await Save();
+			return await _viewLogRepository.GetCountByDay(7);
+		}
+            
         
 
         public async Task LogView()
@@ -30,11 +34,16 @@ namespace MarketPlace.Domain.Services.Log
             Views[i] = DateTime.Now;
             if (i == Views.Length-1)
             {
-                await _viewLogRepository.AddRange(Views);
-                i = 0;
+                await Save();
             }
             else { i++; }
         }
+
+        private async Task Save()
+        {
+			await _viewLogRepository.AddRange(Views);
+			i = 0;
+		}
 
     }
 }
