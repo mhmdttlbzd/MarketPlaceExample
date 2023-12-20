@@ -14,7 +14,7 @@ namespace MarketPlace.Domain.Core.Application.Entities._log
             Properties = "";
             foreach (var property in properties)
             {
-                Properties += ($"{property.Key} : {property.Value}\n");
+                Properties += ($"{property.Key} : {property.Value} \n ");
             }
         }
         public ErrorLog()

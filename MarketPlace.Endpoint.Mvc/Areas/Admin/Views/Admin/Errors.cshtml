@@ -1,0 +1,38 @@
+﻿@using ApplicationFrameWorke;
+@using MarketPlace.Domain.Core.Application.Entities._log
+@model IEnumerable<ErrorLog>;
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <form class="app-search-form w-100 mx-auto" asp-action="ErrorsByCode">
+                <input type="number" placeholder="Search..." name="code" class="form-control w-100 mx-auto search-input">
+                <button type="submit" class="btn search-btn btm-sucsses" value="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+        <div class=" col-12">
+            <div class="blog-single-main">
+                <div class="blog-detail w-100 p-4">
+                    @foreach (var err in Model)
+                    {
+                        <div class=" col-12 p-5 my-2 bg-white" style="border:1px solid #ccc; border-radius:5px">
+                            <div class="comments error" dir="ltr">
+                                <h3 class="comment-title mb-2">@err.ErrorCode  :  @err.LogTime.ToPersianString() : @err.LogTime.Hour : @err.LogTime.Minute</h3>
+                                
+                                <div class="single-comment" >
+                                    <div class="content">
+                                        @foreach (var line in err.Properties.Split('\n'))
+                                        {
+                                            <p> @line </p>
+                                            <hr />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,7 +22,7 @@ namespace MarketPlace.Domain.Services._Log
         }
 
 
-        public async Task<int> GetViewsCountInThisWeek()
+        public async Task<int> GetErrorsCountInThisWeek()
         {
             await Save();
             return await _errorLogRepository.GetCountByDay(7);
@@ -41,7 +41,18 @@ namespace MarketPlace.Domain.Services._Log
         public async Task Save()
         {
 			await _errorLogRepository.AddRange(Errors);
+            Errors = new ErrorLog?[Errors.Length];
 			i = 0;
 		}
-    }
+		public async Task<IEnumerable<ErrorLog>> GetByErrorCode(int errorCode)
+        {
+            await Save();
+            return await _errorLogRepository.GetByErrorCode(errorCode);
+        }
+		public async Task<IEnumerable<ErrorLog>> GetAll()
+        {
+            await Save();
+            return await _errorLogRepository.GetAll();
+        }
+	}
 }

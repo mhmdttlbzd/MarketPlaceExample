@@ -51,5 +51,16 @@ namespace MarketPlace.Endpoint.Mvc.Areas.Admin.Controllers
             await _adminPanelAppService.ActiveUser(id, cancellationToken);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Errors()
+        {
+            var res = await _adminPanelAppService.GetAllErrors();
+            return View(res);
+        }
+        public async Task<IActionResult> ErrorsByCode(int code)
+        {
+            var res = await _adminPanelAppService.GetErrorsByCode(code);
+            return View("Errors",res);
+        }
     }
 }

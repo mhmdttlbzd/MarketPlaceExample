@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Log
 {
-    public interface IViewLogRepository: BaseLogRepositoryInterface<DateTime>
+    public interface IViewLogRepository: BaseLogRepositoryInterface<DateTime?>
     {
     }
 }

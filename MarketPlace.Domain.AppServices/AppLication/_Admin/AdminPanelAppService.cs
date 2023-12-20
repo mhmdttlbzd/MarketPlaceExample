@@ -12,6 +12,7 @@ using MarketPlace.Domain.Core.Application.Contract.Services._Saler;
 using MarketPlace.Domain.Core.Application.Contract.Services.Log;
 using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities._Customer;
+using MarketPlace.Domain.Core.Application.Entities._log;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Domain.Core.Application.Enums;
 using MarketPlace.Domain.Core.Identity.Entities;
@@ -40,29 +41,31 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly IBoothService _boothService;
         private readonly IViewLogService _viewLogService;
+        private readonly IErrorLogService _errorLogService;
 
-        public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService, UserManager<Customer> customerManager, UserManager<Seller> salerManager, IViewLogService viewLogService)
-        {
-            _walletService = walletService;
-            _commentService = commentService;
-            _orderService = orderService;
-            _customerService = customerService;
-            _salerService = salerService;
-            _poductService = poductService;
-            _productSalerPicService = productSalerPicService;
-            _productCustomerPicService = productCustomerPicService;
-            _auctionPictureService = auctionPictureService;
-            _orderLineService = orderLineService;
-            _userManager = userManager;
-            _mainAddressService = mainAddressService;
-            _unitOfWorks = unitOfWorks;
-            _boothService = boothService;
-            _customerManager = customerManager;
-            _sellerManager = salerManager;
-            _viewLogService = viewLogService;
-        }
+		public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService, UserManager<Customer> customerManager, UserManager<Seller> salerManager, IViewLogService viewLogService, IErrorLogService errorLogService)
+		{
+			_walletService = walletService;
+			_commentService = commentService;
+			_orderService = orderService;
+			_customerService = customerService;
+			_salerService = salerService;
+			_poductService = poductService;
+			_productSalerPicService = productSalerPicService;
+			_productCustomerPicService = productCustomerPicService;
+			_auctionPictureService = auctionPictureService;
+			_orderLineService = orderLineService;
+			_userManager = userManager;
+			_mainAddressService = mainAddressService;
+			_unitOfWorks = unitOfWorks;
+			_boothService = boothService;
+			_customerManager = customerManager;
+			_sellerManager = salerManager;
+			_viewLogService = viewLogService;
+			_errorLogService = errorLogService;
+		}
 
-        public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
+		public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
         {
             int saledProductCount = await _orderService.GetSaledProductCount(cancellationToken);
             long sumWages = await _walletService.GetAllWage(cancellationToken);
@@ -75,7 +78,8 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
                 _productCustomerPicService.GetRequestsCount(), _poductService.AllRequestsCount(), saledProductCount,
                 sumWages, _poductService.GetCount(), _salerService.AllSalersCount(), _customerService.AllCustomersCount(),
                 saledProductPesent, sumWagesPersent,
-                await _viewLogService.GetViewsCountInThisWeek()
+                await _viewLogService.GetViewsCountInThisWeek(),
+                await _errorLogService.GetErrorsCountInThisWeek()
                 );
             return res;
         }
@@ -124,5 +128,9 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
             user.Status = UserStatus.Active;
             await _userManager.UpdateAsync(user);
         }
+
+        public async Task<IEnumerable<ErrorLog>> GetAllErrors() => await _errorLogService.GetAll();
+        public async Task<IEnumerable<ErrorLog>> GetErrorsByCode(int code) => await _errorLogService.GetByErrorCode(code);
+       
     }
 }

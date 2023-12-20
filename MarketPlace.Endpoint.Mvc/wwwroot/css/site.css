@@ -87,4 +87,12 @@ html {
     font-family: vazir;
 }
 
+.error .content{
+    display : none;
+}
+
+
+.error:hover .content{
+    display :block;
+}
 /*--------------------------------*/

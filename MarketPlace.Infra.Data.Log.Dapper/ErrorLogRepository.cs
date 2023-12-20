@@ -22,36 +22,35 @@ namespace MarketPlace.Infra.Data.Log.Dapper
             _opration = new GeneralOpration(_connectionString);
         }
 
-        public async Task AddRange(ErrorLog[] input)
+        public async Task AddRange(ErrorLog?[] input)
         {
             await _opration.CheckTable("ErrorLog", "ErrorCode INT,Properties NVARCHAR(max),LogTime Date");
 
             string query = "INSERT INTO ErrorLog (ErrorCode,Properties,LogTime) VALUES";
             var parameters = new DynamicParameters();
 
-            for (int i = 0; i < input.Length - 1; i++)
+            for (int i = 0; i < input.Length ; i++)
             {
                 if (input[i] != null)
                 {
-					query += $" (@ErrorCode{i},@Properties{i},@LogTime{i}),\n";
+                    if (i > 0)
+                    {
+                        query += ",\n";
+                    }
+					query += $" (@ErrorCode{i},@Properties{i},@LogTime{i})";
 					parameters.Add($"ErrorCode{i}", input[i].ErrorCode, dbType: DbType.Int32);
 					parameters.Add($"Properties{i}", input[i].Properties, DbType.String);
 					parameters.Add($"LogTime{i}", input[i].LogTime, DbType.Date);
 				}
 
             }
-			if (input[input.Length - 1] != null)
-            {
-				query += $"(@ErrorCode,@Properties,@LogTime)";
-				parameters.Add($"ErrorCode", input[input.Length - 1].ErrorCode, dbType: DbType.Int32);
-				parameters.Add($"Properties", input[input.Length - 1].Properties, dbType: DbType.String);
-				parameters.Add($"LogTime", input[input.Length - 1].LogTime, dbType: DbType.Date);
-			}
 
-
-			using (SqlConnection c = new(_connectionString))
+            if (parameters.ParameterNames.Count() != 0)
             {
-                await c.ExecuteAsync(query, parameters);
+                using (SqlConnection c = new(_connectionString))
+                {
+                    await c.ExecuteAsync(query, parameters);
+                }
             }
         }
 
@@ -69,5 +68,29 @@ namespace MarketPlace.Infra.Data.Log.Dapper
                 return result;
             }
         }
+
+        public async Task<List<ErrorLog>> GetAll()
+        {
+			await _opration.CheckTable("ErrorLog", "ErrorCode INT,Properties NVARCHAR(max),LogTime Date");
+
+            var query = "SELECT * FROM ErrorLog";
+            using (SqlConnection c = new(_connectionString))
+            {
+                var res = await c.QueryAsync<ErrorLog>(query);
+                return res.OrderBy(l => l.LogTime).Reverse().ToList();
+            }
+		}
+        public async Task<IEnumerable<ErrorLog>> GetByErrorCode(int errorCode)
+        {
+			await _opration.CheckTable("ErrorLog", "ErrorCode INT,Properties NVARCHAR(max),LogTime Date");
+
+            var query = $"SELECT * FROM ErrorLog WHERE ErrorCode = {errorCode}";
+            using (SqlConnection c = new(_connectionString))
+            {
+                var res = await c.QueryAsync<ErrorLog>(query);
+                return res;
+            }
+		}
+
     }
 }

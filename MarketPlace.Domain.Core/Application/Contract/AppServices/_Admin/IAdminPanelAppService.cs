@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Domain.Core.Application.Dtos;
+using MarketPlace.Domain.Core.Application.Entities._log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Admin
 
         Task ActiveUser(int id, CancellationToken cancellationToken);
 		Task DeActiveUser(int id, CancellationToken cancellationToken);
-    }
+		Task<IEnumerable<ErrorLog>> GetAllErrors();
+		Task<IEnumerable<ErrorLog>> GetErrorsByCode(int code);
+	}
 }

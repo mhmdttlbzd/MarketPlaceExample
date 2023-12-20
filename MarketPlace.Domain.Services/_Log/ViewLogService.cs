@@ -11,12 +11,12 @@ namespace MarketPlace.Domain.Services.Log
 {
     public class ViewLogService : IViewLogService
     {
-        private readonly DateTime[] Views;
+        private DateTime?[] Views;
         private readonly IViewLogRepository _viewLogRepository;
         private int i;
         public ViewLogService(IConfiguration configuration, IViewLogRepository viewLogRepository)
         {
-            Views = new DateTime[int.Parse(configuration["ViewLog:CountToInsert"])];
+            Views = new DateTime?[int.Parse(configuration["ViewLog:CountToInsert"])];
             _viewLogRepository = viewLogRepository;
         }
 
@@ -42,7 +42,8 @@ namespace MarketPlace.Domain.Services.Log
         private async Task Save()
         {
 			await _viewLogRepository.AddRange(Views);
-			i = 0;
+            Views = new DateTime?[Views.Length];
+            i = 0;
 		}
 
     }

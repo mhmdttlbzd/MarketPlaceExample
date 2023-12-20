@@ -18,6 +18,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         int CustomersCount,
         int saledProductPesent,
         int sumWagesPersent,
-        int Views
+        int Views,
+        int Errors
         );
 }

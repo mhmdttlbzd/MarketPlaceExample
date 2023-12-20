@@ -35,7 +35,7 @@ namespace MarketPlace.Infra.Data.Log.Dapper
         }
 
 
-        public async Task AddRange(DateTime[] input)
+        public async Task AddRange(DateTime?[] input)
         {
 
             await _opration.CheckTable("ViewLog", "ViewTime Date");
@@ -43,20 +43,19 @@ namespace MarketPlace.Infra.Data.Log.Dapper
             string query = "INSERT INTO ViewLog (ViewTime) VALUES";
             var parameters = new DynamicParameters();
 
-            for (int i = 0; i < input.Length-1; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] != null)
                 {
-					query += $" (@{i}),\n";
+                    if (i != 0)
+                    {
+                        query += ",\n";
+                    }
+					query += $" (@{i})";
 					parameters.Add($"{i}", input[i], dbType: DbType.Date);
 				}
 
             }
-            if (input[input.Length - 1] != null)
-            {
-				query += $"(@{input.Length - 1})";
-				parameters.Add($"{input.Length - 1}", input[input.Length - 1], dbType: DbType.Date);
-			}
             using (SqlConnection c = new(_connectionString))
             {
                 await c.ExecuteAsync(query, parameters);
