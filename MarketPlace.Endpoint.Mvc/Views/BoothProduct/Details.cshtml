@@ -48,7 +48,15 @@
                                                 @await Component.InvokeAsync("MiddleSliderVM", customerPics)
                                                 @if (User.Identity.IsAuthenticated && Model.Buyers.Contains(User.Identity.Name))
                                                 {
-                                                    <a class="btn w-100 mt-3"><i class='fas fa-plus-circle'></i>  اضافه کردن عکس </a>
+                                                    <form asp-action="AddCustomerPictures" enctype="multipart/form-data">
+                                                        <input hidden name="productId" value="@Model.Id" />
+                                                        <div class="mb-3">
+                                                            <label for="images" class="form-label">عکسهای خود را آپلود کنید</label>
+                                                            <input type="file" name="images" class="form-control" multiple>
+                                                        </div>
+                                                        <p class="mb-3">عکس های شما بعد از تایید به کالا اضافه میشود</p>
+                                                        <button type="submit" class="btn w-100 mt-3"><i class='fas fa-plus-circle'></i>  اضافه کردن عکس </button>
+                                                    </form>
                                                 }
 
                                             </div>

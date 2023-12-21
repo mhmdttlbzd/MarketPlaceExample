@@ -7,6 +7,7 @@ using MarketPlace.Domain.Core.Application.Dtos;
 using MarketPlace.Domain.Core.Application.Entities._Saler;
 using MarketPlace.Domain.Core.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.Threading;
 
 
 namespace MarketPlace.Domain.AppServices.AppLication._Product
@@ -21,8 +22,9 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOrderService _orderService;
         private readonly IOrderLineService _orderLineService;
+        private readonly IProductCustomerPicService _productCustomerPicService;
 
-        public BoothProductAppService(IBoothProductService boothProductService, IBoothProductsPriceService boothProductsPriceService, IProductSalerPicService productSalerPicService, IPictureService pictureService, IUnitOfWorks unitOfWorks, UserManager<ApplicationUser> sellerManager, IOrderService orderService, IOrderLineService orderLineService)
+        public BoothProductAppService(IBoothProductService boothProductService, IBoothProductsPriceService boothProductsPriceService, IProductSalerPicService productSalerPicService, IPictureService pictureService, IUnitOfWorks unitOfWorks, UserManager<ApplicationUser> sellerManager, IOrderService orderService, IOrderLineService orderLineService, IProductCustomerPicService productCustomerPicService)
         {
             _boothProductService = boothProductService;
             _boothProductsPriceService = boothProductsPriceService;
@@ -32,6 +34,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             _userManager = sellerManager;
             _orderService = orderService;
             _orderLineService = orderLineService;
+            _productCustomerPicService = productCustomerPicService;
         }
 
         public async Task Create(List<string> paths, BoothProductModel model, CancellationToken cancellationToken, string username)
@@ -95,6 +98,21 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
         }
 
         public List<ProductPriceDto> GetPricesByProductId(int productId) => _boothProductsPriceService.GetPricesByProductId(productId);
+
+        public async Task AddCustomerPictures(List<string> paths,int productId,string username,CancellationToken cancellationToken)
+        {
+            List<int> picsId = new List<int>();
+            foreach (string path in paths)
+            {
+                int id = await _pictureService.CreateAsync(path, cancellationToken, $"عکس خریدار {username}");
+                picsId.Add(id);
+            }
+            var user = _userManager.FindByNameAsync(username).Result;
+            foreach (int picId in picsId)
+            {
+                await _productCustomerPicService.CreateAsync(new(picId,productId,user.Id), cancellationToken);
+            }
+        }
     }
 }
 

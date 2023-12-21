@@ -8,11 +8,13 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Product
     {
         private readonly IBoothProductAppService _boothProductAppService;
         private readonly ICommentAppService _commentAppService;
+        private readonly IWebHostEnvironment _environment;
 
-        public BoothProductController(IBoothProductAppService boothProductAppService, ICommentAppService commentAppService)
+        public BoothProductController(IBoothProductAppService boothProductAppService, ICommentAppService commentAppService, IWebHostEnvironment environment)
         {
             _boothProductAppService = boothProductAppService;
             _commentAppService = commentAppService;
+            _environment = environment;
         }
 
         public IActionResult Index()
@@ -33,10 +35,37 @@ namespace MarketPlace.Endpoint.Mvc.Controllers.Product
             return LocalRedirect("~/Home");
         }
 
+        [Authorize]
         public async Task<IActionResult> AddComment(byte satisfaction,int boothProductId,string description,CancellationToken cancellationToken)
         {
-            await _commentAppService.Create(User.Identity.Name,satisfaction,boothProductId,description,cancellationToken);
+            if (User.Identity != null && User.Identity.Name != null)
+            {
+                await _commentAppService.Create(User.Identity.Name,satisfaction,boothProductId,description,cancellationToken);
+            }
             return LocalRedirect("~/Home");
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddCustomerPictures(ICollection<IFormFile> images,int productId,CancellationToken cancellationToken)
+        {
+            var folder = Path.Combine(_environment.WebRootPath, "images/product");
+            List<string> paths = new List<string>();
+            foreach (var image in images)
+            {
+                string fileName = new Guid() + image.FileName;
+                if (image.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(folder, fileName), FileMode.Create))
+                    {
+                        await image.CopyToAsync(fileStream);
+                    }
+                }
+                paths.Add("product/" + fileName);
+            }
+            if (User.Identity != null && User.Identity.Name != null)
+            {
+                await _boothProductAppService.AddCustomerPictures(paths, productId, User.Identity.Name, cancellationToken);
+            }
+            return LocalRedirect($"~/BoothProduct/Details/{productId}");
         }
     }
 }
