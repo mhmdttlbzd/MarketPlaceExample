@@ -30,7 +30,13 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
             var res = _dbContext.Set<BoothProduct>().Where(b => b.Id == Id).Select(b => new BoothProductOutputDto
             {
                 Id = b.Id,
-                Pictures = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed).Select(p => new PictureDto
+                Pictures = b.SalersProductPics.Where(p => p.Status == GeneralStatus.Confirmed && p.IsDeleted != true).Select(p => new PictureDto
+                {
+                    Path = p.Picture.Path,
+                    Id = p.Id,
+                    Alt = p.Picture.Alt
+                }).ToList(),
+                CustomerPictures = b.CustomersProductPices.Where(p => p.Status == GeneralStatus.Confirmed && p.IsDeleted != true).Select(p => new PictureDto
                 {
                     Path = p.Picture.Path,
                     Id = p.Id,

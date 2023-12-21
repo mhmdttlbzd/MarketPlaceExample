@@ -50,6 +50,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         public int Quantity { get; set; }
         public int BoothId { get; set; }
         public List<PictureDto> Pictures { get; set; }
+        public List<PictureDto> CustomerPictures { get; set; }
         public string ProductName { get; set; }
         public long Price { get; set; }
         public List<string> Buyers { get; set; }

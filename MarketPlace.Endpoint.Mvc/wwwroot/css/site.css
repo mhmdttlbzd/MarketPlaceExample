@@ -54,18 +54,17 @@ html {
     text-align: center;
 }
 
-.slider {
+.slider, .mSlider{
     width: 100%;
     overflow: hidden;
 }
 
-.slide img {
+.slide img ,mSlide img{
     width: 100%;
 }
 
-.slide {
+.slide ,mSlide {
     float: left;
-    width : 550px;
 }
 
 @font-face {

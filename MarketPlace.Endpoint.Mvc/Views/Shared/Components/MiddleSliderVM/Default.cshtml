@@ -3,19 +3,22 @@
 
 @if (Model != null && Model.Count() != 0)
 {
-    <div class="ts overflow-hidden position-relative w-100">
+    <div class="my-auto tm overflow-hidden position-relative w-100">
         <div>
-            <div class="slider">
+            <div class="mSlider row">
                 @foreach (var pic in Model)
                 {
                     string path = "/images/" + pic.Path;
-                    <div class="slide">
+
+                    <div class="mSlide">
                         <img src="@path" alt="@pic.Alt">
+
                     </div>
                 }
             </div>
         </div>
-        <button id="nextBtn" style="position:absolute;top:50%;left:0"><i class="fas fa-chevron-circle-left"></i></button>
-        <button id="prevBtn" style="position:absolute;top:50%;right:0"><i class="fas fa-chevron-circle-right"></i></button>
+        <button id="mNextBtn" style="position:absolute;top:50%;left:0"><i class="fas fa-chevron-circle-left"></i></button>
+        <button id="mPrevBtn" style="position:absolute;top:50%;right:0"><i class="fas fa-chevron-circle-right"></i></button>
     </div>
+
 }
