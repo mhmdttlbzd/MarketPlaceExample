@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketPlace.Domain.Services\MarketPlace.Domain.Services.csproj" />
+    <Compile Remove="AppLication\Picture\**" />
+    <EmbeddedResource Remove="AppLication\Picture\**" />
+    <None Remove="AppLication\Picture\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AppLication\Picture\" />
+    <ProjectReference Include="..\MarketPlace.Domain.Services\MarketPlace.Domain.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

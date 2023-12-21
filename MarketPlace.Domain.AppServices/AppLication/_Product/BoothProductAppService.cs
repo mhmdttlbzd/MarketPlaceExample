@@ -93,6 +93,8 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             await _boothProductService.DeleteAsync(id, cancellationToken);
             await _unitOfWorks.SaveChangesAsync(cancellationToken);
         }
+
+        public List<ProductPriceDto> GetPricesByProductId(int productId) => _boothProductsPriceService.GetPricesByProductId(productId);
     }
 }
 

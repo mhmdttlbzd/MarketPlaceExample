@@ -16,6 +16,7 @@
                         <div class=" col-12">
                             <div class="blog-single-main">
                                 @await Component.InvokeAsync("TopSliderVM", pictures)
+                               
                                 <div class="blog-detail w-100">
                                     <div class="row">
                                         <div class="col-6">
@@ -36,19 +37,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 px-5 mb-1" style="border:1px solid #ccc; border-radius:5px">
-                                        <div class="comments">
-                                            <h3 class="comment-title">ویژگی های محصول</h3>
-                                            @foreach (var attr in Model.Attributes)
-                                            {
-                                                <div class="single-comment">
-                                                    <div class="content">
-                                                        <h4> @attr.AttributeName  :  @attr.AttributeValue</h4>
-                                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                @await Component.InvokeAsync("PriceHistory",Model.Id)
+                                            </div>
+
+                                            <div class="col-6 px-5 mb-1" style="border:1px solid #ccc; border-radius:5px">
+                                                <div class="comments">
+                                                    <h3 class="comment-title">ویژگی های محصول</h3>
+                                                    @foreach (var attr in Model.Attributes)
+                                                    {
+                                                        <div class="single-comment">
+                                                            <div class="content">
+                                                                <h4> @attr.AttributeName  :  @attr.AttributeValue</h4>
+                                                            </div>
+                                                        </div>
+                                                    }
                                                 </div>
-                                            }
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="col-12 px-5 mb-3" style="border:1px solid #ccc; border-radius:5px">
                                         <div class="comments">
                                             <h3 class="comment-title">کامنت ها (@Model.Comments.Count())</h3>

@@ -9,5 +9,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Booth
         Task<BoothProductsPriceOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(BoothProductsPriceInputDto input, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
+        List<ProductPriceDto> GetPricesByProductId(int productId);
     }
 }

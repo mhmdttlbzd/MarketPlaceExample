@@ -43,6 +43,15 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
             return res;
         }
 
+        public List<ProductPriceDto> GetPricesByProductId(int productId)
+        {
+            var res = _dbContext.Set<BoothProductsPrice>().Where(p => p.BoothProductId == productId).Select(p => new ProductPriceDto
+            {
+                FromDate = p.FromDate,
+                Price = p.Price
+            }).AsNoTracking().OrderBy(p => p.FromDate).ToList();
+            return res;
+        }
 
         public Task DeleteAsync(int id, CancellationToken cancellationToken)
         {

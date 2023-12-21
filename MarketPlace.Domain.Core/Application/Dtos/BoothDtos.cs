@@ -89,6 +89,11 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     public record BoothProductsPriceInputDto(
         int BoothProductId, DateTime FromDate, DateTime? ToDate, long Price
     );
+    public record ProductPriceDto
+    {
+        public DateTime FromDate { get; set; }
+        public long Price { get; set; }
+    }
     #endregion
 
 

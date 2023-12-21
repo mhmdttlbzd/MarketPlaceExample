@@ -10,5 +10,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Booth
     {
         Task Teminate(int id);
         int GetLastPriceIdByProductId(int productId);
+       List<ProductPriceDto> GetPricesByProductId(int productId);
     }
 }

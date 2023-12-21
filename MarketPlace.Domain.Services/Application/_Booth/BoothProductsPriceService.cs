@@ -38,6 +38,7 @@ namespace MarketPlace.Domain.Services.Application._Booth
             return await _boothProductsPriceRepo.GetByIdAsync(id, cancellationToken);
         }
 
+        public List<ProductPriceDto> GetPricesByProductId(int productId) =>  _boothProductsPriceRepo.GetPricesByProductId(productId);
 
     }
 }
