@@ -12,7 +12,7 @@ namespace MarketPlace.Domain.Services.Application._Picture
         {
             _auctionPictureRepo = auctionPictureRepo;
         }
-
+        public int GetCount() => _auctionPictureRepo.GetCount();
         public async Task<int> CreateAsync(AuctionPictureInputDto input, CancellationToken cancellationToken)
             => await _auctionPictureRepo.CreateAsync(input, cancellationToken);
 

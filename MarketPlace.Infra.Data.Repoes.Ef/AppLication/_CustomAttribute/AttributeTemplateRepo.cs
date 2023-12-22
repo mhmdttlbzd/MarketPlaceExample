@@ -66,5 +66,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._CustomAttribute
                     Title = c.CustomAttributeTemplate.Title
                 }).ToListAsync(cancellationToken);
         }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

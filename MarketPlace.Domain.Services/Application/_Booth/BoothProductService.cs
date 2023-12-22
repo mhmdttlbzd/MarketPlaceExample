@@ -12,7 +12,7 @@ namespace MarketPlace.Domain.Services.Application._Booth
         {
             _boothProductRepo = boothProductRepo;
         }
-
+        public int GetCount() => _boothProductRepo.GetCount();
         public async Task<int> CreateAsync(BoothProductInputDto input, CancellationToken cancellationToken)
         {
             return await _boothProductRepo.CreateAsync(input, cancellationToken);

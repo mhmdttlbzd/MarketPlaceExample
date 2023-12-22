@@ -99,5 +99,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
             booth.Name = input.Name;
             booth.ShopAddressId = input.ShopAddressId;
         }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

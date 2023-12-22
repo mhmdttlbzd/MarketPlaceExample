@@ -22,5 +22,6 @@ namespace MarketPlace.Domain.Services.Application._Saler
         {
             return await _salerTypeRepo.GetByIdAsync(id, cancellationToken);
         }
+        public int GetCount() => _salerTypeRepo.GetCount();
     }
 }

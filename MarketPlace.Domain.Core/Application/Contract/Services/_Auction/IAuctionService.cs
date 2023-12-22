@@ -10,7 +10,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Auction
         Task UpdateAsync(AuctionInputDto input, int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
         List<GeneralAuctionDto> GetGeneralAuctionBySellerId(int sellerId);
-
+        int GetCount();
         List<GeneralAuctionDto> GetThreeBestAuctions();
         List<GeneralAuctionDto> GetThreeBestAuctions(int sellerId);
         List<GeneralAuctionDto> GetTowNewAuctions();

@@ -12,7 +12,7 @@ namespace MarketPlace.Domain.Services.Application._Picture
         {
             _productSalerPicRepo = productSalerPicRepo;
         }
-
+        public int GetCount() => _productSalerPicRepo.GetCount();
         public async Task<int> CreateAsync(ProductSalerPicInputDto input, CancellationToken cancellationToken)
             => await _productSalerPicRepo.CreateAsync(input, cancellationToken);
 

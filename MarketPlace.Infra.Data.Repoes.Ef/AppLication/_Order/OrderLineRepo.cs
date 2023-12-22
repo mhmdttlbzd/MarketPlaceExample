@@ -97,5 +97,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
                 }).AsNoTracking().ToListAsync(cancellationToken);
             return res;
         }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

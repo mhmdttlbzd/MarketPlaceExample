@@ -72,5 +72,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Booth
         {
             throw new NotImplementedException();
         }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

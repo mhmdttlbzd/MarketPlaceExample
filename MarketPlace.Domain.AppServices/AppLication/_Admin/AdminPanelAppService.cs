@@ -3,6 +3,7 @@ using MarketPlace.Domain.Core.Application.Contract.Repositories;
 using MarketPlace.Domain.Core.Application.Contract.Repositories._Picture;
 using MarketPlace.Domain.Core.Application.Contract.Services;
 using MarketPlace.Domain.Core.Application.Contract.Services._Address;
+using MarketPlace.Domain.Core.Application.Contract.Services._Auction;
 using MarketPlace.Domain.Core.Application.Contract.Services._Booth;
 using MarketPlace.Domain.Core.Application.Contract.Services._Customer;
 using MarketPlace.Domain.Core.Application.Contract.Services._Order;
@@ -42,30 +43,36 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
         private readonly IBoothService _boothService;
         private readonly IViewLogService _viewLogService;
         private readonly IErrorLogService _errorLogService;
+        private readonly IAuctionService _auctionService;
+        private readonly IBoothProductService _boothProductService;
+        private readonly ISalerTypeService _salerTypeService;
 
-		public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService, UserManager<Customer> customerManager, UserManager<Seller> salerManager, IViewLogService viewLogService, IErrorLogService errorLogService)
-		{
-			_walletService = walletService;
-			_commentService = commentService;
-			_orderService = orderService;
-			_customerService = customerService;
-			_salerService = salerService;
-			_poductService = poductService;
-			_productSalerPicService = productSalerPicService;
-			_productCustomerPicService = productCustomerPicService;
-			_auctionPictureService = auctionPictureService;
-			_orderLineService = orderLineService;
-			_userManager = userManager;
-			_mainAddressService = mainAddressService;
-			_unitOfWorks = unitOfWorks;
-			_boothService = boothService;
-			_customerManager = customerManager;
-			_sellerManager = salerManager;
-			_viewLogService = viewLogService;
-			_errorLogService = errorLogService;
-		}
+        public AdminPanelAppService(IWalletService walletService, ICommentService commentService, IOrderService orderService, ICustomerService customerService, ISalerService salerService, IProductService poductService, IProductSalerPicService productSalerPicService, IProductCustomerPicService productCustomerPicService, IAuctionPictureService auctionPictureService, IOrderLineService orderLineService, UserManager<ApplicationUser> userManager, IMainAddressService mainAddressService, IUnitOfWorks unitOfWorks, IBoothService boothService, UserManager<Customer> customerManager, UserManager<Seller> salerManager, IViewLogService viewLogService, IErrorLogService errorLogService, IAuctionService auctionService, IBoothProductService boothProductService, ISalerTypeService salerTypeService)
+        {
+            _walletService = walletService;
+            _commentService = commentService;
+            _orderService = orderService;
+            _customerService = customerService;
+            _salerService = salerService;
+            _poductService = poductService;
+            _productSalerPicService = productSalerPicService;
+            _productCustomerPicService = productCustomerPicService;
+            _auctionPictureService = auctionPictureService;
+            _orderLineService = orderLineService;
+            _userManager = userManager;
+            _mainAddressService = mainAddressService;
+            _unitOfWorks = unitOfWorks;
+            _boothService = boothService;
+            _customerManager = customerManager;
+            _sellerManager = salerManager;
+            _viewLogService = viewLogService;
+            _errorLogService = errorLogService;
+            _auctionService = auctionService;
+            _boothProductService = boothProductService;
+            _salerTypeService = salerTypeService;
+        }
 
-		public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
+        public async Task<AdminPanelInformationDto> GetInformation(CancellationToken cancellationToken)
         {
             int saledProductCount = await _orderService.GetSaledProductCount(cancellationToken);
             long sumWages = await _walletService.GetAllWage(cancellationToken);
@@ -79,7 +86,13 @@ namespace MarketPlace.Domain.AppServices.AppLication._Admin
                 sumWages, _poductService.GetCount(), _salerService.AllSalersCount(), _customerService.AllCustomersCount(),
                 saledProductPesent, sumWagesPersent,
                 await _viewLogService.GetViewsCountInThisWeek(),
-                await _errorLogService.GetErrorsCountInThisWeek()
+                await _errorLogService.GetErrorsCountInThisWeek(),
+                _commentService.GetCount(),
+                _productSalerPicService.GetCount() + _auctionPictureService.GetCount(),
+                _productCustomerPicService.GetCount(),
+                _auctionService.GetCount(),
+                _boothProductService.GetCount(),
+                _salerTypeService.GetCount()
                 );
             return res;
         }

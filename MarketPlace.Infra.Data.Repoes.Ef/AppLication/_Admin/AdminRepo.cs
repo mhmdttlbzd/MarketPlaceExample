@@ -42,6 +42,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Admin
         public async Task<AdminOutputDto> GetByIdAsync(int Id, CancellationToken cancellationToken)
             => _mapper.Map<AdminOutputDto>(await _dbContext.Set<Admin>().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken));
 
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task UpdateAsync(AdminInputDto input, int id, CancellationToken cancellationToken)
         {

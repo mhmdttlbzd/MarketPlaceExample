@@ -111,5 +111,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Order
 			order.Status = OrderStatus.Bought;
 			order.BuyedAt = DateTime.Now;
 		}
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

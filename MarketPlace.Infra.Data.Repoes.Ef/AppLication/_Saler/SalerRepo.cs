@@ -91,6 +91,9 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Saler
         public byte GetWagePercent(int sellerId)
             =>  _dbContext.Set<Seller>().Where(s => s.Id == sellerId).Select(s => s.SellerType.WagePercent).FirstOrDefault();
 
-
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

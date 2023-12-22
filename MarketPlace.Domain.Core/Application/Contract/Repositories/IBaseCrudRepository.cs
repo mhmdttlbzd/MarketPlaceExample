@@ -14,5 +14,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories
         Task<TOutput> GetByIdAsync(int id, CancellationToken cancellationToken);
         Task UpdateAsync(TInput input,int id, CancellationToken cancellationToken);
         Task DeleteAsync(int id, CancellationToken cancellationToken);
+        int GetCount();
     }
 }

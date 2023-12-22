@@ -4,6 +4,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Booth
 {
     public interface IBoothProductService
     {
+        int GetCount();
         Task<int> CreateAsync(BoothProductInputDto input, CancellationToken cancellationToken);
         Task<List<BoothProductOutputDto>> GetAllAsync(CancellationToken cancellationToken);
         Task<BoothProductOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);

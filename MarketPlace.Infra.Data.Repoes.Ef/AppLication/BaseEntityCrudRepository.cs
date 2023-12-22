@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarketPlace.Domain.Core.Application.Contract.Repositories;
 using MarketPlace.Domain.Core.Application.Entities;
+using MarketPlace.Domain.Core.Application.Entities._Booth;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
@@ -49,5 +50,7 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication
             entity.Id = id;
             _dbContext.Set<TEntity>().Update(entity);
         }
+
+        public int GetCount() => _dbContext.Set<TEntity>().Where(p => p.IsDeleted != true).Count();
     }
 }

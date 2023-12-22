@@ -67,6 +67,9 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Customer
         }
 		public int AllCustomersCount() => _dbContext.Set<Customer>().Count();
 
-       
-	}
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

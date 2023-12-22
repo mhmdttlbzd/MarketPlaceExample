@@ -19,6 +19,12 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         int saledProductPesent,
         int sumWagesPersent,
         int Views,
-        int Errors
+        int Errors,
+        int AllCommentsCount,
+        int AllSellerPicCount,
+        int AllCustomerPicCount,
+        int AllActionCount,
+        int AllBoothProductCount,
+        int SellerTypeCount
         );
 }

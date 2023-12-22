@@ -12,6 +12,8 @@ namespace MarketPlace.Domain.Services.Application._Booth
         {
             _commentRepo = commentRepo;
         }
+        public int GetCount() => _commentRepo.GetCount();
+
 
         public async Task<int> CreateAsync(CommentInputDto input, CancellationToken cancellationToken)
         =>await _commentRepo.CreateAsync(input, cancellationToken);

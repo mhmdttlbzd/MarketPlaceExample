@@ -4,6 +4,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Booth
 {
     public interface ICommentService
     {
+        int GetCount();
         Task<int> CreateAsync(CommentInputDto input, CancellationToken cancellationToken);
         Task<List<CommentOutputDto>> GetAllAsync(CancellationToken cancellationToken);
         Task<CommentOutputDto> GetByIdAsync(int id, CancellationToken cancellationToken);

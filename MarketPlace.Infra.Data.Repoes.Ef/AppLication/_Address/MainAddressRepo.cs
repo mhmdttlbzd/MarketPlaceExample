@@ -75,5 +75,10 @@ namespace MarketPlace.Infra.Data.Repoes.Ef.AppLication._Address
             return address;
 
         }
+
+        public int GetCount()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

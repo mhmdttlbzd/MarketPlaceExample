@@ -21,7 +21,7 @@ namespace MarketPlace.Domain.Services.Application._Auction
             _auctionRepo = auctionRepo;
             _auctionProposalRepo = auctionProposalRepo;
         }
-
+        public int GetCount() => _auctionRepo.GetCount();
         public async Task<int> CreateAsync(AuctionInputDto input, CancellationToken cancellationToken)
         {
             return await _auctionRepo.CreateAsync(input, cancellationToken);

@@ -6,5 +6,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Saler
     {
         Task<List<SellerTypeDto>> GetAllAsync(CancellationToken cancellationToken);
         Task<SellerTypeDto> GetByIdAsync(int id, CancellationToken cancellationToken);
+        int GetCount();
+
     }
 }
