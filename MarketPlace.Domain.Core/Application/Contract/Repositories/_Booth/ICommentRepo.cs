@@ -9,7 +9,7 @@ namespace MarketPlace.Domain.Core.Application.Contract.Repositories._Booth
 		int GetRequestsCount();
         Task ConfirmAsync(int id, CancellationToken cancellationToken);
         Task FaleAsync(int id, CancellationToken cancellationToken);
-
+        Task<List<CommentDto>> GetAll(CancellationToken cancellationToken);
         Task<List<CommentRequestDto>> GetRequests(CancellationToken cancellationToken);
     }
 }

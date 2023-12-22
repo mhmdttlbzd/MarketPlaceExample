@@ -47,7 +47,7 @@ BoothProductInputDto, BoothProductOutputDto>, IBoothProductRepo
                 BoothId = b.BoothId,
                 Quantity = b.Quantity,
                 Buyers = b.OrderLines.Select(o => o.Order).Where(o => o.Status == OrderStatus.Bought).Select(o => o.Customer.UserName).ToList(),
-                Comments = b.Comments.Select(c => new CommentDto
+                Comments = b.Comments.Select(c => new GeneralCommentDto
                 {
                     CustomerName = c.Customer.Name,
                     Description = c.Description,

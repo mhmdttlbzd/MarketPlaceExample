@@ -45,7 +45,22 @@ CommentInputDto, CommentOutputDto>, ICommentRepo
                 })
                 .AsNoTracking().ToListAsync(cancellationToken);
             return comments;
+        } 
+        public async Task<List<CommentDto>> GetAll(CancellationToken cancellationToken)
+        {
+            var comments = await _dbContext.Set<Comment>().Select(selector: c => new CommentDto
+                {
+                    Id = c.Id,
+                    Status = c.Status,
+                    Description = c.Description,
+                    ProductName = c.BoothProduct.Product.Name,
+                    BoothName = c.BoothProduct.Booth.Name,
+                    CustomerId = c.CustomerId
+                })
+                .AsNoTracking().ToListAsync(cancellationToken);
+            return comments;
         }
+
 
 
         public async Task ConfirmAsync(int id, CancellationToken cancellationToken)

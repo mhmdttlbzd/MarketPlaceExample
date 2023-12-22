@@ -14,5 +14,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.Services._Booth
         Task ConfirmAsync(int id, CancellationToken cancellationToken);
         Task FaleAsync(int id, CancellationToken cancellationToken);
         Task<List<CommentRequestDto>> GetRequests(CancellationToken cancellationToken);
+        Task<List<CommentDto>> GetAll(CancellationToken cancellationToken);
     }
 }

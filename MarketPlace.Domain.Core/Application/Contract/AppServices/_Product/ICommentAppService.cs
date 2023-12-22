@@ -12,5 +12,6 @@ namespace MarketPlace.Domain.Core.Application.Contract.AppServices._Product
         Task<CommentOutputDto> GetByIdAsync(string username, int id, CancellationToken cancellationToken);
         Task<bool> UpdateAsync(CommentInputDto input, int commentId, string editorUsername, CancellationToken cancellationToken);
         Task Create(string userName, byte satisfaction, int boothProductId, string description, CancellationToken cancellationToken);
+        Task<List<CommentDto>> GetAll(CancellationToken cancellationToken);
     }
 }

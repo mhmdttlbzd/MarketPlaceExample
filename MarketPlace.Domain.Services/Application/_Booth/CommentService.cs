@@ -40,6 +40,7 @@ namespace MarketPlace.Domain.Services.Application._Booth
         public async Task<List<CommentRequestDto>> GetRequests(CancellationToken cancellationToken)
              => await _commentRepo.GetRequests(cancellationToken);
 
+        public async Task<List<CommentDto>> GetAll(CancellationToken cancellationToken) => await _commentRepo.GetAll(cancellationToken);
 
         public async Task ConfirmAsync(int id, CancellationToken cancellationToken) => await _commentRepo.ConfirmAsync(id, cancellationToken);
         public async Task FaleAsync(int id, CancellationToken cancellationToken) => await _commentRepo.FaleAsync(id, cancellationToken);

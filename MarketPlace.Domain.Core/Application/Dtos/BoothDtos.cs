@@ -54,7 +54,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         public string ProductName { get; set; }
         public long Price { get; set; }
         public List<string> Buyers { get; set; }
-        public List<CommentDto> Comments { get; set; }
+        public List<GeneralCommentDto> Comments { get; set; }
         public List<ProductAttrOutModel> Attributes { get; set; }
     }
 
@@ -105,7 +105,7 @@ namespace MarketPlace.Domain.Core.Application.Dtos
         BoothProductOutputDto BoothProduct, int CustomerId, CustomerOutputDto Customer
         );
 
-    public record CommentDto
+    public record GeneralCommentDto
     {
         public string CustomerName { get; set; }
         public string Description { get; set; }
@@ -115,6 +115,15 @@ namespace MarketPlace.Domain.Core.Application.Dtos
     public record CommentRequestDto
     {
         public int Id;
+        public string Description { get; set; }
+        public string BoothName { get; set; }
+        public int CustomerId { get; set; }
+        public string ProductName { get; set; }
+    } 
+    public record CommentDto
+    {
+        public int Id;
+        public GeneralStatus Status { get; set; }
         public string Description { get; set; }
         public string BoothName { get; set; }
         public int CustomerId { get; set; }

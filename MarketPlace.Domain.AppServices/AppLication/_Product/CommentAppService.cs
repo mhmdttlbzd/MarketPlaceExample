@@ -57,5 +57,7 @@ namespace MarketPlace.Domain.AppServices.AppLication._Product
             }, cancellationToken);
             await _unitOfWorks.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<List<CommentDto>> GetAll(CancellationToken cancellationToken) => await _commentService.GetAll(cancellationToken);
     }
 }

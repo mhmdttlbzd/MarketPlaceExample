@@ -105,9 +105,11 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.UseMvc(routes => {
     routes.MapRoute("AdminRoute", "{area:exists}/{controller=Admin}/{action=index}");
